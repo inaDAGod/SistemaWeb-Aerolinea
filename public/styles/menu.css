@@ -1,0 +1,65 @@
+/* estilo.css */
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+header {
+    background-color: rgba(143, 188, 234, 1);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.menu-toggle img {
+    width: 30px;
+    height: 30px;
+}
+
+.mini-nav {
+    display: none;
+}
+
+.mini-nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.mini-nav ul li {
+    padding: 10px;
+}
+
+.mini-nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.show {
+    display: block;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navbar ul li {
+    margin-right: 20px;
+}
+
+.navbar ul li a {
+    color: white;
+    text-decoration: none;
+}
