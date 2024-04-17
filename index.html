@@ -3,293 +3,119 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
     <link rel="stylesheet" href="styleGeneral.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
-
-    <header>
-
-        <div class="menu container">
-            <img class="avion-1" src="assets/icons8-activar-el-modo-avión-50.png" alt="">
-            <input type="checkbox" id="menu" />
-            <label for="menu">
-                <img src="assets/bar-menu_icon-icons.com_70305.svg" class="menu-icono" alt="">
-            </label>
-            <nav class="navbar">
-                <div class="menu-1">
-                    <ul>
-                        <li><a href="#">Vuelos</a></li>
-                        <li><a href="#">Check-In</a></li>
-                        <li><a href="#">Premios Millas</a></li>
-                        <li><a href="#">Iniciar Sesion</a></li>
-                    </ul>
-                </div>
-                <img class="logo-2" src="assets/icons8-activar-el-modo-avión-50.png" alt="">
-
-                
-            </nav>
+    <header class="header" id="inicio">
+        <img src="assets/bx-menu-alt-right.svg" alt="" class="hamburger">
+        <nav class="menu-navegacion">
+            <a href="#">Vuelos</a>
+            <a href="#">Check-In</a>
+            <a href="#">Premios Millas</a>
+            <a href="#">Inciar Sesion</a>
+            <a href="#">Contactos</a>
+        </nav>
+        <div class="contenedor head">
+            <h1 class="titulo">Bienvenido, vuela con los mejores</h1>
+            <p class="copy">Lorem ipsum dolor sit amet 
+                voluptates enim obcaecati delectus.</p>
         </div>
-
-        <div class="header-content container">
-
-            <div class="swiper mySwiper-1">
-                <div class="swiper-wrapper">
-
-                    <div class="swiper-slide">
-                        <div class="slider">
-                            <div class="slider-txt">
-                                <h1>Destino 1</h1>
-                                <p>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores commodi magnam aut
-                                    beatae natus, exercitationem error voluptatum architecto praesentium.
-                                </p>
-                                <div class="botones">
-                                    <a href="#" class="btn-1">Ver</a>
-                                    <a href="#" class="btn-1">Mas</a>
-                                </div>
-                            </div>
-                            <div class="slider-img">
-                                <img src="assets/slider1.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="slider">
-                            <div class="slider-txt">
-                                <h1>Destino 2</h1>
-                                <p>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores commodi magnam aut
-                                    beatae natus, exercitationem error voluptatum architecto praesentium.
-                                </p>
-                                <div class="botones">
-                                    <a href="#" class="btn-1">Ver</a>
-                                    <a href="#" class="btn-1">Mas</a>
-                                </div>
-                            </div>
-                            <div class="slider-img">
-                                <img src="assets/slider2.jp" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="slider">
-                            <div class="slider-txt">
-                                <h1>Destino 3</h1>
-                                <p>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores commodi magnam aut
-                                    beatae natus, exercitationem error voluptatum architecto praesentium.
-                                </p>
-                                <div class="botones">
-                                    <a href="#" class="btn-1">Ver</a>
-                                    <a href="#" class="btn-1">Mas</a>
-                                </div>
-                            </div>
-                            <div class="slider-img">
-                                <img src="assets/slider3.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="slider">
-                            <div class="slider-txt">
-                                <h1>Destino 4</h1>
-                                <p>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores commodi magnam aut
-                                    beatae natus, exercitationem error voluptatum architecto praesentium.
-                                </p>
-                                <div class="botones">
-                                    <a href="#" class="btn-1">Ver</a>
-                                    <a href="#" class="btn-1">Mas</a>
-                                </div>
-                            </div>
-                            <div class="alider-img">
-                                <img src="assets/slider4.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="slaider">
-                            <div class="slider-text">
-                                <h1>Destino 5</h1>
-                                <p>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores commodi magnam aut
-                                    beatae natus, exercitationem error voluptatum architecto praesentium.
-                                </p>
-                                <div class="botones">
-                                    <a href="#" class="btn-1">Ver</a>
-                                    <a href="#" class="btn-1">Mas</a>
-                                </div>
-                            </div>
-                            <div class="alider-img">
-                                <img src="assets/slider5.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="slaider">
-                            <div class="slider-text">
-                                <h1>Destino 6</h1>
-                                <p>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores commodi magnam aut
-                                    beatae natus, exercitationem error voluptatum architecto praesentium.
-                                </p>
-                                <div class="botones">
-                                    <a href="#" class="btn-1">Ver</a>
-                                    <a href="#" class="btn-1">Mas</a>
-                                </div>
-                            </div>
-                            <div class="alider-img">
-                                <img src="assets/slider6.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-pagination"></div>
-
-            </div>
-
-        </div>
-
-
     </header>
-
-    <main class="financia">
-        <div class="tabs container">
-
-            <input type="radio" name="tabs" id="tab1" checked="checked" class="tabInput" value="1">
-            <label for="tab1">Financiacion</label>
-            <div class="tab">
-                <div class="swiper mySwiper-2" id="swiper1">
-                    <div class="swiper-wrapper">
-
-                        <div class="swiper-slide">
-                            <div class="financias">
-                                <div class="financias-img">
-                                    <h4>Patrocinador</h4>
-                                    <img src="assets/finan1.jpg" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="financias">
-                                <div class="financias-img">
-                                    <h4>Patrocinador</h4>
-                                    <img src="assets/finan2.jpg" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="financias">
-                                <div class="financias-img">
-                                    <h4>Patrocinador</h4>
-                                    <img src="assets/finana3.jpg" alt="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="financias">
-                                <div class="financias-img">
-                                    <h4>Patrocinador</h4>
-                                    <img src="assets/finan4.jpg" alt="">
-                                </div>
-                            </div>
-                        </div>
+    <main>
+        <section class="contenedor" id="servicio">
+            <h2 class="subtitulo">Nuestro servicio</h2>
+            <div class="contenedor-servicio">
+                <img src="assets/travel-planning-69.svg" alt="">
+                <div class="checklist-servicio">
+                    <div class="service">
+                        <h3 class="n-service"><span class="number">1</span>Diseño web</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores dignissimos quisquam
+                            nostrum hic eligendi ipsum quibusdam, quae quod ea incidunt!</p>
                     </div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
+                    <div class="service">
+                        <h3 class="n-service"><span class="number">2</span>Diseño web</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores dignissimos quisquam
+                            nostrum hic eligendi ipsum quibusdam, quae quod ea incidunt!</p>
+                    </div>
+                    <div class="service">
+                        <h3 class="n-service"><span class="number">3</span>Diseño web</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores dignissimos quisquam
+                            nostrum hic eligendi ipsum quibusdam, quae quod ea incidunt!</p>
+                    </div>
+
                 </div>
             </div>
+        </section>
 
-
-        </div>
-    </main>
-
-    <section class="info container">
-        <div class="info-img">
-            <img src="assets/info.jpg" alt="">
-        </div>
-
-        <div class="infor-txt">
-            <h2>Informacion</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum fuga molestias beatae, suscipit animi
-                veniam eligendi. Architecto maiores adipisci dolorum odit minus deleniti temporibus, fugiat commodi?
-                Fuga aliquid illo atque.
-            </p>
-            <a href="#" class="btn-2">Mas Informacion</a>
-
-        </div>
-    </section>
-
-    <section>
-
-        <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d122403.41295297771!2d-68.12407749999998!3d-16.52071235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x915edf0a04f5a40f%3A0x57dbfc76b4458ab3!2sLa%20Paz!5e0!3m2!1ses-419!2sbo!4v1713327392798!5m2!1ses-419!2sbo" width="100%" height="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
-    </section>
-
-    <footer class="footer container">
-        <img class="logo-2" src="assets/icons8-activar-el-modo-avión-50.png" alt="">
-        <div class="links">
-            <h4>lorem</h4>
-            <ul>
-                <li><a href="#">lorem</a></li>
-                <li><a href="#">lorem</a></li>
-                <li><a href="#">lorem</a></li>
-                <li><a href="#">lorem</a></li>
-            </ul>
-        </div>
-        <div class="links">
-            <h4>lorem</h4>
-            <ul>
-                <li><a href="#">lorem</a></li>
-                <li><a href="#">lorem</a></li>
-                <li><a href="#">lorem</a></li>
-                <li><a href="#">lorem</a></li>
-            </ul>
-        </div>
-        <div class="links">
-            <h4>lorem</h4>
-            <ul>
-                <li><a href="#">lorem</a></li>
-                <li><a href="#">lorem</a></li>
-                <li><a href="#">lorem</a></li>
-                <li><a href="#">lorem</a></li>
-            </ul>
-        </div>
-        <div class="links">
-            <h4>lorem</h4>
-            <div class="socials">
-                <a href="#">
-                    <div class="socials">
-                        <img src="assets/icons8-facebook.svg" alt="">
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="socials">
-                        <img src="assets/icons8-instagram.svg" alt="">
-                    </div>
-                </a>
-                <a href="#">
-                    <div class="socials">
-                        <img src="assets/icons8-tiktok.svg" alt="">
-                    </div>
-                </a>
+        <section class="gallery" id="portafolio">
+            <div class="contenedor">
+                <h2 class="subtitulo">Experiencias</h2>
+                <div class="contenedor-galeria">
+                    <img src="assets/pexels-brett-sayles-1115358.jpg" alt="" class="img-galeria">
+                    <img src="assets/pexels-cltsan-2833379.jpg" alt=""class="img-galeria">
+                    <img src="assets/pexels-freestockpro-1008155.jpg" alt=""class="img-galeria">
+                    <img src="assets/pexels-horst-joachims-282933937-19212199.jpg" alt=""class="img-galeria">
+                    <img src="assets/pexels-joshsorenson-1716825.jpg" alt=""class="img-galeria">
+                    <img src="assets/pexels-tanathip-rattanatum-1050216-2026324.jpg" alt=""class="img-galeria">
+                </div>
             </div>
-            
+        </section>
+
+        <section class="imagen-light">
+            <img src="assets/bx-x.svg" alt="" class="close">
+            <img src="assets/pexels-marina-hinic-730778.jpg" alt="" class="agregar-imagen">
+        </section>
+
+        <section class="contenedor" id="expertos">
+            <h2 class="subtitulo">Expertos en:</h2>
+            <section class="experts">
+                <div class="cont-expert">
+                    <img src="assets/cybersecurity-95.svg" alt="">
+                    <h3 class="n-expert">Cybersecurity</h3>
+                </div>
+                <div class="cont-expert">
+                    <img src="assets/conversation-100.svg" alt="">
+                    <h3 class="n-expert">Atencion al Cliente</h3>
+                </div>
+                <div class="cont-expert">
+                    <img src="assets/polaroid-69.svg" alt="">
+                    <h3 class="n-expert">Confort</h3>
+                </div>
+            </section>
+        </section>
+    </main>
+    <footer id="contacto">
+        <div class="contenedor footer-content">
+            <div class="contact-us">
+                <h2 class="brand">Aerolinea</h2>
+                <p>Somos expertos en volar hacia tus sueños</p>
+            </div>
+            <div class="social-media">
+                <a href="./" class="social-media-icon">
+                    <i class='bx bxl-facebook'></i>
+                </a>
+                <a href="./" class="social-media-icon">
+                    <i class='bx bxl-twitter'></i></a>
+                <a href="./" class="social-media-icon">
+                    <i class='bx bxl-instagram'></i></a>
+
+            </div>
         </div>
+        <div class="line"></div>
     </footer>
 
-
-
-    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script src="script.js"></script>
+    <script src="lightbox.js"></script>
+
 </body>
 
 </html>
