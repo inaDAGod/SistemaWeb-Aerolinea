@@ -1,0 +1,96 @@
+/* Your existing CSS */
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+h1{
+    font-family: 'Inter', sans-serif;
+    font-size: 70px;
+    text-align: center;
+    margin-top: 3%;
+    color: rgba(8, 86, 167, 1);
+}
+
+header {
+    background-color: rgba(143, 188, 234, 1);
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Inter', sans-serif;
+    left:0;
+    height: 50%;
+    color: white;
+    font-size: 40px;
+}
+
+.menu-toggle {
+    background-color: rgba(143, 188, 234, 1);
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.menu-toggle img {
+    width: 30px;
+    height: 30px;
+}
+
+img{
+    width: 50%;
+    height: 50%;
+}
+
+#mini-nav.show {
+    display: block; /* Show when the 'show' class is added */
+}
+
+/* Style for mini nav links */
+#mini-nav {
+    position: absolute;
+    top: calc(100% + 10px); /* Position it below the button */
+    right: 0; /* Align it to the right */
+    transform: translateX(100%); /* Move it to the right edge */
+    width: 150px; /* Adjust width as needed */
+    background-color: rgba(143, 188, 234, 1); /* Background color with adjusted opacity */
+    display: none; /* Hide by default */
+    z-index: 999;
+}
+
+h3{
+    font-size: 25px;
+    color:rgba(5, 58, 112, 1);
+    margin-left:1px; /* Adjusted margin for the h3 element */
+    
+}
+
+#mini-nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#mini-nav ul li {
+    padding: 10px;
+}
+
+#mini-nav ul li a {
+    text-decoration: none;
+    color: white; /* Change text color to white */
+}
+
+#mini-nav ul li a:hover {
+    color: rgba(143, 188, 234, 1);
+}
+
+
+
+.nav-item a {
+    color: white; /* Text color */
+    font-size: 25px; /* Font size */
+    text-decoration: none; /* Remove underline */
+}
+
+.nav-item a:hover {
+    color: lightblue; /* Text color on hover */
+}
