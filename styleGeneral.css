@@ -28,6 +28,7 @@ header{
     background-position: center;
 }
 .head{
+    text-align: center;
     padding: 0;
     height: 100%;
     display: flex;
@@ -112,7 +113,7 @@ header{
 
 .number{
     display: inline-block;
-    background-image: linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+    background-image: linear-gradient(to top, #a5a8e6 0%, #fbe9c2 100%);
     width: 30px;
     height:30px ;
     color: #ffffff;
@@ -133,6 +134,7 @@ header{
     flex-wrap: wrap;
 }
 .img-galeria{
+    object-fit: cover;
     width: 30%;
     display: block;
     margin-bottom: 15px;
@@ -158,6 +160,7 @@ header{
 }
 
 .agregar-imagen{
+    object-fit: cover;
     width: 60%;
     border-radius: 10px;
     transform: scale(0);
@@ -245,10 +248,10 @@ footer{
 }
 .social-media-icon:hover{
     background: #ffffff;
-    color: #7d59d0;
+    color: #b973ee;
 }
 .social-media-icon i{
-    font-size: 180%;
+    font-size: 100%;
     line-height: 60px;
 }
 .line{
@@ -258,4 +261,85 @@ footer{
     height: 2px;
     background: #ffffff;
     margin-bottom: 60px;
+}
+
+/*para que sea responsiva-----------------------------------------------*/
+@media screen and (max-width:800px){
+    .menu-navegacion{
+        width: 50vw;
+    }
+    .titulo{
+        font-size: 40px;
+    }
+    .contenedor-servicio img{
+        width: 80%;
+        margin-bottom: 40px;
+    }
+    .checklist-servicio{
+        width: 80%;
+    }
+    .service{
+        margin-bottom: 30px;
+    }
+    .agregar-imagen{
+        width: 80%;
+    }
+
+    /*para que sea dos por fila*/
+    .img-galeria{
+        width: 45%;
+    }
+    /*para expertos que sea responsive*/
+    .cont-expert{
+        width: 80%;
+    }
+
+    /*para el footer*/
+    .footer-content{
+        justify-content: center;
+    }
+    .social-media{
+        width: 80%;
+        justify-content: space-evenly;
+    }
+    .social-media-icon{
+        margin-left: 0;
+    }
+    .social-media i{
+        margin-left: 0;
+    }
+    .contac-us{
+        text-align: center;
+        width: 80%;
+        margin-bottom: 40px;
+    }
+}
+
+@media screen and (max-width:500px){
+    .menu-navegacion{
+        width: 65vw;
+    }
+    .hamburger{
+        top: 20px;
+        right: 20px;
+    }
+    .titulo{
+        font: size 30px; ;
+    }
+    .subtitulo{
+        font-size: 30px;
+    }
+    .agregar-imagen{
+        width: 95%;
+    }
+    .img-galeria{
+        width: 95%;
+    }
+    .social-media{
+        width: 100%;
+    }
+    .contac-us{
+        width: 90%;
+    }
+
 }
