@@ -71,7 +71,7 @@ body{
 .contenedor{
     width: 90%;
     max-width: 1200px;
-    overflow: hidden;
+    /*overflow: hidden;*/
     margin: auto;
     padding: 60px 0;
     
@@ -121,6 +121,7 @@ header{
     transition: transform .3s ease-in-out;
     transform: translate(110%);
     box-shadow: 0 0 6px rgba(0,0,0,.5);
+    z-index: 1000; /* Ajusta el z-index según sea necesario */
 }
 .spread{
     transform: translate(0);
