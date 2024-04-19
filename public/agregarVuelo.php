@@ -1,3 +1,23 @@
+<?php
+// Aquí puedes agregar cualquier lógica o procesamiento de PHP necesario
+// Por ejemplo, procesar los datos del formulario cuando se envíe
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Procesar los datos del formulario aquí
+    $origen = $_POST["origen"];
+    $destino = $_POST["destino"];
+    $avion = $_POST["avion"];
+    $fecha_vuelo = $_POST["fecha_vuelo"];
+    $hora = $_POST["hora"];
+    $costo_vip = $_POST["costo_vip"];
+    $costo_business = $_POST["costo_business"];
+    $costo_economico = $_POST["costo_economico"];
+
+    // Realizar acciones necesarias con los datos, como guardarlos en una base de datos
+    // ...
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,22 +29,22 @@
 </head>
 <body>
     <div class="container">
-      <h2 class="mt-4 mb-3" style="text-align: center;">AGREGAR VUELO</h2>
-        <form action="procesar_vuelo.php" method="post">
+    <h2 class="mt-4 mb-3" style="text-align: center;">AGREGAR VUELO</h2>
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="post">
             <div class="form-group">
                 <label for="origen">Origen:</label>
                 <select class="form-control" name="origen" id="origen">
                     <option value="1">La Paz</option>
+                    <option value="2">Cochabamba</option>
                     <option value="2">Santa Cruz</option>
-                    <option value="3">Cochabamba</option>
                 </select>
             </div>
             <div class="form-group">
                 <label for="destino">Destino:</label>
                 <select class="form-control" name="destino" id="destino">
                     <option value="1">La Paz</option>
+                    <option value="2">Cochabamba</option>
                     <option value="2">Santa Cruz</option>
-                    <option value="3">Cochabamba</option>
                 </select>
             </div>
             <div class="form-group">
