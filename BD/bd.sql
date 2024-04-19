@@ -10,7 +10,7 @@ CREATE TABLE asientos (
     CONSTRAINT asientos_pk PRIMARY KEY (casiento,cavion)
 );
 
--- Table: asientos_vuelo
+-- Table: asientos_vueloAAS
 CREATE TABLE asientos_vuelo (
     cvuelo int  NOT NULL,
     casiento varchar(100)  NOT NULL,
