@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro</title>
+  <link rel="stylesheet" href="styles/registro.css">
+  <link rel="stylesheet" href="styles/styleD.css">
+  <script src="scripts/registro.js"></script>
+</head>
+<body>
+  <div class="container" id="registro">
+    <h1>Registrarse</h1>
+    <div class="input-container">
+      <form action="" method="post">
+      <input type="text" id="nombre" placeholder="Nombre">
+      <br>
+      <input type="text" id="apellido" placeholder="Apellido">
+      <br>
+      <input type="text" id="email" placeholder="Correo electrónico">
+      <br>
+      <input type="password" id="contraseña" placeholder="Contraseña">
+      <br>
+      <input type="submit" value="Sing Up"><br>
+    </form>
+    </div>
+    <p onclick="toggleForm()">¿Ya tienes una cuenta? Inicia sesión</p>
+  </div>
+
+  <!-- contenedor para el formulario de inicio de sesión -->
+  <div class="login-container" id="inicio-sesion">
+    <h2>Iniciar sesion</h2>
+    <form action="" method="post">
+        <input type="text" id="username" name="username" placeholder="CORREO ELECTRONICO"><br>
+        <input type="password" id="password" name="password" placeholder="CONTRASEÑA"><br><br>
+        <input type="submit" value="Login"><br>
+    </form>
+    <p onclick="toggleForm()">¿No tienes una cuenta? Regístrate</p>
+  </div>
+</body>
+</html>
