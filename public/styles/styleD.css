@@ -41,3 +41,12 @@ h2 {
     color: #053A70;
     font-size: 40px;
 }
+.linka{
+    color: #053A70;
+    cursor: pointer;
+}
+
+.linka:hover{
+    
+    color: #8FBCEA;
+}
