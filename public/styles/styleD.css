@@ -4,12 +4,12 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-image: url('../assets/login.png') ; 
-    padding: 20px;
+    padding: 2%;
     border-radius: 10px;
     text-align: center;
-    max-width: 500px;
-    padding-left: 100px;
-    padding-right: 100px;
+    max-width: 50%;
+    padding-left: 4%;
+    padding-right: 4%;
     width: 100%;
 
 }
@@ -19,31 +19,33 @@ input[type="text"],
 input[type="password"],
 input[type="submit"] {
     width: 100%;
-    padding: 10px;
+    padding: 3%;
     margin: 5px 0;
     box-sizing: border-box;
     border: none;
     border-radius: 5px;
 }
 
-input[type="submit"] {
+.boton {
     background-color: #053A70;
     color: white;
     cursor: pointer;
     border-radius: 40px;
-    width: 200px;
+    width: 50%;
+    padding: 2%;
 }
-input[type="submit"]:hover {
+.boton:hover {
     background-color: #8FBCEA; 
     color: #053A70;
 }
 h2 {
     color: #053A70;
-    font-size: 40px;
+    font-size: 200%;
 }
 .linka{
     color: #053A70;
     cursor: pointer;
+    font-size: 100%;
 }
 
 .linka:hover{

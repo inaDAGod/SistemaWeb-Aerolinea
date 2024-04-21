@@ -16,3 +16,8 @@ function loginEncript(){
     });
     
 }
+
+function registrarUsuario() {
+    let 
+    
+}

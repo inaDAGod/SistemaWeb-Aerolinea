@@ -15,17 +15,15 @@
   <div class="login-container" id="registro" style="display: none;">
     <h2>Registrarse</h2>
     <div class="input-container">
-      <form action="" method="post">
-      <input type="text" id="nombre" placeholder="Nombre">
+      <input type="text" id="nombre" placeholder="NOMBRES">
       <br>
-      <input type="text" id="apellido" placeholder="Apellido">
+      <input type="text" id="apellido" placeholder="APELLIDOS">
       <br>
-      <input type="text" id="email" placeholder="Correo electrónico">
+      <input type="text" id="email" placeholder="CORREO">
       <br>
-      <input type="password" id="contraseña" placeholder="Contraseña">
+      <input type="password" id="contraseña" placeholder="CONTRASEÑA">
       <br>
-      <input type="submit" value="Sing Up"><br>
-    </form>
+      <button class="boton" onclick="registrarUsuario()">Registrarse</button><br>
     </div>
     <a class="linka" onclick="toggleForm()">¿Ya tienes una cuenta? Inicia sesión</a>
   </div>
@@ -33,10 +31,9 @@
   <!-- contenedor para el formulario de inicio de sesión -->
   <div class="login-container" id="inicio-sesion">
     <h2>Iniciar sesion</h2>
-
-        <input type="text" id="username" name="username" placeholder="CORREO ELECTRONICO"><br>
+        <input type="text" id="username" name="username" placeholder="CORREO"><br>
         <input type="password" id="password" name="password" placeholder="CONTRASEÑA"><br><br>
-        <button onclick="loginEncript()">Login</button>
+        <button class="boton" onclick="loginEncript()">Login</button><br>
     <a class="linka" onclick="toggleForm()">¿No tienes una cuenta? Regístrate</a>
   </div>
 </body>
