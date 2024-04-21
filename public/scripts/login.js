@@ -16,14 +16,20 @@ function registrarUsuario() {
     let apellidos = document.getElementById("apellido").value;
     let correo = document.getElementById("email").value;
     let contrasenia = document.getElementById("contra").value;
-    if (nombres && apellidos && correo && contrasenia) {
-        var hash = CryptoJS.MD5(contrasenia);
-        fetch("http://localhost/SistemaWeb-Aerolinea/backend/registro.php",{//promesa de q hay respuesta
-        method:"POST",
-        body:JSON.stringify({nombres:nombres, apellidos:apellidos, username:correo, password:hash.toString() }),
-    })
-    } else {
-        alert('Llene todos los campos');
-        
+    if(contrasenia.length < 6){
+        alert('Contraseña muy corta minimo 6 caracteres');
     }
+    else{
+        if (nombres && apellidos && correo && contrasenia) {
+            var hash = CryptoJS.MD5(contrasenia);
+            fetch("http://localhost/SistemaWeb-Aerolinea/backend/registro.php",{//promesa de q hay respuesta
+            method:"POST",
+            body:JSON.stringify({nombres:nombres, apellidos:apellidos, username:correo, password:hash.toString() }),
+        })
+        } else {
+            alert('Llene todos los campos');
+            
+        }
+    }
+    
 }
