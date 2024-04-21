@@ -4,7 +4,7 @@ function loginEncript(){
     console.log("correo:", correo);
     console.log("contraseña:", contrasenia);
     var hash = CryptoJS.MD5(contrasenia);
-    fetch("http://localhost/SistemaWeb-Aerolinea/public/login.php",{//promesa de q hay respuesta
+    fetch("http://localhost/SistemaWeb-Aerolinea/backend/login.php",{//promesa de q hay respuesta
         method:"POST",
         body:JSON.stringify({username:correo, password:hash.toString() }),
     });
@@ -18,7 +18,7 @@ function registrarUsuario() {
     let contrasenia = document.getElementById("contra").value;
     if (nombres && apellidos && correo && contrasenia) {
         var hash = CryptoJS.MD5(contrasenia);
-        fetch("http://localhost/SistemaWeb-Aerolinea/public/registro.php",{//promesa de q hay respuesta
+        fetch("http://localhost/SistemaWeb-Aerolinea/backend/registro.php",{//promesa de q hay respuesta
         method:"POST",
         body:JSON.stringify({nombres:nombres, apellidos:apellidos, username:correo, password:hash.toString() }),
     })
