@@ -29,7 +29,7 @@ header {
 }
 
 .menu-toggle {
-    background-color: rgba(143, 188, 234, 1);
+    background-color:white;
     border: none;
     cursor: pointer;
     padding: 5px;
@@ -65,37 +65,3 @@ h3{
     
 }
 
-#mini-nav ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-#mini-nav ul li {
-    padding: 10px;
-}
-
-#mini-nav ul li a {
-    text-decoration: none;
-    color: white; /* Change text color to white */
-}
-
-#mini-nav ul li a:hover {
-    color: rgba(143, 188, 234, 1);
-}
-
-
-
-.nav-item a {
-    color: white; /* Text color */
-    font-size: 25px; /* Font size */
-    text-decoration: none; /* Remove underline */
-}
-
-.nav-item a:hover {
-    color: lightblue; /* Text color on hover */
-}
-
-.social-media-icon i {
-    font-size: 24px; /* Adjust the size as needed */
-}
