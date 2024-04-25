@@ -6,7 +6,7 @@ body {
 
 h1{
     font-family: 'Inter', sans-serif;
-    font-size: 70px;
+    font-size: 90px;
     text-align: center;
     margin-top: 3%;
     color: rgba(8, 86, 167, 1);
@@ -24,6 +24,10 @@ header {
     font-size: 40px;
 }
 
+.header {
+    font-family: 'Inter', sans-serif;
+}
+
 .menu-toggle {
     background-color: rgba(143, 188, 234, 1);
     border: none;
@@ -36,10 +40,7 @@ header {
     height: 30px;
 }
 
-img{
-    width: 50%;
-    height: 50%;
-}
+
 
 #mini-nav.show {
     display: block; /* Show when the 'show' class is added */
@@ -93,4 +94,8 @@ h3{
 
 .nav-item a:hover {
     color: lightblue; /* Text color on hover */
+}
+
+.social-media-icon i {
+    font-size: 24px; /* Adjust the size as needed */
 }

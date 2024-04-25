@@ -19,21 +19,21 @@
                 <ul class="navbar-nav" style="display: flex; align-items: center;position: absolute; left: 0;margin-right:10%;">
                     <li class="nav-item">
                         <div style="display: flex; align-items: center;margin-right: 10px;">
-                            <img src="assets\avion.png" alt="Menu Icon" style="width:70%;">
-                            <h3>VuelaBodo</h3>
+                            <img src="assets\logoavion.png" alt="Menu Icon" style="width: 150px; height: 50%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
+                            
                         </div>
                     </li>
+                    
+
+                    
                     <li class="nav-item">
-                        <a class="nav-link" href="index.php" style="margin-left: 130%;top: 2%;">Home</a> <!-- Removed inline styles -->
+                        <a class="nav-link" href="servicios.php" style="margin-left: 780%;top: 2%;">Vuelos</a> <!-- Removed inline styles -->
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="servicios.php" style="margin-left: 120%;top: 2%;">Vuelos</a> <!-- Removed inline styles -->
+                        <a class="nav-link" href="Login.php" style="margin-left: 850%;top: 2%;width:150%;">Check in</a> <!-- Removed inline styles -->
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="Login.php" style="margin-left: 130%;top: 2%;width:150%;">Check in</a> <!-- Removed inline styles -->
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="servicios.php" style="margin-left: 130%;top: 2%;width:200%;">Premios Millas</a> <!-- Removed inline styles -->
+                        <a class="nav-link" href="servicios.php" style="margin-left: 730%;top: 2%;width:200%;">Premios Millas</a> <!-- Removed inline styles -->
                     </li>
                 </ul>
             </nav>
@@ -41,7 +41,7 @@
 
             <ul style="list-style-type: none; margin: 0; padding: 0;">
                 <li class="nav-item" style="position: absolute; right: 1%; top:3%;">
-                    <a class="nav-link" href="Login.php">Iniciar Sesión</a> <!-- Removed inline styles -->
+                    <a class="nav-link" href="Login.php">| Iniciar Sesión</a> <!-- Removed inline styles -->
                 </li>
             </ul>
 
