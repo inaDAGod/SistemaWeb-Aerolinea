@@ -21,7 +21,7 @@ function loginEncript() {
         } else if (data.estado === 'usuario_no_encontrado') {
             alert('No se encontró ningún usuario con ese correo electrónico');
         } else {
-            alert('Ups algo salio mal. Inténtelo de nuevo más tarde.');
+            alert('Ups algo salió mal. Inténtelo de nuevo más tarde.');
         }
     })
     .catch(error => {
@@ -54,14 +54,14 @@ function registrarUsuario() {
             })
             .then(data => {
                 if (data.estado === "registro_exitoso") {
-                    window.location.href= 'http://localhost/SistemaWeb-Aerolinea/public/index.html';
+                    //window.location.href= 'http://localhost/SistemaWeb-Aerolinea/public/index.html';
                 } else if (data.estado === "error_registro") {
-                    alert('Ya existe un usuario con esa contraseña');
+                    alert('Ya existe un usuario con ese correo electrónico');
                 }
             })
             .catch(error => {
                 console.error('Error en la solicitud:', error);
-                alert('Estas seguro que no tienes una cuenta?');
+                alert('Estás seguro que no tienes una cuenta?');
             });
         } else {
             alert('Llene todos los campos');

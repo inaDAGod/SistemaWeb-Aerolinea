@@ -3,6 +3,13 @@
 
 -- tables
 -- Table: asientos
+CREATE TABLE verificaciones_correo (
+    id SERIAL PRIMARY KEY,
+    correo VARCHAR(255) NOT NULL,
+    codigo_verificacion VARCHAR(100) NOT NULL,
+    fecha_expiracion TIMESTAMP NOT NULL
+);
+
 CREATE TABLE asientos (
     casiento varchar(100)  NOT NULL,
     cavion int  NOT NULL,
