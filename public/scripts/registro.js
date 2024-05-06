@@ -13,3 +13,17 @@ function toggleForm() {
     inicioSesionForm.style.display = 'none';
   }
 }
+
+function toggleFormVeri() {
+  let nombres = document.getElementById("nombre").value;
+  let apellidos = document.getElementById("apellido").value;
+  let correo = document.getElementById("email").value;
+  let contrasenia = document.getElementById("contra").value;
+
+      var registroForm = document.getElementById('registro');
+      var inicioSesionForm = document.getElementById('inicio-sesion');
+      var veriForm = document.getElementById('verificacion');
+      registroForm.style.display = 'none';
+      inicioSesionForm.style.display = 'none';
+      veriForm.style.display= 'block';
+}

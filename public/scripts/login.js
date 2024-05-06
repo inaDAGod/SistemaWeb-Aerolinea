@@ -36,11 +36,6 @@ function registrarUsuario() {
     let apellidos = document.getElementById("apellido").value;
     let correo = document.getElementById("email").value;
     let contrasenia = document.getElementById("contra").value;
-
-    if (contrasenia.length < 6) {
-        alert('Contraseña muy corta, mínimo 6 caracteres');
-    } else {
-        if (nombres && apellidos && correo && contrasenia) {
             var hash = CryptoJS.MD5(contrasenia);
             fetch("http://localhost/SistemaWeb-Aerolinea/backend/registro.php", {
                 method: "POST",
@@ -63,8 +58,65 @@ function registrarUsuario() {
                 console.error('Error en la solicitud:', error);
                 alert('Estás seguro que no tienes una cuenta?');
             });
-        } else {
-            alert('Llene todos los campos');
-        }
+}
+
+function generarCodigoVerificacion() {
+    return Math.random().toString(36).substring(2, 8); // Generar un código alfanumérico de 6 caracteres
+}
+
+let codigo = null;
+function mandarCorreoVerificacion(){
+    toggleFormVeri()
+    codigo = generarCodigoVerificacion();
+    console.log("Codigo generado:", codigo);
+
+}
+function verificar(){
+    let codIngresado = document.getElementById("codVeri").value;
+    if(codIngresado == codigo && codigo){
+        registrarUsuario();
     }
+    else{
+        alert('Revisa el codigo no coincide con el que se mando a tu correo');
+    }
+}
+
+function verificarCampos(){
+    let nombres = document.getElementById("nombre").value;
+    let apellidos = document.getElementById("apellido").value;
+    let correo = document.getElementById("email").value;
+    let contrasenia = document.getElementById("contra").value;
+
+    if(nombres && apellidos && correo && contrasenia){
+       
+    fetch("http://localhost/SistemaWeb-Aerolinea/backend/verificarExistencia.php", {
+        method: "POST",
+        body: JSON.stringify({username: correo }),
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('Error en la solicitud');
+    })
+    .then(data => {
+        if (data.estado === "cuenta_nueva") {
+            if(contrasenia.length < 6){
+                alert('Contraseña muy corta, mínimo 6 caracteres');
+              }
+              else{
+                mandarCorreoVerificacion();
+              }
+        } else if (data.estado === "cuenta_existente") {
+            alert('Ya existe una cuenta con ese correo');
+        }
+    })
+    .catch(error => {
+        console.error('Error en la solicitud:', error);
+        alert('Ya existe una cuenta con ese correo');
+    });
+}
+else{
+    alert('Completa todos los campos');
+}
 }
