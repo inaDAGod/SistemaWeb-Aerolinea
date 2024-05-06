@@ -69,6 +69,9 @@ function mandarCorreoVerificacion(){
     toggleFormVeri()
     codigo = generarCodigoVerificacion();
     console.log("Codigo generado:", codigo);
+    let correo = document.getElementById("email").value;
+    let correoEnviado = document.getElementById("correoEnviado");
+    correoEnviado.textContent = correo;
 
 }
 function verificar(){
