@@ -34,6 +34,7 @@
         <input type="text" id="username" name="username" placeholder="CORREO"><br>
         <input type="password" id="password" name="password" placeholder="CONTRASEÑA"><br><br>
         <button class="boton" onclick="loginEncript()">Login</button><br>
+        <a class="linka" onclick="toggleFormRes()">¿Te olvidaste tu contraseña?</a><br><br>
     <a class="linka" onclick="toggleForm()">¿No tienes una cuenta? Regístrate</a>
   </div>
 
@@ -42,7 +43,29 @@
     <p>Se envio al siguiente correo el codigo de verificación</p>
     <p id="correoEnviado"></p>
     <input type="text" id="codVeri">
-    <button class="boton" onclick="verificar()">Confirmar</button><br>
+    <button class="boton" onclick="verificar()">Verificar</button><br>
   </div>
+  <div class="login-container" id="restauracion" style="display: none;">
+    <h2>Restauración</h2>
+    <p>Se enviara un codigo a tu correo para que puedas restaurar tu contraseña</p>
+    <input type="text" id="correoRestaurar"  placeholder="CORREO"><br><br>
+    <button class="boton" onclick="toggleFormRes3()">Enviar</button><br>
+    
+  </div>
+  <div class="login-container" id="restaurarContra"  style="display: none;">
+    <h2>Restauración</h2>
+    <p>Ingresa tu nueva contraseña</p>
+    <input type="password" id="passwordRes" name="password" placeholder="CONTRASEÑA">
+    <input type="password" id="passwordRes2" name="password" placeholder=" VERIFICA CONTRASEÑA"><br><br>
+    <button class="boton" onclick="">Confirmar</button><br>
+  </div>
+  <div class="login-container" id="restauracion2" style="display: none;">
+    <h2>Restauración</h2>
+    <p>Se envio al siguiente correo el codigo de verificación</p>
+    <p id="correoEnviado2"></p>
+    <input type="text" id="codRestauraciom " placeholder="CODIGO"><br><br>
+    <button class="boton" onclick="toggleFormRes2()" >Verificar </button><br>
+  </div>
+  
 </body>
 </html>
