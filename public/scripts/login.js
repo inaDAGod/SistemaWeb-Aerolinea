@@ -49,7 +49,7 @@ function registrarUsuario() {
             })
             .then(data => {
                 if (data.estado === "registro_exitoso") {
-                    //window.location.href= 'http://localhost/SistemaWeb-Aerolinea/public/index.html';
+                    window.location.href= 'http://localhost/SistemaWeb-Aerolinea/public/index.html';
                 } else if (data.estado === "error_registro") {
                     alert('Ya existe un usuario con ese correo electrónico');
                 }
@@ -65,18 +65,34 @@ function generarCodigoVerificacion() {
 }
 
 let codigo = null;
-function mandarCorreoVerificacion(){
-    toggleFormVeri()
+function mandarCorreoVerificacion() {
+    toggleFormVeri(); 
     codigo = generarCodigoVerificacion();
-    console.log("Codigo generado:", codigo);
-    let correo = document.getElementById("email").value;
+    console.log("Código generado:", codigo);
+    let correoDestinatario = document.getElementById("email").value;
     let correoEnviado = document.getElementById("correoEnviado");
-    correoEnviado.textContent = correo;
+    correoEnviado.textContent = correoDestinatario;
 
+    let parametrosCorreo = {
+        to_email: correoDestinatario,
+        subject: "Verificación de correo electrónico",
+        message: codigo
+    };
+    emailjs.init("zIi78GtT-tPurllpe");
+    
+    emailjs.send("service_pks7xqo", "template_kvr02gi", parametrosCorreo)
+        .then(function(response) {
+            console.log("Correo enviado exitosamente:", response);
+        }, function(error) {
+            console.error("Error al enviar correo:", error);
+        });
 }
+
 function verificar(){
     let codIngresado = document.getElementById("codVeri").value;
-    if(codIngresado == codigo && codigo){
+    console.log(typeof codIngresado);
+    console.log(typeof codigo);
+    if(codIngresado == codigo){
         registrarUsuario();
     }
     else{
