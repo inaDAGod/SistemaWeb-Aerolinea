@@ -111,35 +111,57 @@ function verificarCampos(){
     let contrasenia = document.getElementById("contra").value;
 
     if(nombres && apellidos && correo && contrasenia){
-       
-    fetch("http://localhost/SistemaWeb-Aerolinea/backend/verificarExistencia.php", {
-        method: "POST",
-        body: JSON.stringify({username: correo }),
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        }
-        throw new Error('Error en la solicitud');
-    })
-    .then(data => {
-        if (data.estado === "cuenta_nueva") {
-            if(contrasenia.length < 6){
-                alert('Contraseña muy corta, mínimo 6 caracteres');
-              }
-              else{
-                mandarCorreoVerificacion();
-              }
-        } else if (data.estado === "cuenta_existente") {
+        fetch("http://localhost/SistemaWeb-Aerolinea/backend/verificarExistencia.php", {
+            method: "POST",
+            body: JSON.stringify({username: correo }),
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Error en la solicitud');
+        })
+        .then(data => {
+            if (data.estado === "cuenta_nueva") {
+                if(contrasenia.length < 6){
+                    alert('Contraseña muy corta, mínimo 6 caracteres');
+                }
+                else{
+                    mandarCorreoVerificacion();
+                }
+            } else if (data.estado === "cuenta_existente") {
+                alert('Ya existe una cuenta con ese correo');
+            }
+        })
+        .catch(error => {
+            console.error('Error en la solicitud:', error);
             alert('Ya existe una cuenta con ese correo');
-        }
-    })
-    .catch(error => {
-        console.error('Error en la solicitud:', error);
-        alert('Ya existe una cuenta con ese correo');
-    });
+        });
+    }
+    else{
+        alert('Completa todos los campos');
+    }
 }
-else{
-    alert('Completa todos los campos');
-}
+function mandarCorreoRestauracion() {
+    let correoDestinatario = document.getElementById("correoRestaurar").value;
+    if(correoDestinatario){
+        toggleFormRes3();
+        codigo = generarCodigoVerificacion();
+        console.log("Código generado:", codigo);
+        let parametrosCorreo = {
+            to_email: correoDestinatario,
+            message: codigo
+        };
+        emailjs.init("zIi78GtT-tPurllpe");
+        
+        emailjs.send("service_pks7xqo", "template_cbqy3ke", parametrosCorreo)
+            .then(function(response) {
+                console.log("Correo enviado exitosamente:", response);
+            }, function(error) {
+                console.error("Error al enviar correo:", error);
+            });
+    }
+    else{
+        alert('Llena el correo');
+    }
 }
