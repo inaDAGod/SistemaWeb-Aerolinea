@@ -1,38 +1,52 @@
+let intentos = 0;
+
 function loginEncript() {
     let correo = document.getElementById("username").value;
     let contrasenia = document.getElementById("password").value;
     var hash = CryptoJS.MD5(contrasenia);
-    if(correo  && contrasenia){
-    fetch("http://localhost/SistemaWeb-Aerolinea/backend/login.php", {
-        method: "POST",
-        body: JSON.stringify({ username: correo, password: hash.toString() }),
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Error en la solicitud de inicio de sesión');
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.estado === 'contraseña_correcta') {
-            window.location.href= 'http://localhost/SistemaWeb-Aerolinea/public/index.html';
-        } else if (data.estado === 'contraseña_incorrecta') {
-            alert('La contraseña ingresada es incorrecta');
-        } else if (data.estado === 'usuario_no_encontrado') {
-            alert('No se encontró ningún usuario con ese correo electrónico');
+    if (correo && contrasenia) {
+        if (intentos < 4) {
+            fetch("http://localhost/SistemaWeb-Aerolinea/backend/login.php", {
+                    method: "POST",
+                    body: JSON.stringify({ username: correo, password: hash.toString() }),
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la solicitud de inicio de sesión');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.estado === 'contraseña_correcta') {
+                        window.location.href = 'http://localhost/SistemaWeb-Aerolinea/public/index.html';
+                    } else if (data.estado === 'contraseña_incorrecta') {
+                        if (intentos === 3) {
+                            alert('Realizo muchos intentos. Por favor, inténtelo de nuevo más tarde.');
+                            setTimeout(() => {
+                                intentos = 0; 
+                            }, 300000); //5 minutos
+                        } else {
+                            alert('La contraseña ingresada es incorrecta');
+                        }
+                        intentos++;
+                    } else if (data.estado === 'usuario_no_encontrado') {
+                        alert('No se encontró ningún usuario con ese correo electrónico');
+                    } else {
+                        alert('Ups algo salió mal. Inténtelo de nuevo más tarde.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error durante la solicitud de inicio de sesión:', error);
+                    alert('Ocurrió un error durante la solicitud de inicio de sesión. Inténtelo de nuevo más tarde.');
+                });
         } else {
-            alert('Ups algo salió mal. Inténtelo de nuevo más tarde.');
+            alert('Realizo muchos intentos. Por favor, inténtelo de nuevo más tarde.');
         }
-    })
-    .catch(error => {
-        console.error('Error durante la solicitud de inicio de sesión:', error);
-        alert('Ocurrió un error durante la solicitud de inicio de sesión. Inténtelo de nuevo más tarde.');
-    });
-    }
-    else{
+    } else {
         alert('Llena los campos');
     }
 }
+
 
 
 function registrarUsuario() {
