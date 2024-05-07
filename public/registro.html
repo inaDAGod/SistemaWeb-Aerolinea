@@ -12,6 +12,8 @@
   <script src="scripts/registro.js"></script>
 </head>
 <body>
+
+  
   <div class="login-container" id="registro" style="display: none;">
     <h2>Registrarse</h2>
     <div class="input-container">
@@ -28,7 +30,8 @@
     <a class="linka" onclick="toggleForm()">¿Ya tienes una cuenta? Inicia sesión</a>
   </div>
 
-  <!-- contenedor para el formulario de inicio de sesión -->
+
+
   <div class="login-container" id="inicio-sesion">
     <h2>Iniciar sesión</h2>
         <input type="text" id="username" name="username" placeholder="CORREO"><br>
@@ -38,6 +41,8 @@
     <a class="linka" onclick="toggleForm()">¿No tienes una cuenta? Regístrate</a>
   </div>
 
+
+
   <div  class="login-container" id="verificacion" style="display: none;">
     <h2>Verificacion</h2>
     <p>Se envio al siguiente correo el codigo de verificación</p>
@@ -45,13 +50,18 @@
     <input type="text" id="codVeri">
     <button class="boton" onclick="verificar()">Verificar</button><br>
   </div>
+
+
+
   <div class="login-container" id="restauracion" style="display: none;">
     <h2>Restauración</h2>
     <p>Se enviara un codigo a tu correo para que puedas restaurar tu contraseña</p>
     <input type="text" id="correoRestaurar"  placeholder="CORREO"><br><br>
     <button class="boton" onclick="toggleFormRes3()">Enviar</button><br>
-    
   </div>
+
+
+
   <div class="login-container" id="restaurarContra"  style="display: none;">
     <h2>Restauración</h2>
     <p>Ingresa tu nueva contraseña</p>
@@ -59,6 +69,9 @@
     <input type="password" id="passwordRes2" name="password" placeholder=" VERIFICA CONTRASEÑA"><br><br>
     <button class="boton" onclick="">Confirmar</button><br>
   </div>
+
+
+
   <div class="login-container" id="restauracion2" style="display: none;">
     <h2>Restauración</h2>
     <p>Se envio al siguiente correo el codigo de verificación</p>

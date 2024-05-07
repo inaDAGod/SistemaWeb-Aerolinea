@@ -2,7 +2,7 @@ function loginEncript() {
     let correo = document.getElementById("username").value;
     let contrasenia = document.getElementById("password").value;
     var hash = CryptoJS.MD5(contrasenia);
-
+    if(correo  && contrasenia){
     fetch("http://localhost/SistemaWeb-Aerolinea/backend/login.php", {
         method: "POST",
         body: JSON.stringify({ username: correo, password: hash.toString() }),
@@ -28,6 +28,10 @@ function loginEncript() {
         console.error('Error durante la solicitud de inicio de sesión:', error);
         alert('Ocurrió un error durante la solicitud de inicio de sesión. Inténtelo de nuevo más tarde.');
     });
+    }
+    else{
+        alert('Llena los campos');
+    }
 }
 
 
