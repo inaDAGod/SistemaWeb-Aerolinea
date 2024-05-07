@@ -145,23 +145,43 @@ function verificarCampos(){
 function mandarCorreoRestauracion() {
     let correoDestinatario = document.getElementById("correoRestaurar").value;
     if(correoDestinatario){
-        toggleFormRes3();
-        let correoEnviado = document.getElementById("correoEnviado2");
-        correoEnviado.textContent = correoDestinatario;
-        codigo = generarCodigoVerificacion();
-        console.log("Código generado:", codigo);
-        let parametrosCorreo = {
-            to_email: correoDestinatario,
-            message: codigo
-        };
-        emailjs.init("zIi78GtT-tPurllpe");
-        
-        emailjs.send("service_pks7xqo", "template_cbqy3ke", parametrosCorreo)
-            .then(function(response) {
-                console.log("Correo enviado exitosamente:", response);
-            }, function(error) {
-                console.error("Error al enviar correo:", error);
-            });
+        fetch("http://localhost/SistemaWeb-Aerolinea/backend/verificarCuenta.php", {
+            method: "POST",
+            body: JSON.stringify({username: correoDestinatario }),
+        })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Error en la solicitud');
+        })
+        .then(data => {
+            if (data.estado === "cuenta_inexistente") {
+                alert('No hay una cuenta registrada a ese correo');
+            } else if (data.estado === "cuenta_existente") {
+                toggleFormRes3();
+                let correoEnviado = document.getElementById("correoEnviado2");
+                correoEnviado.textContent = correoDestinatario;
+                codigo = generarCodigoVerificacion();
+                console.log("Código generado:", codigo);
+                let parametrosCorreo = {
+                    to_email: correoDestinatario,
+                    message: codigo
+                };
+                emailjs.init("zIi78GtT-tPurllpe");
+                
+                emailjs.send("service_pks7xqo", "template_cbqy3ke", parametrosCorreo)
+                    .then(function(response) {
+                        console.log("Correo enviado exitosamente:", response);
+                    }, function(error) {
+                        console.error("Error al enviar correo:", error);
+                    });
+            }
+        })
+        .catch(error => {
+            console.error('Error en la solicitud:', error);
+            alert('No hay una cuenta registrada a ese correo');
+        });
     }
     else{
         alert('Llena el correo');
@@ -172,8 +192,52 @@ function verificar2(){
     let codIngresado = document.getElementById("codRestauraciom").value;
     if(codIngresado == codigo){
         toggleFormRes2();
+        let correoDestinatario = document.getElementById("correoRestaurar").value;
+        let correoEnviado = document.getElementById("correoCambiar");
+        correoEnviado.textContent = correoDestinatario;
+
     }
     else{
         alert('Revisa el codigo no coincide con el que se mando a tu correo');
+    }
+}
+
+
+function newContra(){
+    let contra1 = document.getElementById("passwordRes").value;
+    let contra2 = document.getElementById("passwordRes2").value;
+    let correo = document.getElementById("correoRestaurar").value;
+    if(contra1 && contra2){
+        if(contra1 == contra2){
+            var hash = CryptoJS.MD5(contra1);
+            fetch("http://localhost/SistemaWeb-Aerolinea/backend/updatePassword.php", {
+                method: "POST",
+                body: JSON.stringify({username: correo, newPassword:  hash.toString() }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Error en la solicitud');
+            })
+            .then(data => {
+                if (data.estado === "contraseña_cambiada") {
+                    alert('Se restauro tu contraseña');
+                    window.location.href= 'http://localhost/SistemaWeb-Aerolinea/public/registro.html';
+                } else if (data.estado === "error_actualizacion") {
+                    alert('Parece que hubo un error');
+                }
+            })
+            .catch(error => {
+                console.error('Error en la solicitud:', error);
+                alert('Parece que hubo un error');
+            });
+        }
+        else{
+            alert('Las contraseña no coinciden');
+        }
+    }
+    else{
+        alert('Llena los campos');
     }
 }

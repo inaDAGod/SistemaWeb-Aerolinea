@@ -64,17 +64,18 @@
 
   <div class="login-container" id="restaurarContra"  style="display: none;">
     <h2>Restauración</h2>
-    <p>Ingresa tu nueva contraseña</p>
+    <p>Ingresa tu nueva contraseña del correo</p>
+    <p id="correoCambiar"></p>
     <input type="password" id="passwordRes" name="password" placeholder="CONTRASEÑA">
     <input type="password" id="passwordRes2" name="password" placeholder=" VERIFICA CONTRASEÑA"><br><br>
-    <button class="boton" onclick="">Confirmar</button><br>
+    <button class="boton" onclick="newContra()">Confirmar</button><br>
   </div>
 
 
 
   <div class="login-container" id="restauracion2" style="display: none;">
     <h2>Restauración</h2>
-    <p>Se envio al siguiente correo el codigo de verificación</p>
+    <p>Se envio al siguiente correo el codigo de restauracion</p>
     <p id="correoEnviado2"></p>
     <input type="text" id="codRestauraciom" placeholder="CODIGO"><br><br>
     <button class="boton" onclick="verificar2()" >Verificar </button><br>
