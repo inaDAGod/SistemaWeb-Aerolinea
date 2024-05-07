@@ -146,6 +146,8 @@ function mandarCorreoRestauracion() {
     let correoDestinatario = document.getElementById("correoRestaurar").value;
     if(correoDestinatario){
         toggleFormRes3();
+        let correoEnviado = document.getElementById("correoEnviado2");
+        correoEnviado.textContent = correoDestinatario;
         codigo = generarCodigoVerificacion();
         console.log("Código generado:", codigo);
         let parametrosCorreo = {
@@ -163,5 +165,15 @@ function mandarCorreoRestauracion() {
     }
     else{
         alert('Llena el correo');
+    }
+}
+
+function verificar2(){
+    let codIngresado = document.getElementById("codRestauraciom").value;
+    if(codIngresado == codigo){
+        toggleFormRes2();
+    }
+    else{
+        alert('Revisa el codigo no coincide con el que se mando a tu correo');
     }
 }
