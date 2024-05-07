@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/styleD2.css">
+    <title>Añadir producto</title>
+</head>
+
+<body>
+    <div class="box">
+        <div class="img-box">
+            <img src="assets/avionP.png" >
+        </div>
+        <div class="form-box">
+            <h2 style="text-align: center; color: #053A70;">Añadir Premio</h2>
+                <div class="input-group">
+                    <label for="premio"> Premio</label>
+                    <input type="text" id="premio" placeholder="Premio nombre" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="millas">Millas</label>
+                    <input  type="number" id="millas" placeholder="Precio en millas" required>
+                </div>
+                <div class="input-group">
+                    <label for="destacado">Producto Destacado</label>
+                    <div class="radio-group">
+                        <label for="destacado">Destacado</label>
+                        <input type="radio" id="destacado" name="destacadosOption" value="destacado">
+                        <label for="no-destacado">No Destacado</label>
+                        <input type="radio" id="no-destacado" name="destacadosOption" value="no-destacado">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="tipo">Tipo Producto</label>
+                    <select id="tipo" name="tipo" class="tipos">
+                        <option value="tipo1">Electrodomestico</option>
+                        <option value="tipo2">Viaje</option>
+                        <option value="tipo3">Cuidado Personal</option>
+                        <option value="tipo4">Otro</option>
+                    </select>
+                </div>
+                
+
+
+                <div class="input-group">
+                    <button id="registrar">Registrar</button>
+                </div>
+        </div>
+    </div>
+</body>
+</html>
