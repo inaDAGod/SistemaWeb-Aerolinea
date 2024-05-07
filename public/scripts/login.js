@@ -255,3 +255,37 @@ function newContra(){
         alert('Llena los campos');
     }
 }
+
+function registrarAdministrador() {
+    let nombres = document.getElementById("nombre").value;
+    let apellidos = document.getElementById("apellido").value;
+    let correo = document.getElementById("email").value;
+    let contrasenia = document.getElementById("contra").value;
+    if(nombres && apellidos && correo && contrasenia){
+            var hash = CryptoJS.MD5(contrasenia);
+            fetch("http://localhost/SistemaWeb-Aerolinea/backend/registroAdmi.php", {
+                method: "POST",
+                body: JSON.stringify({ nombres: nombres, apellidos: apellidos, username: correo, password: hash.toString() }),
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Error en la solicitud');
+            })
+            .then(data => {
+                if (data.estado === "registro_exitoso") {
+                    window.location.href= 'http://localhost/SistemaWeb-Aerolinea/public/index.html';
+                } else if (data.estado === "error_registro") {
+                    alert('Ya existe un usuario con ese correo electrónico');
+                }
+            })
+            .catch(error => {
+                console.error('Error en la solicitud:', error);
+                alert('Estás seguro que no tienes una cuenta?');
+            });
+        }
+        else{
+            alert('Llene todos los campos');
+        }
+}
