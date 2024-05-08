@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/styleD2.css">
+    <script src="scripts/addPremio.js"></script>
     <title>Añadir producto</title>
 </head>
 
@@ -38,18 +39,18 @@
                 <div class="input-group">
                     <label for="tipo">Tipo Producto</label>
                     <select id="tipo" name="tipo" class="tipos">
-                        <option value="tipo1">Electrodomestico</option>
-                        <option value="tipo2">Viaje</option>
-                        <option value="tipo3">Cuidado Personal</option>
-                        <option value="tipo3">Comida</option>
-                        <option value="tipo4">Otro</option>
+                        <option value="Electrodomestico">Electrodomestico</option>
+                        <option value="Viaje">Viaje</option>
+                        <option value="Cuidado Personal">Cuidado Personal</option>
+                        <option value="Comida">Comida</option>
+                        <option value="Otro">Otro</option>
                     </select>
                 </div>
                 
 
 
                 <div class="input-group">
-                    <button id="registrar">Registrar</button>
+                    <button id="registrar" onclick="guardarProducto()">Registrar</button>
                 </div>
         </div>
     </div>
