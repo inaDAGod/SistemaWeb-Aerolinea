@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <header class="py-3">
+    <header class="py-3 user-header">
         <div class="container d-flex justify-content-between align-items-center" style=" padding: 20px; margin-top: 15px; margin-bottom: 5px;color:white;">
             <nav class="navbar navbar-expand-lg navbar" style="position: absolute; left: 0; margin-bottom: 5px;">
 
@@ -25,30 +25,30 @@
                     </li>
                     
 
-                    
+                    <div id="nav-links-containernon">
                     <li class="nav-item">
-                        <a class="nav-link" href="servicios.php" style="margin-left: 780%;top: 2%;">Vuelos</a> <!-- Removed inline styles -->
+                        <a class="nav-linknon" href="servicios.php" >Vuelos</a> <!-- Removed inline styles -->
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="Login.php" style="margin-left: 850%;top: 2%;width:150%;">Check in</a> <!-- Removed inline styles -->
+                        <a class="nav-linknon" href="Login.php" >Check in</a> <!-- Removed inline styles -->
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="servicios.php" style="margin-left: 730%;top: 2%;width:200%;">Premios Millas</a> <!-- Removed inline styles -->
-                    </li>
+                        <a class="nav-linknon" href="servicios.php" >Premios Millas</a> <!-- Removed inline styles -->
+                    </li></div>
                 </ul>
             </nav>
 
 
             <ul style="list-style-type: none; margin: 0; padding: 0;">
                 <li class="nav-item" style="position: absolute; right: 1%; top:3%;">
-                    <a class="nav-link" href="Login.php">| Iniciar Sesión</a> <!-- Removed inline styles -->
+                    <a class="nav-linknon" href="Login.php">| Iniciar Sesión</a> <!-- Removed inline styles -->
                 </li>
             </ul>
 
 
         </div>
     </header>
-    <h1>Bienvenido, vuela con los mejores</h1>
+    <h1 class="h1menu">Bienvenido, vuela con los mejores</h1>
 
 
 </body>

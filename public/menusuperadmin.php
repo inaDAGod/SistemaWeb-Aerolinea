@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-<header class="py-3"> 
+<header class="py-3 admin-header"> 
     <div class="container d-flex justify-content-between align-items-center"style=" padding: 20px; margin-top: 15px; margin-bottom: 5px;color:white;">
     <nav class="navbar navbar-expand-lg navbar" style="position: absolute; left: 0; margin-bottom: 5px;">
 
@@ -23,16 +23,16 @@
                     </li>
                     
 
-                    
+                    <div id="nav-links-containeradmin">
                     <li class="nav-item">
-                        <a class="nav-link" href="agregarVuelo.php" style="margin-left: 800%;top: 2%;">Vuelos</a> <!-- Removed inline styles -->
+                        <a class="nav-linkadd" href="agregarVuelo.php" >Vuelos</a> <!-- Removed inline styles -->
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="" style="margin-left: 630%;top: 2%;width:150%;">Reservas</a> <!-- Removed inline styles -->
+                        <a class="nav-linkadd" href="" >Reservas</a> <!-- Removed inline styles -->
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="servicios.php" style="margin-left: 580%;top: 2%;width:200%;">Dashboard</a> <!-- Removed inline styles -->
-                    </li>
+                        <a class="nav-linkadd" href="servicios.php" >Dashboard</a> <!-- Removed inline styles -->
+                    </li></div>
                 </ul>
             </nav>
     
@@ -55,7 +55,7 @@
     </ul>
 </nav>
 
-<h1>Bienvenido, vuela con los mejores</h1>
+<h1 class="h1menu">Bienvenido, vuela con los mejores</h1>
 
 <!-- Link to the JavaScript file -->
 <script src="scripts\menu.js"></script>

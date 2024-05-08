@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-<header class="py-3">
+<header class="py-3 cliente-header">
     <div class="container d-flex justify-content-between align-items-center"style=" padding: 20px; margin-top: 15px; margin-bottom: 5px;color:white;">
     <nav class="navbar navbar-expand-lg navbar" style="position: absolute; left: 0; margin-bottom: 5px;">
 
@@ -23,16 +23,18 @@
                     </li>
                     
 
-                    
-                    <li class="nav-item">
-                        <a class="nav-link" href="servicios.php" style="margin-left: 780%;top: 2%;">Vuelos</a> <!-- Removed inline styles -->
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="Login.php" style="margin-left: 850%;top: 2%;width:150%;">Check in</a> <!-- Removed inline styles -->
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="servicios.php" style="margin-left: 730%;top: 2%;width:200%;">Premios Millas</a> <!-- Removed inline styles -->
-                    </li>
+                    <div id="nav-links-containercli">
+    <li class="nav-item">
+        <a class="nav-linkcli" href="servicios.php" >Vuelos</a> <!-- Removed inline styles -->
+    </li>
+    <li class="nav-item">
+        <a class="nav-linkcli" href="Login.php" >Check in</a> <!-- Removed inline styles -->
+    </li>
+    <li class="nav-item">
+        <a class="nav-linkcli" href="servicios.php" >Premios Millas</a> <!-- Removed inline styles -->
+    </li>
+</div>
+
                 </ul>
             </nav>
         <button id="menu-toggle" class="btn btn"  style="position: absolute; right: 0;top:-1%;">
@@ -50,7 +52,7 @@
     </ul>
 </nav>
 
-<h1>Bienvenido, vuela con los mejores</h1>
+<h1 class="h1menu">Bienvenido, vuela con los mejores</h1>
 
 <!-- Link to the JavaScript file -->
 <script src="scripts\menu.js"></script>
