@@ -34,9 +34,10 @@ try {
 
     // Insertar datos en la tabla boletos
     // Necesitarás obtener el cvuelo y cavion del asiento seleccionado antes de hacer esta inserción
-    // Insertar datos en la tabla boletos
+    $cvuelo = obtener_cvuelo_del_asiento($conn, $casiento_seleccionado); // Función hipotética para obtener cvuelo
+    
+// Insertar datos en la tabla boletos
 // Necesitarás obtener el cvuelo del asiento seleccionado antes de hacer esta inserción
-$cavion = obtener_cavion_del_asiento($conn, $casiento_seleccionado);
 $cvuelo = obtener_cvuelo_del_asiento($conn, $casiento_seleccionado); // Función hipotética para obtener cvuelo
 $total = obtener_costo_del_vuelo($conn, $cvuelo); // Función hipotética para obtener costo del vuelo
 $stmt = $conn->prepare("INSERT INTO boletos (ci_persona, cvuelo, casiento, total) 
@@ -47,10 +48,14 @@ $stmt->bindParam(':casiento', $casiento_seleccionado);
 $stmt->bindParam(':total', $total);
 $stmt->execute();
 
-
     // Insertar datos en la tabla reservas_personas
-    $creserva = generar_numero_de_reserva_unico($conn); // Función hipotética para generar un número de reserva único
-    $estado_reserva = 'Activa'; // Por ejemplo
+
+    $creserva = 6; // Establecer manualmente el valor de "creserva"
+    $estado_reserva = 'Pendiente'; 
+
+
+
+  
     $stmt = $conn->prepare("INSERT INTO reservas_personas (creserva, ci_persona, estado_reserva, cvuelo, casiento) 
                             VALUES (:creserva, :ci_persona, :estado_reserva, :cvuelo, :casiento)");
     $stmt->bindParam(':creserva', $creserva);
@@ -92,10 +97,6 @@ function obtener_cvuelo_del_asiento($conn, $casiento_seleccionado) {
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     return $result['cvuelo'];
-}
-function generar_numero_de_reserva_unico($conn) {
-    // Generate a unique reservation number using current timestamp and a random number
-    return time() . rand(1000, 9999);
 }
 
 ?>
