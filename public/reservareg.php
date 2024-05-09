@@ -297,7 +297,7 @@ setTimeout(function() {
 <br>
 
 <!-- Botón de Cancelar Reserva -->
-<button class="btn btn" style=" left: 0;  color: rgba(8, 86, 167, 1);">Cancelar reserva</button>
+<button class="btn btn" style=" left: 0;  color: rgba(8, 86, 167, 1);"><a href="index.html">< Cancelar reserva</a></button>
 
 <!-- Título -->
 <h2 class="h1rese2">Reservar </h2>

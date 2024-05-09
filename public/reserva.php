@@ -20,7 +20,7 @@ $nin = 0;
 $masco = 1;
 $totalg = $adum + $adu + $nin + $masco;
 $cvuelosnum = 6; // Por ejemplo, puedes cambiar este valor según tus necesidades
-$creservanum = 7; // Por ejemplo, puedes cambiar este valor según tus necesidades
+$creservanum = 6; // Por ejemplo, puedes cambiar este valor según tus necesidades
 
 // Guarda $creserva en una variable de sesión
 $_SESSION['cvuelosnum'] = $cvuelosnum;
@@ -92,7 +92,7 @@ $_SESSION['reservation_counter'] = 0;
     </ul>
 </nav>
 
-<button class="btn btn" style="position: absolute; leftt: 0; top:14%; color:rgba(8, 86, 167, 1);">Cancelar reserva</button>
+<button class="btn btn" style="position: absolute; leftt: 0; top:14%; color:rgba(8, 86, 167, 1);"><a href="index.html">< Cancelar reserva</a></button>
 <h1 class="h1rese">Reservar </h1>
 
 <div class="datos">
