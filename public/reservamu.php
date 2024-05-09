@@ -180,8 +180,8 @@ try {
 
 </table>
 </div>
-
-
+<center>
+<button type="submit" class="btn btn" style="color: rgba(8, 86, 167, 1); background-color: rgba(255, 196, 79, 1); border-radius: 20px; margin-right: 2%; margin-top: 3%; width: 10%; font-size: 20px;">Siguiente</button></center>
 <!-- Link to the JavaScript file -->
 <script src="scripts\menu.js"></script>
 </body>

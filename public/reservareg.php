@@ -251,9 +251,9 @@ function obtener_costo_del_vuelo($conn, $cvuelo) {
         <li><a href="menunologin.php">Log out</a></li>
     </ul>
 </nav>
-
+<br>
 <!-- Botón de Cancelar Reserva -->
-<button class="btn btn" style="position: absolute; left: 0; top: 14%; color: rgba(8, 86, 167, 1);">Cancelar reserva</button>
+<button class="btn btn" style=" left: 0; top: 14%; color: rgba(8, 86, 167, 1);">Cancelar reserva</button>
 
 <!-- Título -->
 <h1 class="h1rese">Reservar </h1>
@@ -396,8 +396,8 @@ function obtener_costo_del_vuelo($conn, $cvuelo) {
 </table>
 
             </div>
-        </div>
-        <button type="submit" class="btn btn-success" style="margin-top: 20px;">Reservar</button>
+        </div><br><br>
+        <button type="submit" class="btn btn-success" style="position: absolute; right: 0; color: rgba(8, 86, 167, 1); background-color: rgba(255, 196, 79, 1); border-radius: 20px; margin-right: 2%; margin-top: -3%; width: 10%; font-size: 20px;">Siguiente</button>
     </form>
 </div>
 <script>

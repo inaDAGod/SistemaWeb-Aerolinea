@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // Store total number of people in session
 $adum = 1;
-$adu = 1;
+$adu = 0;
 $nin = 0;
 $masco = 0;
 $totalg = $adum + $adu + $nin + $masco;
@@ -170,7 +170,7 @@ $_SESSION['reservation_counter'] = 0;
 <br>
 <form method="post" action="reservareg.php">
     <input type="hidden" id="total_people_input" name="total_people" value="<?php echo $totalg; ?>">
-    <button type="submit" class="btn btn" style="position: absolute; right: 0; color: rgba(8, 86, 167, 1); background-color: red; border-radius: 20px; margin-right: 2%; margin-top: -15px; width: 10%; font-size: 20px;">Siguiente</button>
+    <button type="submit" class="btn btn" style="position: absolute; right: 0; color: rgba(8, 86, 167, 1); background-color: rgba(255, 196, 79, 1); border-radius: 20px; margin-right: 2%; margin-top: -15px; width: 10%; font-size: 20px;">Siguiente</button>
 </form>
 
 <!-- Link to the JavaScript file -->
