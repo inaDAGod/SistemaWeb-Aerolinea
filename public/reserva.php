@@ -13,14 +13,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit;
 }
 
-// Total number of people in the reservation (You can set these values based on your requirements)
+// Store total number of people in session
 $adum = 1;
 $adu = 1;
 $nin = 0;
 $masco = 0;
 $totalg = $adum + $adu + $nin + $masco;
+$cvuelosnum = 6; // Por ejemplo, puedes cambiar este valor según tus necesidades
+$creservanum = 7; // Por ejemplo, puedes cambiar este valor según tus necesidades
 
-// Store total number of people in session
+// Guarda $creserva en una variable de sesión
+$_SESSION['cvuelosnum'] = $cvuelosnum;
+$_SESSION['creservanum'] = $creservanum;
 $_SESSION['adum'] = $adum;
 $_SESSION['adu'] = $adu;
 $_SESSION['nin'] = $nin;
@@ -95,16 +99,17 @@ $_SESSION['reservation_counter'] = 0;
     <p class="pdatos">
         <?php
         // Establish connection to the database
-        $host = 'localhost'; // Change this
+        $host = 'localhost'; // Cambia esto
         $dbname = 'aerio';
-        $username = 'postgres'; // Change this
-        $password = 'admin'; // Change this
+        $username = 'postgres'; // Cambia esto
+        $password = 'admin'; // Cambia esto
         try {
             $conn = new PDO("pgsql:host=$host;dbname=$dbname", $username, $password);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             // Prepare SQL query
-            $query = "SELECT cvuelo, origen, destino FROM vuelos LIMIT 1";
+            $query = "SELECT cvuelo, origen, destino FROM vuelos WHERE cvuelo = $cvuelosnum LIMIT 1";
+
             $stmt = $conn->prepare($query);
 
             // Execute query

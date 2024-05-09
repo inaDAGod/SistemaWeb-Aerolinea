@@ -1,4 +1,11 @@
 <?php
+
+session_start();
+$cvuelosnum = isset($_SESSION['cvuelosnum']) ? $_SESSION['cvuelosnum'] : 0;
+$_SESSION['cvuelosnum'] = $cvuelosnum;
+
+$creservanum = isset($_SESSION['creservanum']) ? $_SESSION['creservanum'] : 0;
+$_SESSION['creservanum'] = $creservanum;
 // Parámetros de conexión (reemplaza con tus propios valores)
 $host = 'localhost'; // Cambia esto
 $port = '5432'; // Puerto predeterminado de PostgreSQL
@@ -31,7 +38,7 @@ try {
             JOIN 
                 reservas r ON rp.creserva = r.creserva
             WHERE 
-                r.creserva = 6";
+                r.creserva = $creservanum";
 
     // Preparar consulta
     $stmt = $conn->prepare($sql);
@@ -118,7 +125,8 @@ try {
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             // Prepare SQL query
-            $query = "SELECT cvuelo, origen, destino FROM vuelos LIMIT 1";
+            $query = "SELECT cvuelo, origen, destino FROM vuelos WHERE cvuelo = $cvuelosnum LIMIT 1";
+
             $stmt = $conn->prepare($query);
 
             // Execute query
@@ -144,33 +152,34 @@ try {
 
 
 <br>
-<h2>Datos de la reserva número 6:</h2>
-<table border="1">
-    <tr>
-        <th>Tipo Persona</th>
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>CI</th>
-        <th>Fecha de Nacimiento</th>
-        <th>Asiento</th>
+<div class="centerre">
+<table class="tablere" >
+    <tr class="trre">
+        <th class="thre" style='padding: 8px;'>Tipo Persona</th>
+        <th class="thre" style='padding: 8px;'>Nombre</th>
+        <th class="thre" style='padding: 8px;'>Apellido</th>
+        <th class="thre" style='padding: 8px;'>CI</th>
+        <th class="thre" style='padding: 8px;'>Fecha de Nacimiento</th>
+        <th class="thre" style='padding: 8px;'>Asiento</th>
     </tr>
 
     <?php
     // Mostrar resultados de la consulta
     foreach ($result as $row) {
-        echo "<tr>";
-        echo "<td>" . $row["tipo_persona"] . "</td>";
-        echo "<td>" . $row["nombre"] . "</td>";
-        echo "<td>" . $row["apellido"] . "</td>";
-        echo "<td>" . $row["ci"] . "</td>";
-        echo "<td>" . $row["fecha_nacimiento"] . "</td>";
-        echo "<td>" . $row["asiento"] . "</td>";
+        echo "<tr class='trre'>";
+        echo "<td class='tdre' style='padding: 8px;'>" . $row["tipo_persona"] . "</td>";
+        echo "<td class='tdre' style='padding: 8px;'>" . $row["nombre"] . "</td>";
+        echo "<td class='tdre' style='padding: 8px;'>" . $row["apellido"] . "</td>";
+        echo "<td class='tdre' style='padding: 8px;'>" . $row["ci"] . "</td>";
+        echo "<td class='tdre' style='padding: 8px;'>" . $row["fecha_nacimiento"] . "</td>";
+        echo "<td class='tdre' style='padding: 8px;'>" . $row["asiento"] . "</td>";
         echo "</tr>";
     }
+    
     ?>
 
 </table>
-
+</div>
 
 
 <!-- Link to the JavaScript file -->

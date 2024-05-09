@@ -8,6 +8,11 @@ $totalg = isset($_SESSION['total_people']) ? $_SESSION['total_people'] : 0;
 $reservation_counter = isset($_SESSION['reservation_counter']) ? $_SESSION['reservation_counter'] : 0;
 echo "Total People: " . $totalg . "<br>";
 
+$cvuelosnum = isset($_SESSION['cvuelosnum']) ? $_SESSION['cvuelosnum'] : 0;
+$_SESSION['cvuelosnum'] = $cvuelosnum;
+
+$creservanum = isset($_SESSION['creservanum']) ? $_SESSION['creservanum'] : 0;
+$_SESSION['creservanum'] = $creservanum;
 // Store values in the session
 $_SESSION['adum'] = $adum;
 $_SESSION['adu'] = $adu;
@@ -76,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         // Insert data into the reservas_personas table
-        $creserva = 6; // Set manually the value of "creserva"
+        $creserva = $creservanum; // Set manually the value of "creserva"
         $estado_reserva = 'Pendiente';
         $stmt = $conn->prepare("INSERT INTO reservas_personas (creserva, ci_persona, estado_reserva, cvuelo, casiento) 
                                 VALUES (:creserva, :ci_persona, :estado_reserva, :cvuelo, :casiento)");
@@ -267,7 +272,8 @@ function obtener_costo_del_vuelo($conn, $cvuelo) {
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             // Prepare SQL query
-            $query = "SELECT cvuelo, origen, destino FROM vuelos LIMIT 1";
+            $query = "SELECT cvuelo, origen, destino FROM vuelos WHERE cvuelo = $cvuelosnum LIMIT 1";
+
             $stmt = $conn->prepare($query);
 
             // Execute query
