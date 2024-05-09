@@ -1,30 +1,4 @@
-<?php
-// Start session
-session_start();
 
-// Check if form submitted from registro.php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Process data from registro.php and store in database
-    // Redirect to the index page after all registrations are complete
-    header("Location: index.php");
-    exit;
-}
-
-// Total number of people in the reservation (You can set these values based on your requirements)
-$adum = 1;
-$adu = 1;
-$nin = 0;
-$masco = 0;
-$totalg = $adum + $adu + $nin + $masco;
-
-// Store total number of people in session
-$_SESSION['adum'] = $adum;
-$_SESSION['adu'] = $adu;
-$_SESSION['nin'] = $nin;
-$_SESSION['masco'] = $masco;
-$_SESSION['total_people'] = $totalg;
-
-?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -130,36 +104,49 @@ $_SESSION['total_people'] = $totalg;
         </tr>
         <tr class="trre">
             <td class="tdre">Adulto mayor</td>
-            <td class="tdre"><p><?php echo isset($_SESSION['adum']) ? $_SESSION['adum'] : 0; ?></p></td>
+            <td class="tdre"><p id="adum"></p></td>
             <td class="tdre"></td>
         </tr>
         <tr class="trre">
             <td class="tdre">Adultos</td>
-            <td class="tdre"><p><?php echo isset($_SESSION['adu']) ? $_SESSION['adu'] : 0; ?></p></td>
+            <td class="tdre"><p id="adu"></p></td>
             <td class="tdre"></td>
         </tr>
         <tr class="trre">
             <td class="tdre">Niños</td>
-            <td class="tdre"><p><?php echo isset($_SESSION['nin']) ? $_SESSION['nin'] : 0; ?></p></td>
+            <td class="tdre"><p id="nin"></p></td>
             <td class="tdre"></td>
         </tr>
         <tr class="trre">
             <td class="tdre">Mascotas</td>
-            <td class="tdre"><p><?php echo isset($_SESSION['masco']) ? $_SESSION['masco'] : 0; ?></p></td>
+            <td class="tdre"><p id="masco"></p></td>
             <td class="tdre"></td>
         </tr>
         <tr class="trre">
             <td class="tdre"></td>
             <td class="tdre"></td>
-            <td class="tdre"><p><?php echo isset($_SESSION['total_people']) ? $_SESSION['total_people'] : 0; ?></p></td>
+            <td class="tdre"><p id="totalg"></p></td>
         </tr>
     </table>
 </div>
 <br>
-<form method="post" action="reservareg.php">
-    <input type="hidden" id="total_people_input" name="total_people" value="<?php echo $totalg; ?>">
-    <button type="submit" class="btn btn" style="position: absolute; right: 0; color: rgba(8, 86, 167, 1); background-color: red; border-radius: 20px; margin-right: 2%; margin-top: -15px; width: 10%; font-size: 20px;">Siguiente</button>
-</form>
+
+
+<script>
+    // pasajeros
+    var adum = 1;
+    var adu = 2;
+    var nin = 3;
+    var masco = 4;
+    var totalg = adum + adu + nin + masco;
+    
+    // Set content for each <p> element
+    document.getElementById("adum").textContent = adum;
+    document.getElementById("adu").textContent = adu;
+    document.getElementById("nin").textContent = nin;
+    document.getElementById("masco").textContent = masco;
+    document.getElementById("totalg").textContent = totalg;
+</script>
 
 <!-- Link to the JavaScript file -->
 <script src="scripts\menu.js"></script>
