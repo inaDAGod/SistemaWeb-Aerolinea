@@ -13,21 +13,19 @@ $_SESSION['cvuelosnum'] = $cvuelosnum;
 
 $creservanum = isset($_SESSION['creservanum']) ? $_SESSION['creservanum'] : 0;
 $_SESSION['creservanum'] = $creservanum;
+
 // Store values in the session
 $_SESSION['adum'] = $adum;
 $_SESSION['adu'] = $adu;
 $_SESSION['nin'] = $nin;
 $_SESSION['masco'] = $masco;
 $_SESSION['total_people'] = $totalg;
-$_SESSION['reservation_counter']=$reservation_counter;
+$_SESSION['reservation_counter'] = $reservation_counter;
 
 
 
 // Process form data if the form has been submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Increment reservation counter
-    
-
     // Connection to the database
     // Move this section to the top to ensure database connection before using it in the rest of the script.
     $host = 'localhost'; // Change this
@@ -60,14 +58,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (!empty($ci_persona)) {
             try {
                 // Insert data into the personas table
-                $stmt = $conn->prepare("INSERT INTO personas (ci_persona, nombres, apellidos, fecha_nacimiento, sexo) 
-                                        VALUES (:ci_persona, :nombres, :apellidos, :fecha_nacimiento, :sexo)");
+                $stmt = $conn->prepare("INSERT INTO personas (ci_persona, nombres, apellidos, fecha_nacimiento, sexo, tipo_persona) 
+                    VALUES (:ci_persona, :nombres, :apellidos, :fecha_nacimiento, :sexo, :tipo_persona)");
+
+                // Determine the tipo_persona based on the number of each type of person
+                if ($adum > 0) {
+                    $tipo_persona = 'Adulto mayor';
+                    $adum--; // Decrement the count of Adulto mayor after assigning it
+                } elseif ($adu > 0) {
+                    $tipo_persona = 'Adulto';
+                    $adu--; // Decrement the count of Adulto after assigning it
+                } elseif ($nin > 0) {
+                    $tipo_persona = 'Niño';
+                    $nin--; // Decrement the count of Niño after assigning it
+                } elseif ($masco > 0) {
+                    $tipo_persona = 'Mascota';
+                    $masco--; // Decrement the count of Mascota after assigning it
+                } else {
+                    $tipo_persona = 'No especificado';
+                }
+
+                // Bind parameters and execute the statement
                 $stmt->bindParam(':ci_persona', $ci_persona);
                 $stmt->bindParam(':nombres', $nombres);
                 $stmt->bindParam(':apellidos', $apellidos);
                 $stmt->bindParam(':fecha_nacimiento', $fecha_nacimiento);
                 $stmt->bindParam(':sexo', $sexo);
+                $stmt->bindParam(':tipo_persona', $tipo_persona);
                 $stmt->execute();
+
             } catch(PDOException $e) {
                 echo "Error: " . $e->getMessage();
                 // Handle the error as needed
@@ -78,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($cvuelo) {
             $total = obtener_costo_del_vuelo($conn, $cvuelo);
             $stmt = $conn->prepare("INSERT INTO boletos (ci_persona, cvuelo, casiento, total) 
-                                    VALUES (:ci_persona, :cvuelo, :casiento, :total)");
+                VALUES (:ci_persona, :cvuelo, :casiento, :total)");
             $stmt->bindParam(':ci_persona', $ci_persona);
             $stmt->bindParam(':cvuelo', $cvuelo);
             $stmt->bindParam(':casiento', $casiento_seleccionado);
@@ -92,16 +111,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $creserva = $creservanum; // Set manually the value of "creserva"
                 $estado_reserva = 'Pendiente';
                 $stmt = $conn->prepare("INSERT INTO reservas_personas (creserva, ci_persona, estado_reserva, cvuelo, casiento) 
-                                        VALUES (:creserva, :ci_persona, :estado_reserva, :cvuelo, :casiento)");
+                    VALUES (:creserva, :ci_persona, :estado_reserva, :cvuelo, :casiento)");
                 $stmt->bindParam(':creserva', $creserva);
                 $stmt->bindParam(':ci_persona', $ci_persona);
                 $stmt->bindParam(':estado_reserva', $estado_reserva);
                 $stmt->bindParam(':cvuelo', $cvuelo);
                 $stmt->bindParam(':casiento', $casiento_seleccionado);
                 $stmt->execute();
+                
+                // Increment reservation counter only after successful reservation
+                $_SESSION['reservation_counter']++;
 
                 echo "<span id='reserva_success'>¡Reserva exitosa!</span>";
-                $_SESSION['reservation_counter']++;
+                $_SESSION['adum'] = $adum;
+                $_SESSION['adu'] = $adu;
+                $_SESSION['nin'] = $nin;
+                $_SESSION['masco'] = $masco;
 
                 // Check if all expected registrations have been made
                 if ($_SESSION['reservation_counter'] >= $totalg) {
@@ -152,6 +177,7 @@ function obtener_costo_del_vuelo($conn, $cvuelo) {
     return $result['costo'];
 }
 ?>
+
 
 <script>
 // JavaScript code to hide the successful reservation message after 6 seconds
@@ -312,15 +338,39 @@ setTimeout(function() {
             echo "Connection failed: " . $e->getMessage();
         }
         ?>
-        Adulto mayor 1:
+        
     </p>
 </div>
 
 <!-- Formulario de Reserva -->
 <div class="centerfor">
 <form method="POST">
+    <p><?php
+    // Define the type of person based on available counts
+    if ($adum > 0) {
+        $tipo_persona = 'Adulto mayor';
+        $adum--; // Decrement the count of Adulto mayor after assigning it
+    } elseif ($adu > 0) {
+        $tipo_persona = 'Adulto';
+        $adu--; // Decrement the count of Adulto after assigning it
+    } elseif ($nin > 0) {
+        $tipo_persona = 'Niño';
+        $nin--; // Decrement the count of Niño after assigning it
+    } elseif ($masco > 0) {
+        $tipo_persona = 'Mascota';
+        $masco--; // Decrement the count of Mascota after assigning it
+    } else {
+        $tipo_persona = 'No especificado';
+    }
+
+    // Display the type of person
+    echo "<p>$tipo_persona</p>";
+    ?>
+    </p>
 
         <div class="container">
+        <input type="hidden" id="tipo_persona_hidden" name="tipo_persona" value="<?php echo $tipo_persona; ?>">
+    
             <div class="mejora">
                 <div class="input-group">
                     <label for="ci_persona">Cédula de Identidad:</label>
@@ -424,7 +474,15 @@ setTimeout(function() {
     
     // Set the value of the hidden input field
     document.getElementById("total_people_input").value = total_people;
-</script>
 
+    // Function to update the hidden input field with the current tipo_persona value
+    function updateTipoPersona() {
+        var tipo_persona = '<?php echo $tipo_persona; ?>';
+        document.getElementById('tipo_persona_hidden').value = tipo_persona;
+    }
+
+    // Call the function initially to set the tipo_persona value
+    updateTipoPersona();
+</script>
 </body>
 </html>
