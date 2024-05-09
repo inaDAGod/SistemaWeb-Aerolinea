@@ -225,14 +225,22 @@ try {
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 <button type="submit" class="btn btn" name="confirmar_reserva" style="color: rgba(8, 86, 167, 1); background-color: rgba(255, 196, 79, 1); border-radius: 20px; margin-right: 2%; margin-top: 3%; width: 10%; font-size: 20px;">Confirmar Reserva</button>
 </form>
+
 </center>
 <!-- Link to the JavaScript file -->
 <script src="scripts\menu.js"></script>
 <script>
-    // JavaScript to redirect to index.html after showing the notification
-    setTimeout(function(){
-        window.location.href = 'index.html';
-    }, 3000); // 3000 milliseconds = 3 seconds
+    var redirectTimeout;
+
+    function redirect() {
+        redirectTimeout = setTimeout(function(){
+            window.location.href = 'index.html';
+        }, 3000); // 3000 milliseconds = 3 seconds
+    }
+
+    function confirmarReserva() {
+        redirect();
+    }
 </script>
 </body>
 </html>
