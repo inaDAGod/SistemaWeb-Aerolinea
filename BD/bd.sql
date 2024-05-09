@@ -89,6 +89,7 @@ CREATE TABLE premios_millas (
     tipo_premio varchar(100)  NOT NULL,
     producto_destacado boolean  NOT NULL,
     millas int  NOT NULL,
+    src_foto varchar(100)  NOT NULL,
     CONSTRAINT premios_millas_pk PRIMARY KEY (premio)
 );
 
