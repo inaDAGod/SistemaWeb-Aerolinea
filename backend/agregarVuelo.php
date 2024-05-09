@@ -9,7 +9,6 @@ if (!$conexion) {
 $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method == 'GET') {
-    // Solicitud GET para cargar ciudades
     $sql = "SELECT ciudad FROM ciudad";
     $resultado = pg_query($conexion, $sql);
     $ciudades = [];
@@ -18,29 +17,44 @@ if ($method == 'GET') {
     }
     echo json_encode($ciudades);
 } elseif ($method == 'POST') {
-    // Solicitud POST para agregar vuelo
     $data = json_decode(file_get_contents('php://input'), true);
+
+    // Validaciones adicionales
+    if (empty($data['origen']) || empty($data['destino']) || empty($data['avion']) ||
+        empty($data['fecha_vuelo']) || empty($data['hora']) ||
+        !is_numeric($data['costo_vip']) || !is_numeric($data['costo_business']) || !is_numeric($data['costo_economico'])) {
+        echo json_encode(['success' => false, 'error' => 'Todos los campos deben estar llenos y los costos deben ser números']);
+        exit;
+    }
+
     if ($data['origen'] === $data['destino']) {
         echo json_encode(['success' => false, 'error' => 'El origen y el destino no pueden ser el mismo']);
         exit;
     }
 
-    $origen = pg_escape_string($conexion, $data['origen']);
-    $destino = pg_escape_string($conexion, $data['destino']);
-    $avion = pg_escape_string($conexion, $data['avion']);
-    $fecha_vuelo = pg_escape_string($conexion, $data['fecha_vuelo']) . ' ' . pg_escape_string($conexion, $data['hora']);
-    $costo_vip = pg_escape_string($conexion, $data['costo_vip']);
-    $costo_business = pg_escape_string($conexion, $data['costo_business']);
-    $costo_economico = pg_escape_string($conexion, $data['costo_economico']);
-
-    $sql = "INSERT INTO vuelos (fecha_vuelo, costovip, origen, destino, costobusiness, costoeco) VALUES ('$fecha_vuelo', $costo_vip, '$origen', '$destino', $costo_business, $costo_economico)";
+    // Insertar el nuevo vuelo
+    $sql = "INSERT INTO vuelos (fecha_vuelo, costovip, origen, destino, costobusiness, costoeco) 
+            VALUES ('{$data['fecha_vuelo']}', '{$data['costo_vip']}', '{$data['origen']}', '{$data['destino']}', '{$data['costo_business']}', '{$data['costo_economico']}') RETURNING cvuelo";
     $resultado = pg_query($conexion, $sql);
 
     if ($resultado) {
+        $row = pg_fetch_assoc($resultado);
+        $cvuelo = $row['cvuelo'];
+        
+        // Insertar asientos para este vuelo en asientos_vuelo
+        for ($i = 1; $i <= 80; $i++) {
+            $casiento = 'Asiento ' . $i;
+            $sql = "INSERT INTO asientos_vuelo (cvuelo, casiento, cavion)
+                    VALUES ('$cvuelo', '$casiento', '{$data['avion']}')
+                    ON CONFLICT (cvuelo, casiento) DO NOTHING;";
+            pg_query($conexion, $sql);
+        }
+        
         echo json_encode(['success' => true]);
     } else {
         echo json_encode(['success' => false, 'error' => 'Error al insertar el vuelo']);
     }
 }
+
 pg_close($conexion);
 ?>
