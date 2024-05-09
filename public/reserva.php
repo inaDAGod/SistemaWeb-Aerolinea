@@ -2,6 +2,9 @@
 // Start session
 session_start();
 
+// Initialize reservation counter to 0 if not already set
+
+
 // Check if form submitted from registro.php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Process data from registro.php and store in database
@@ -23,8 +26,12 @@ $_SESSION['adu'] = $adu;
 $_SESSION['nin'] = $nin;
 $_SESSION['masco'] = $masco;
 $_SESSION['total_people'] = $totalg;
+// Reset reservation counter to 0
+$_SESSION['reservation_counter'] = 0;
+
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">

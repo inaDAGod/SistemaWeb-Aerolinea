@@ -5,7 +5,8 @@ $adu = isset($_SESSION['adu']) ? $_SESSION['adu'] : 0;
 $nin = isset($_SESSION['nin']) ? $_SESSION['nin'] : 0;
 $masco = isset($_SESSION['masco']) ? $_SESSION['masco'] : 0;
 $totalg = isset($_SESSION['total_people']) ? $_SESSION['total_people'] : 0;
-
+$reservation_counter = isset($_SESSION['reservation_counter']) ? $_SESSION['reservation_counter'] : 0;
+echo "Total People: " . $totalg . "<br>";
 
 // Store values in the session
 $_SESSION['adum'] = $adum;
@@ -13,16 +14,14 @@ $_SESSION['adu'] = $adu;
 $_SESSION['nin'] = $nin;
 $_SESSION['masco'] = $masco;
 $_SESSION['total_people'] = $totalg;
+$_SESSION['reservation_counter']=$reservation_counter;
 
-// Initialize reservation counter
-if (!isset($_SESSION['reservation_counter'])) {
-    $_SESSION['reservation_counter'] = 0;
-}
+
 
 // Process form data if the form has been submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Increment reservation counter
-    $_SESSION['reservation_counter']++;
+    
 
     // Connection to the database
     // Move this section to the top to ensure database connection before using it in the rest of the script.
@@ -89,10 +88,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->execute();
 
         echo "¡Reserva exitosa!";
+$_SESSION['reservation_counter']++;
+echo "Total People registrados: " . $_SESSION['reservation_counter'] . "<br>";
 
+// Check if all expected registrations have been made
+if ($_SESSION['reservation_counter'] >= $totalg) {
+    // All reservations are complete, redirect to success page
+    header("Location: reservamu.php");
+    exit;
+}
     } catch(PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
+
+
+    
 
     // Check if all expected registrations have been made
     

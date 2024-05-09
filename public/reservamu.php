@@ -95,58 +95,8 @@
     </p>
 </div>
 
-<div class="centerre">
-    <table class="tablere">
-        <tr class="trre">
-            <th class="thre">Tipo Persona</th>
-            <th class="thre">Cantidad</th>
-            <th class="thre">Total</th>
-        </tr>
-        <tr class="trre">
-            <td class="tdre">Adulto mayor</td>
-            <td class="tdre"><p id="adum"></p></td>
-            <td class="tdre"></td>
-        </tr>
-        <tr class="trre">
-            <td class="tdre">Adultos</td>
-            <td class="tdre"><p id="adu"></p></td>
-            <td class="tdre"></td>
-        </tr>
-        <tr class="trre">
-            <td class="tdre">Niños</td>
-            <td class="tdre"><p id="nin"></p></td>
-            <td class="tdre"></td>
-        </tr>
-        <tr class="trre">
-            <td class="tdre">Mascotas</td>
-            <td class="tdre"><p id="masco"></p></td>
-            <td class="tdre"></td>
-        </tr>
-        <tr class="trre">
-            <td class="tdre"></td>
-            <td class="tdre"></td>
-            <td class="tdre"><p id="totalg"></p></td>
-        </tr>
-    </table>
-</div>
+
 <br>
-
-
-<script>
-    // pasajeros
-    var adum = 1;
-    var adu = 2;
-    var nin = 3;
-    var masco = 4;
-    var totalg = adum + adu + nin + masco;
-    
-    // Set content for each <p> element
-    document.getElementById("adum").textContent = adum;
-    document.getElementById("adu").textContent = adu;
-    document.getElementById("nin").textContent = nin;
-    document.getElementById("masco").textContent = masco;
-    document.getElementById("totalg").textContent = totalg;
-</script>
 
 <!-- Link to the JavaScript file -->
 <script src="scripts\menu.js"></script>
