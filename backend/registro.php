@@ -1,41 +1,29 @@
 <?php
-// Asumiendo que los datos vienen en formato JSON
-$data = json_decode(file_get_contents('php://input'), true);
+// Obtener los datos enviados desde JavaScript
+$json = file_get_contents('php://input');
+$data = json_decode($json);
 
-// Conectar a la base de datos
+$nombres = $data->nombres;
+$apellidos = $data->apellidos;
+$username = $data->username;
+$password = $data->password;
+
+
 $conexion = pg_connect("dbname=aerolinea user=postgres password=admin");
 if (!$conexion) {
-    echo json_encode(['success' => false, 'error' => 'No se pudo conectar a la base de datos']);
-    exit;
-}
-$sql = "SELECT ciudad FROM ciudad";
-$resultado = pg_query($conexion, $sql);
-
-$ciudades = [];
-while ($fila = pg_fetch_assoc($resultado)) {
-    array_push($ciudades, $fila['ciudad']);
+    die("Error al conectar a la base de datos: " . pg_last_error());
 }
 
-echo json_encode($ciudades);
-
-// Extraer datos
-$origen = $data['origen'];
-$destino = $data['destino'];
-$avion = $data['avion'];
-$fecha_vuelo = $data['fecha_vuelo'];
-$hora = $data['hora'];
-$costo_vip = $data['costo_vip'];
-$costo_business = $data['costo_business'];
-$costo_economico = $data['costo_economico'];
-
-// Insertar datos en la base de datos
-$sql = "INSERT INTO vuelos (origen, destino, avion, fecha_vuelo, hora, costoVip, costoBusiness, costoEco) VALUES ('$origen', '$destino', $avion, '$fecha_vuelo $hora', $costo_vip, $costo_business, $costo_economico)";
+$sql = "INSERT INTO usuarios (correo_usuario, contraseña, nombres_usuario, apellidos_usuario, tipo_usuario, millas) VALUES ('$username', '$password', '$nombres', '$apellidos', 'cliente', 0)";
 $resultado = pg_query($conexion, $sql);
 
 if ($resultado) {
-    echo json_encode(['success' => true]);
+    $response = array('estado' => 'registro_exitoso');
+    echo json_encode($response);
 } else {
-    echo json_encode(['success' => false, 'error' => 'Error al insertar el vuelo']);
+    $response = array('estado' => 'error_registro');
+
+    echo json_encode($response);
 }
 
 // Cerrar la conexión
