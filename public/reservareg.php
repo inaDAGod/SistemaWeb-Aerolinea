@@ -345,7 +345,8 @@ setTimeout(function() {
 <!-- Formulario de Reserva -->
 <div class="centerfor">
 <form method="POST">
-    <p><?php
+<p style="text-align: center; margin-left: -43%;margin-top:-3%;margin-bottom:2%;font-size: 25px;">
+    <?php
     // Define the type of person based on available counts
     if ($adum > 0) {
         $tipo_persona = 'Adulto mayor';
@@ -364,9 +365,10 @@ setTimeout(function() {
     }
 
     // Display the type of person
-    echo "<p>$tipo_persona</p>";
+    echo $tipo_persona;
     ?>
-    </p>
+</p>
+
 
         <div class="container">
         <input type="hidden" id="tipo_persona_hidden" name="tipo_persona" value="<?php echo $tipo_persona; ?>">
