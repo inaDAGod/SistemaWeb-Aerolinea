@@ -1,16 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pasajeros</title>
-    <link rel="stylesheet" href="styles/admin_pasajeros.css">
-    <script src="scripts/admin_pasajeros.js" defer></script>
+    <title>Administrar Reservas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <h1 style="text-align: center;">Pasajeros</h1>
-    <button id="button-pa" onclick="buscarPasajero()";" style="float: right;">Buscar</button>
-    <input type="text" id="documento" placeholder="Documento">
-    <div id="pasajeros-container"></div>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #87CEFA;">
+        <div class="nav-item">
+            <div style="display: flex; align-items: center; margin-right: 10px;">
+                <img src="assets/avion.png" alt="Menu Icon" style="width: 80px;"> <!-- Ajusta el tamaño según necesites -->
+                <h3>VuelaBodo</h3>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h2 style="text-align: center; font-weight: bold;">Pasajeros</h2>
+        <div class="row mb-3">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Número de documento" id="numeroDocumento">
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-primary" id="buscarBtn" type="button">
+                    <i class="fa fa-search"></i> Buscar
+                </button>
+            </div>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Tipo pasajero</th>
+                    <th>Asiento</th>
+                    <th>Tipo Asiento</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Documento</th>
+                    <th>Estado Check-In</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts/admin_pasajeros.js"></script>
 </body>
 </html>
