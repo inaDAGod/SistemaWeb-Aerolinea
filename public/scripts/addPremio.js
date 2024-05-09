@@ -43,3 +43,5 @@ function guardarProducto(){
         alert('Llena todos los campos');
     }
 }
+
+
