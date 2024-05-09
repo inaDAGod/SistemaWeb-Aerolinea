@@ -133,37 +133,37 @@ $_SESSION['reservation_counter'] = 0;
     </p>
 </div>
 
-<div class="centerre">
-    <table class="tablere">
-        <tr class="trre">
-            <th class="thre">Tipo Persona</th>
-            <th class="thre">Cantidad</th>
-            <th class="thre">Total</th>
+<div class="centerre1">
+    <table class="tablere1">
+        <tr class="trre1">
+            <th class="thre1">Tipo Persona</th>
+            <th class="thre1">Cantidad</th>
+            <th class="thre1">Total</th>
         </tr>
-        <tr class="trre">
-            <td class="tdre">Adulto mayor</td>
-            <td class="tdre"><p><?php echo isset($_SESSION['adum']) ? $_SESSION['adum'] : 0; ?></p></td>
-            <td class="tdre"></td>
+        <tr class="trre1">
+            <td class="tdre1">Adulto mayor</td>
+            <td class="tdre1"><p><?php echo isset($_SESSION['adum']) ? $_SESSION['adum'] : 0; ?></p></td>
+            <td class="tdre1"></td>
         </tr>
-        <tr class="trre">
-            <td class="tdre">Adultos</td>
-            <td class="tdre"><p><?php echo isset($_SESSION['adu']) ? $_SESSION['adu'] : 0; ?></p></td>
-            <td class="tdre"></td>
+        <tr class="trre1">
+            <td class="tdre1">Adultos</td>
+            <td class="tdre1"><p><?php echo isset($_SESSION['adu']) ? $_SESSION['adu'] : 0; ?></p></td>
+            <td class="tdre1"></td>
         </tr>
-        <tr class="trre">
-            <td class="tdre">Niños</td>
-            <td class="tdre"><p><?php echo isset($_SESSION['nin']) ? $_SESSION['nin'] : 0; ?></p></td>
-            <td class="tdre"></td>
+        <tr class="trre1">
+            <td class="tdre1">Niños</td>
+            <td class="tdre1"><p><?php echo isset($_SESSION['nin']) ? $_SESSION['nin'] : 0; ?></p></td>
+            <td class="tdre1"></td>
         </tr>
-        <tr class="trre">
-            <td class="tdre">Mascotas</td>
-            <td class="tdre"><p><?php echo isset($_SESSION['masco']) ? $_SESSION['masco'] : 0; ?></p></td>
-            <td class="tdre"></td>
+        <tr class="trre1">
+            <td class="tdre1">Mascotas</td>
+            <td class="tdre1"><p><?php echo isset($_SESSION['masco']) ? $_SESSION['masco'] : 0; ?></p></td>
+            <td class="tdre1"></td>
         </tr>
-        <tr class="trre">
-            <td class="tdre"></td>
-            <td class="tdre"></td>
-            <td class="tdre"><p><?php echo isset($_SESSION['total_people']) ? $_SESSION['total_people'] : 0; ?></p></td>
+        <tr class="trre1">
+            <td class="tdre1"></td>
+            <td class="tdre1"></td>
+            <td class="tdre1"><p><?php echo isset($_SESSION['total_people']) ? $_SESSION['total_people'] : 0; ?></p></td>
         </tr>
     </table>
 </div>

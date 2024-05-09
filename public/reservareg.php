@@ -232,7 +232,7 @@ setTimeout(function() {
     </style>
 </head>
 <body>
-<header class="py-3 cliente-header">
+<header class="py-3 cliente-header" style="height:12.5%">
     <div class="container d-flex justify-content-between align-items-center" style="padding: 20px; margin-top: 15px; margin-bottom: 5px; color: white;">
         <nav class="navbar navbar-expand-lg navbar" style="position: absolute; left: 0; margin-bottom: 5px;">
             <ul class="navbar-nav" style="display: flex; align-items: center; position: absolute; left: 0; margin-right: 10%;">
@@ -269,11 +269,12 @@ setTimeout(function() {
     </ul>
 </nav>
 <br>
+
 <!-- Botón de Cancelar Reserva -->
-<button class="btn btn" style=" left: 0; top: 14%; color: rgba(8, 86, 167, 1);">Cancelar reserva</button>
+<button class="btn btn" style=" left: 0;  color: rgba(8, 86, 167, 1);">Cancelar reserva</button>
 
 <!-- Título -->
-<h1 class="h1rese">Reservar </h1>
+<h2 class="h1rese2">Reservar </h2>
 
 <!-- Datos del Vuelo -->
 <div class="datos">
@@ -414,7 +415,7 @@ setTimeout(function() {
 
             </div>
         </div><br><br>
-        <button type="submit" class="btn btn-success" style="position: absolute; right: 0; color: rgba(8, 86, 167, 1); background-color: rgba(255, 196, 79, 1); border-radius: 20px; margin-right: 2%; margin-top: -3%; width: 10%; font-size: 20px;">Siguiente</button>
+        <button type="submit" class="btn btn-success" style="position: absolute; right: 0; color: rgba(8, 86, 167, 1); background-color: rgba(255, 196, 79, 1); border-radius: 20px; margin-right: 2%; margin-top: 3%; width: 10%; font-size: 20px;">Siguiente</button>
     </form>
 </div>
 <script>
