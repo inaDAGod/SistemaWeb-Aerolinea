@@ -6,7 +6,7 @@ $nin = isset($_SESSION['nin']) ? $_SESSION['nin'] : 0;
 $masco = isset($_SESSION['masco']) ? $_SESSION['masco'] : 0;
 $totalg = isset($_SESSION['total_people']) ? $_SESSION['total_people'] : 0;
 $reservation_counter = isset($_SESSION['reservation_counter']) ? $_SESSION['reservation_counter'] : 0;
-echo "Total People: " . $totalg . "<br>";
+
 
 $cvuelosnum = isset($_SESSION['cvuelosnum']) ? $_SESSION['cvuelosnum'] : 0;
 $_SESSION['cvuelosnum'] = $cvuelosnum;
@@ -57,16 +57,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 exit; // Exit script to prevent further execution
             }
         }
-
-        // Insert data into the personas table
-        $stmt = $conn->prepare("INSERT INTO personas (ci_persona, nombres, apellidos, fecha_nacimiento, sexo) 
-                                VALUES (:ci_persona, :nombres, :apellidos, :fecha_nacimiento, :sexo)");
-        $stmt->bindParam(':ci_persona', $ci_persona);
-        $stmt->bindParam(':nombres', $nombres);
-        $stmt->bindParam(':apellidos', $apellidos);
-        $stmt->bindParam(':fecha_nacimiento', $fecha_nacimiento);
-        $stmt->bindParam(':sexo', $sexo);
-        $stmt->execute();
+        if (!empty($ci_persona)) {
+            try {
+                // Insert data into the personas table
+                $stmt = $conn->prepare("INSERT INTO personas (ci_persona, nombres, apellidos, fecha_nacimiento, sexo) 
+                                        VALUES (:ci_persona, :nombres, :apellidos, :fecha_nacimiento, :sexo)");
+                $stmt->bindParam(':ci_persona', $ci_persona);
+                $stmt->bindParam(':nombres', $nombres);
+                $stmt->bindParam(':apellidos', $apellidos);
+                $stmt->bindParam(':fecha_nacimiento', $fecha_nacimiento);
+                $stmt->bindParam(':sexo', $sexo);
+                $stmt->execute();
+            } catch(PDOException $e) {
+                echo "Error: " . $e->getMessage();
+                // Handle the error as needed
+            }
+        }
 
         // Insert data into the boletos table
         if ($cvuelo) {
@@ -80,37 +86,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmt->execute();
         }
 
-        // Insert data into the reservas_personas table
-        $creserva = $creservanum; // Set manually the value of "creserva"
-        $estado_reserva = 'Pendiente';
-        $stmt = $conn->prepare("INSERT INTO reservas_personas (creserva, ci_persona, estado_reserva, cvuelo, casiento) 
-                                VALUES (:creserva, :ci_persona, :estado_reserva, :cvuelo, :casiento)");
-        $stmt->bindParam(':creserva', $creserva);
-        $stmt->bindParam(':ci_persona', $ci_persona);
-        $stmt->bindParam(':estado_reserva', $estado_reserva);
-        $stmt->bindParam(':cvuelo', $cvuelo);
-        $stmt->bindParam(':casiento', $casiento_seleccionado);
-        $stmt->execute();
+        if (!empty($ci_persona)) {
+            try {
+                // Insert data into the reservas_personas table
+                $creserva = $creservanum; // Set manually the value of "creserva"
+                $estado_reserva = 'Pendiente';
+                $stmt = $conn->prepare("INSERT INTO reservas_personas (creserva, ci_persona, estado_reserva, cvuelo, casiento) 
+                                        VALUES (:creserva, :ci_persona, :estado_reserva, :cvuelo, :casiento)");
+                $stmt->bindParam(':creserva', $creserva);
+                $stmt->bindParam(':ci_persona', $ci_persona);
+                $stmt->bindParam(':estado_reserva', $estado_reserva);
+                $stmt->bindParam(':cvuelo', $cvuelo);
+                $stmt->bindParam(':casiento', $casiento_seleccionado);
+                $stmt->execute();
 
-        echo "¡Reserva exitosa!";
-$_SESSION['reservation_counter']++;
-echo "Total People registrados: " . $_SESSION['reservation_counter'] . "<br>";
+                echo "<span id='reserva_success'>¡Reserva exitosa!</span>";
+                $_SESSION['reservation_counter']++;
 
-// Check if all expected registrations have been made
-if ($_SESSION['reservation_counter'] >= $totalg) {
-    // All reservations are complete, redirect to success page
-    header("Location: reservamu.php");
-    exit;
-}
+                // Check if all expected registrations have been made
+                if ($_SESSION['reservation_counter'] >= $totalg) {
+                    // All reservations are complete, redirect to success page
+                    header("Location: reservamu.php");
+                    exit;
+                }
+            } catch(PDOException $e) {
+                echo "Error: " . $e->getMessage();
+                // Handle the error as needed
+            }
+        }
     } catch(PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
-
-
-    
-
-    // Check if all expected registrations have been made
-    
 }
 
 function obtener_cvuelo_del_asiento($conn, $casiento_seleccionado) {
@@ -146,6 +152,17 @@ function obtener_costo_del_vuelo($conn, $cvuelo) {
     return $result['costo'];
 }
 ?>
+
+<script>
+// JavaScript code to hide the successful reservation message after 6 seconds
+setTimeout(function() {
+    var reservaSuccess = document.getElementById('reserva_success');
+    if (reservaSuccess) {
+        reservaSuccess.style.display = 'none';
+    }
+}, 6000); // 6 seconds
+</script>
+
 
 
 

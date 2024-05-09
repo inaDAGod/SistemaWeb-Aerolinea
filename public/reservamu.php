@@ -150,8 +150,6 @@ try {
     </p>
 </div>
 
-
-<br>
 <div class="centerre">
 <table class="tablere" >
     <tr class="trre">
