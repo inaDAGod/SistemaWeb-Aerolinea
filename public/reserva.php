@@ -15,9 +15,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // Store total number of people in session
 $adum = 0;
-$adu = 2;
+$adu = 0;
 $nin = 0;
-$masco = 2;
+$masco = 1;
 $totalg = $adum + $adu + $nin + $masco;
 $cvuelosnum = 6; // Por ejemplo, puedes cambiar este valor según tus necesidades
 $creservanum = 7; // Por ejemplo, puedes cambiar este valor según tus necesidades

@@ -16,14 +16,54 @@ $password = 'admin';
 // Cadena de conexión a PostgreSQL
 $dsn = "pgsql:host=$host;port=$port;dbname=$dbname;user=$user;password=$password";
 
-try {
-    // Conectar a la base de datos
-    $conn = new PDO($dsn);
+// Function to update the reservation status
+function confirmarReserva($creservanum)
+{
+    global $dsn;
+    try {
+        // Connect to the database
+        $conn = new PDO($dsn);
+        // Set PDO to throw exceptions on error
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Configurar para que PDO lance excepciones en caso de error
+        // SQL to update the reservation status to 'Confirmada'
+        $sql = "UPDATE reservas_personas SET estado_reserva = 'Confirmada' WHERE creserva = :creserva";
+
+        // Prepare the SQL statement
+        $stmt = $conn->prepare($sql);
+
+        // Bind parameters
+        $stmt->bindParam(':creserva', $creservanum, PDO::PARAM_INT);
+
+        // Execute the statement
+        $stmt->execute();
+
+        // Close the connection
+        $conn = null;
+
+        // Return success message
+        return "Reserva confirmada exitosamente.";
+    } catch (PDOException $e) {
+        // Return error message if an exception occurs
+        return "Error: " . $e->getMessage();
+    }
+}
+
+// Check if the Confirmar Reserva button is clicked
+if (isset($_POST['confirmar_reserva'])) {
+    // Call the function to update the reservation status
+    $confirmacion = confirmarReserva($creservanum);
+    echo "<script>alert('$confirmacion'); window.location.href = 'index.html';</script>";
+}
+
+// Fetch reservation data from the database
+try {
+    // Connect to the database
+    $conn = new PDO($dsn);
+    // Set PDO to throw exceptions on error
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Consulta SQL
+    // SQL to fetch reservation details
     $sql = "SELECT 
                 p.tipo_persona,
                 p.nombres AS nombre,
@@ -38,21 +78,24 @@ try {
             JOIN 
                 reservas r ON rp.creserva = r.creserva
             WHERE 
-                r.creserva = $creservanum";
+                r.creserva = :creserva";
 
-    // Preparar consulta
+    // Prepare the SQL statement
     $stmt = $conn->prepare($sql);
 
-    // Ejecutar consulta
+    // Bind parameters
+    $stmt->bindParam(':creserva', $creservanum, PDO::PARAM_INT);
+
+    // Execute the statement
     $stmt->execute();
 
-    // Obtener resultados
+    // Fetch all rows from the result set
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    // En caso de error, mostrar mensaje y detener ejecución
+    // Display error message if an exception occurs
     echo "Error: " . $e->getMessage();
-    die();
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -179,8 +222,17 @@ try {
 </table>
 </div>
 <center>
-<button type="submit" class="btn btn" style="color: rgba(8, 86, 167, 1); background-color: rgba(255, 196, 79, 1); border-radius: 20px; margin-right: 2%; margin-top: 3%; width: 10%; font-size: 20px;">Siguiente</button></center>
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+<button type="submit" class="btn btn" name="confirmar_reserva" style="color: rgba(8, 86, 167, 1); background-color: rgba(255, 196, 79, 1); border-radius: 20px; margin-right: 2%; margin-top: 3%; width: 10%; font-size: 20px;">Confirmar Reserva</button>
+</form>
+</center>
 <!-- Link to the JavaScript file -->
 <script src="scripts\menu.js"></script>
+<script>
+    // JavaScript to redirect to index.html after showing the notification
+    setTimeout(function(){
+        window.location.href = 'index.html';
+    }, 3000); // 3000 milliseconds = 3 seconds
+</script>
 </body>
 </html>
