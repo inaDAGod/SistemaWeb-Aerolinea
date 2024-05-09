@@ -401,7 +401,7 @@ setTimeout(function() {
             </div>
             <div class="seat-selection">
             <h3 class="vuelos">Seleccionar Asiento de Vuelo</h3>
-<table border="1">
+            <table border="1">
     <tr>
         <?php
         // Establish connection to the database
@@ -413,17 +413,29 @@ setTimeout(function() {
             $conn = new PDO("pgsql:host=$host;dbname=$dbname", $username, $password);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            // Consultar los tipos de asientos disponibles para el avión seleccionado
-            $query = "SELECT DISTINCT tipo_asiento FROM asientos WHERE cavion = :cavion ORDER BY tipo_asiento";
-            $stmt = $conn->prepare($query);
-            $cavion = 11; // Esto debería ser dinámico según el avión seleccionado
-            $stmt->bindParam(':cavion', $cavion);
-            $stmt->execute();
-            $tipos_asiento = $stmt->fetchAll(PDO::FETCH_COLUMN);
+            // Fetch the cavion for the given flight from the asientos_vuelo table
+            $query_cavion = "SELECT cavion FROM asientos_vuelo WHERE cvuelo = :cvuelo LIMIT 1";
+            $stmt_cavion = $conn->prepare($query_cavion);
+            $stmt_cavion->bindParam(':cvuelo', $cvuelosnum);
+            $stmt_cavion->execute();
+            $cavion_result = $stmt_cavion->fetch(PDO::FETCH_ASSOC);
 
-            // Mostrar los tipos de asientos como columnas en la tabla
-            foreach ($tipos_asiento as $tipo) {
-                echo '<th>' . $tipo . '</th>';
+            if ($cavion_result) {
+                $cavion = $cavion_result['cavion'];
+
+                // Consultar los tipos de asientos disponibles para el avión seleccionado
+                $query_tipos_asiento = "SELECT DISTINCT tipo_asiento FROM asientos WHERE cavion = :cavion ORDER BY tipo_asiento";
+                $stmt_tipos_asiento = $conn->prepare($query_tipos_asiento);
+                $stmt_tipos_asiento->bindParam(':cavion', $cavion);
+                $stmt_tipos_asiento->execute();
+                $tipos_asiento = $stmt_tipos_asiento->fetchAll(PDO::FETCH_COLUMN);
+
+                // Mostrar los tipos de asientos como columnas en la tabla
+                foreach ($tipos_asiento as $tipo) {
+                    echo '<th>' . $tipo . '</th>';
+                }
+            } else {
+                echo "No se encontró el avión para el vuelo dado.";
             }
         } catch(PDOException $e) {
             echo "Error: " . $e->getMessage();
@@ -431,39 +443,41 @@ setTimeout(function() {
         ?>
     </tr>
     <?php
-    try {
-        // Consultar los asientos disponibles para el avión seleccionado, ordenados por fila y número de asiento
-        $query = "SELECT cavion, casiento, tipo_asiento FROM asientos WHERE cavion = :cavion ORDER BY SUBSTRING(casiento, 1, 1), casiento";
-        $stmt = $conn->prepare($query);
-        $stmt->bindParam(':cavion', $cavion);
-        $stmt->execute();
-        $asientos_disponibles = $stmt->fetchAll(PDO::FETCH_ASSOC);
+try {
+    // Consultar los asientos disponibles para el avión seleccionado, excluyendo los asientos reservados
+    $query_asientos = "SELECT a.casiento, a.tipo_asiento FROM asientos a LEFT JOIN reservas_personas r ON a.casiento = r.casiento WHERE a.cavion = :cavion AND r.cvuelo IS NULL ORDER BY SUBSTRING(a.casiento, 1, 1), a.casiento";
+    $stmt_asientos = $conn->prepare($query_asientos);
+    $stmt_asientos->bindParam(':cavion', $cavion);
+    $stmt_asientos->execute();
+    $asientos_disponibles = $stmt_asientos->fetchAll(PDO::FETCH_ASSOC);
 
-        // Inicializar la matriz para almacenar los asientos por fila
-        $asientos_por_fila = array();
-        foreach ($asientos_disponibles as $asiento) {
-            $fila = substr($asiento['casiento'], 0, -1);
-            $asientos_por_fila[$fila][$asiento['tipo_asiento']] = $asiento['casiento'];
-        }
-
-        // Iterar sobre las filas y mostrar los asientos por tipo como columnas
-        foreach ($asientos_por_fila as $fila => $asientos) {
-            echo '<tr>';
-            foreach ($tipos_asiento as $tipo) {
-                echo '<td>';
-                if (isset($asientos[$tipo])) {
-                    // Updated radio button with onchange event
-                    echo '<input type="radio" name="casiento_seleccionado" value="' . $asientos[$tipo] . '" onchange="updateSelectedSeat(this.value)">';
-                }
-                echo '</td>';
-            }
-            echo '</tr>';
-        }
-    } catch(PDOException $e) {
-        echo "Error: " . $e->getMessage();
+    // Inicializar la matriz para almacenar los asientos por fila
+    $asientos_por_fila = array();
+    foreach ($asientos_disponibles as $asiento) {
+        $fila = substr($asiento['casiento'], 0, -1);
+        $asientos_por_fila[$fila][$asiento['tipo_asiento']] = $asiento['casiento'];
     }
-    ?>
+
+    // Iterar sobre las filas y mostrar los asientos por tipo como columnas
+    foreach ($asientos_por_fila as $fila => $asientos) {
+        echo '<tr>';
+        foreach ($tipos_asiento as $tipo) {
+            echo '<td>';
+            if (isset($asientos[$tipo])) {
+                // Display the seat number along with the radio button
+                echo '<label><input type="radio" name="casiento_seleccionado" value="' . $asientos[$tipo] . '" onchange="updateSelectedSeat(this.value)"> ' . $asientos[$tipo] . '</label>';
+            }
+            echo '</td>';
+        }
+        echo '</tr>';
+    }
+} catch(PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
+?>
+
 </table>
+
 
             </div>
         </div><br><br>
