@@ -1,5 +1,52 @@
+<?php
+// Parámetros de conexión (reemplaza con tus propios valores)
+$host = 'localhost'; // Cambia esto
+$port = '5432'; // Puerto predeterminado de PostgreSQL
+$dbname = 'aerio';
+$user = 'postgres'; // Cambia esto
+$password = 'admin';
 
+// Cadena de conexión a PostgreSQL
+$dsn = "pgsql:host=$host;port=$port;dbname=$dbname;user=$user;password=$password";
 
+try {
+    // Conectar a la base de datos
+    $conn = new PDO($dsn);
+
+    // Configurar para que PDO lance excepciones en caso de error
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Consulta SQL
+    $sql = "SELECT 
+                p.tipo_persona,
+                p.nombres AS nombre,
+                p.apellidos AS apellido,
+                p.ci_persona AS CI,
+                p.fecha_nacimiento,
+                rp.casiento AS asiento
+            FROM 
+                personas p
+            JOIN 
+                reservas_personas rp ON p.ci_persona = rp.ci_persona
+            JOIN 
+                reservas r ON rp.creserva = r.creserva
+            WHERE 
+                r.creserva = 6";
+
+    // Preparar consulta
+    $stmt = $conn->prepare($sql);
+
+    // Ejecutar consulta
+    $stmt->execute();
+
+    // Obtener resultados
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    // En caso de error, mostrar mensaje y detener ejecución
+    echo "Error: " . $e->getMessage();
+    die();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -97,6 +144,34 @@
 
 
 <br>
+<h2>Datos de la reserva número 6:</h2>
+<table border="1">
+    <tr>
+        <th>Tipo Persona</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>CI</th>
+        <th>Fecha de Nacimiento</th>
+        <th>Asiento</th>
+    </tr>
+
+    <?php
+    // Mostrar resultados de la consulta
+    foreach ($result as $row) {
+        echo "<tr>";
+        echo "<td>" . $row["tipo_persona"] . "</td>";
+        echo "<td>" . $row["nombre"] . "</td>";
+        echo "<td>" . $row["apellido"] . "</td>";
+        echo "<td>" . $row["ci"] . "</td>";
+        echo "<td>" . $row["fecha_nacimiento"] . "</td>";
+        echo "<td>" . $row["asiento"] . "</td>";
+        echo "</tr>";
+    }
+    ?>
+
+</table>
+
+
 
 <!-- Link to the JavaScript file -->
 <script src="scripts\menu.js"></script>
