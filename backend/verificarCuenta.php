@@ -2,27 +2,24 @@
 // Obtener los datos enviados desde JavaScript
 $json = file_get_contents('php://input');
 $data = json_decode($json);
-
-$nombres = $data->nombres;
-$apellidos = $data->apellidos;
 $username = $data->username;
-$password = $data->password;
 
+// Escapar el valor de $username para evitar inyección SQL
+$username = pg_escape_string($username);
 
 $conexion = pg_connect("dbname=aerolinea user=postgres password=admin");
 if (!$conexion) {
     die("Error al conectar a la base de datos: " . pg_last_error());
 }
 
-$sql = "INSERT INTO usuarios (correo_usuario, contraseña, nombres_usuario, apellidos_usuario, tipo_usuario, millas) VALUES ('$username', '$password', '$nombres', '$apellidos', 'cliente', 0)";
+$sql = "SELECT * FROM usuarios WHERE correo_usuario = '$username'";
 $resultado = pg_query($conexion, $sql);
 
-if ($resultado) {
-    $response = array('estado' => 'registro_exitoso');
+if ($resultado && pg_num_rows($resultado) == 0) {
+    $response = array('estado' => 'cuenta_inexistente');
     echo json_encode($response);
 } else {
-    $response = array('estado' => 'error_registro');
-
+    $response = array('estado' => 'cuenta_existente');
     echo json_encode($response);
 }
 

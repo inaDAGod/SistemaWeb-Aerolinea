@@ -13,3 +13,31 @@ function toggleForm() {
     inicioSesionForm.style.display = 'none';
   }
 }
+
+function toggleFormVeri() {
+      var registroForm = document.getElementById('registro');
+      var veriForm = document.getElementById('verificacion');
+      registroForm.style.display = 'none';
+      veriForm.style.display= 'block';
+}
+function toggleFormRes(){
+  var inicioSesionForm = document.getElementById('inicio-sesion');
+  var resForm = document.getElementById('restauracion');
+  resForm.style.display= 'block';
+  inicioSesionForm.style.display = 'none';
+ 
+}
+function toggleFormRes2(){
+  var resForm = document.getElementById('restauracion2');
+  var resForm2 = document.getElementById('restaurarContra');
+  resForm2.style.display= 'block';
+  resForm.style.display = 'none';
+ 
+}
+function toggleFormRes3(){
+  var resForm = document.getElementById('restauracion');
+  var resForm2 = document.getElementById('restauracion2');
+  resForm2.style.display= 'block';
+  resForm.style.display = 'none';
+ 
+}

@@ -14,7 +14,7 @@ if (!$conexion) {
     die("Error al conectar a la base de datos: " . pg_last_error());
 }
 
-$sql = "INSERT INTO usuarios (correo_usuario, contraseña, nombres_usuario, apellidos_usuario, tipo_usuario, millas) VALUES ('$username', '$password', '$nombres', '$apellidos', 'cliente', 0)";
+$sql = "INSERT INTO usuarios (correo_usuario, contraseña, nombres_usuario, apellidos_usuario, tipo_usuario, millas) VALUES ('$username', '$password', '$nombres', '$apellidos', 'administrador', 0)";
 $resultado = pg_query($conexion, $sql);
 
 if ($resultado) {
