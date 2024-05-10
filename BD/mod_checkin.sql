@@ -85,7 +85,7 @@ INSERT INTO reservas_personas (creserva, ci_persona, estado_reserva, cvuelo, cas
 
 --está con varchar pero los datos que debe tener son solo PENDIENTE Y REALIZADO
 alter table check_in
-add column estado_checkin
+add column estado_checkin varchar (20);
 
 
 --si tienen datos previos en sus bds y quieren añadir el estado del check-in para probarlo
