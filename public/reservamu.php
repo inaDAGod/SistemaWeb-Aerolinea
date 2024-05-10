@@ -213,7 +213,7 @@ try {
 </div>
 <center>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-<button type="submit" class="btn btn" name="confirmar_reserva" style="color: rgba(8, 86, 167, 1); background-color: rgba(255, 196, 79, 1); border-radius: 20px; margin-right: 2%; margin-top: 3%; width: 10%; font-size: 20px;">Confirmar Reserva</button>
+<button type="submit" class="btn btn" name="confirmar_reserva" style="color: rgba(8, 86, 167, 1); background-color: rgba(255, 196, 79, 1); border-radius: 20px; margin-right: 2%; margin-top: 3%; width: 10%; font-size: 20px;">Confirmar</button>
 </form>
 
 </center>
