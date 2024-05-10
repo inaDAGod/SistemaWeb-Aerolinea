@@ -1,5 +1,6 @@
 $(document).ready(function() {
     loadAllPassengers();
+
     $("#buscarBtn").click(function() {
         var documento = $("#numeroDocumento").val();
         if (!documento) {
@@ -8,16 +9,16 @@ $(document).ready(function() {
         }
   
         $.ajax({
-            url: 'http://localhost/SistemaWeb-Aerolinea/backend/reservasAdmin.php', // Asegúrate de que la ruta es correcta
+            url: 'http://localhost/SistemaWeb-Aerolinea/backend/reservasAdmin.php',
             type: 'POST',
-            contentType: 'application/json', // Especifica que el tipo de contenido enviado es JSON
-            dataType: 'json', // Especifica que esperas una respuesta en formato JSON
-            data: JSON.stringify({ documento: documento }), // Convierte el objeto de datos a una cadena JSON
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify({ documento: documento }),
             success: function(response) {
                 if (response.error) {
                     alert(response.error);
                 } else if (response.length === 0) {
-                    alert("No hay reservas con el carnet introducido");
+                    alert("No hay reservas con el documento introducido");
                 } else {
                     updateTable(response);
                 }
@@ -28,7 +29,6 @@ $(document).ready(function() {
         });
     });
 
-  // Función para cargar todos los pasajeros
     function loadAllPassengers() {
         $.ajax({
             url: 'http://localhost/SistemaWeb-Aerolinea/backend/reservasAdmin.php',
@@ -45,9 +45,10 @@ $(document).ready(function() {
             }
         });
     }
+
     function updateTable(data) {
         var tbody = $('table tbody');
-        tbody.empty(); // Limpia la tabla antes de agregar nuevos datos
+        tbody.empty();
         data.forEach(function(item) {
             var row = `<tr>
                 <td>${item.tipo_pasajero}</td>
@@ -56,9 +57,39 @@ $(document).ready(function() {
                 <td>${item.nombres}</td>
                 <td>${item.apellidos}</td>
                 <td>${item.documento}</td>
-                <td>${item.estado_reserva}</td>
+                <td>
+                    <select class="estado-reserva-dropdown" data-documento="${item.documento}">
+                        <option value="Pendiente" ${item.estado_reserva === "Pendiente" ? "selected" : ""}>Pendiente</option>
+                        <option value="Pagado" ${item.estado_reserva === "Pagado" ? "selected" : ""}>Pagado</option>
+                        <option value="Cancelado" ${item.estado_reserva === "Cancelado" ? "selected" : ""}>Cancelado</option>
+                    </select>
+                </td>
             </tr>`;
             tbody.append(row);
         });
+
+        $('.estado-reserva-dropdown').change(function() {
+            var documento = $(this).data('documento');
+            var nuevoEstado = $(this).val();
+            updateReservaStatus(documento, nuevoEstado);
+        });
     }
-  });
+
+    function updateReservaStatus(documento, nuevoEstado) {
+        $.ajax({
+            url: 'http://localhost/SistemaWeb-Aerolinea/backend/estado_reserva.php',
+            type: 'POST',
+            data: { documento: documento, estado: nuevoEstado },
+            success: function(response) {
+                if (response.error) {
+                    alert(response.error);
+                } else {
+                    alert('Estado de reserva actualizado correctamente');
+                }
+            },
+            error: function(xhr, status, error) {
+                alert("Error en AJAX: " + error);
+            }
+        });
+    }
+});

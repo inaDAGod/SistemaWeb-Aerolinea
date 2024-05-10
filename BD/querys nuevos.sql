@@ -80,3 +80,8 @@ SET casiento = 'Asiento 39'
 WHERE ci_persona = '8002001' AND cvuelo = 3 AND casiento = 'Asiento 2';
 
 select * from reservas_personas
+
+--actualizo un estado de las reservas
+UPDATE estados_reserva
+SET estado_reserva = 'Cancelado'
+WHERE estado_reserva = 'Realizado';
