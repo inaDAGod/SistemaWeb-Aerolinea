@@ -4,29 +4,28 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
-.h1menu{
+h1{
     font-family: 'Inter', sans-serif;
-    font-size: 80px;
+    font-size: 70px;
     text-align: center;
     margin-top: 3%;
     color: rgba(8, 86, 167, 1);
 }
 
-
-
-.cliente-header,
-.user-header,
-.admin-header {
+header {
     background-color: rgba(143, 188, 234, 1);
     padding: 10px;
     display: flex;
     justify-content: space-between;
     font-family: 'Inter', sans-serif;
+    left:0;
     height: 50%;
+    color: white;
+    font-size: 40px;
 }
 
 .menu-toggle {
-    background-color:white;
+    background-color: rgba(143, 188, 234, 1);
     border: none;
     cursor: pointer;
     padding: 5px;
@@ -37,7 +36,10 @@ body {
     height: 30px;
 }
 
-
+img{
+    width: 50%;
+    height: 50%;
+}
 
 #mini-nav.show {
     display: block; /* Show when the 'show' class is added */
@@ -46,7 +48,7 @@ body {
 /* Style for mini nav links */
 #mini-nav {
     position: absolute;
-    top: calc(100% + 20px); /* Position it below the button */
+    top: calc(100% + 10px); /* Position it below the button */
     right: 0; /* Align it to the right */
     transform: translateX(100%); /* Move it to the right edge */
     width: 150px; /* Adjust width as needed */
@@ -62,48 +64,33 @@ h3{
     
 }
 
-
-
-#nav-links-containercli {
-    display: flex;
-    align-items: center;
-    flex-direction: row; /* Ensure items align horizontally */
-    margin-left: 83%; /* Push the navbar links to the right */
+#mini-nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
-.nav-linkcli {
-    color: white;
-    margin-right: 10px; /* Add some space between links */
-    white-space: nowrap;
-    font-size: 35px;
-    margin-right: 30px;
-}
-#nav-links-containeradmin {
-    display: flex;
-    align-items: center;
-    flex-direction: row; /* Ensure items align horizontally */
-    margin-left: 85%; /* Push the navbar links to the right */
+#mini-nav ul li {
+    padding: 10px;
 }
 
-.nav-linkadd {
-    color: white;
-    margin-right: 10px; /* Add some space between links */
-    white-space: nowrap;
-    font-size: 35px;
-    margin-right: 30px;
-}
-#nav-links-containernon {
-    display: flex;
-    align-items: center;
-    flex-direction: row; /* Ensure items align horizontally */
-    margin-left: 70%; /* Push the navbar links to the right */
+#mini-nav ul li a {
+    text-decoration: none;
+    color: white; /* Change text color to white */
 }
 
-.nav-linknon {
-    color: white;
-    margin-right: 10px; /* Add some space between links */
-    white-space: nowrap;
-    font-size: 35px;
-    margin-right: 30px;
+#mini-nav ul li a:hover {
+    color: rgba(143, 188, 234, 1);
 }
 
+
+
+.nav-item a {
+    color: white; /* Text color */
+    font-size: 25px; /* Font size */
+    text-decoration: none; /* Remove underline */
+}
+
+.nav-item a:hover {
+    color: lightblue; /* Text color on hover */
+}
