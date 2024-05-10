@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Connection to the database
     // Move this section to the top to ensure database connection before using it in the rest of the script.
     $host = 'localhost'; // Change this
-    $dbname = 'aerio';
+    $dbname = 'aerolinea';
     $username = 'postgres'; // Change this
     $password = 'admin'; // Change this
     try {
@@ -300,7 +300,7 @@ setTimeout(function() {
         <?php
         // Establish connection to the database
         $host = 'localhost'; // Cambia esto
-        $dbname = 'aerio';
+        $dbname = 'aerolinea';
         $username = 'postgres'; // Cambia esto
         $password = 'admin'; // Cambia esto
         try {
@@ -398,7 +398,7 @@ setTimeout(function() {
         <?php
         // Establish connection to the database
         $host = 'localhost'; // Change this
-        $dbname = 'aerio';
+        $dbname = 'aerolinea';
         $username = 'postgres'; // Change this
         $password = 'admin'; // Change this
         try {
