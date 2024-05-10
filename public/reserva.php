@@ -19,8 +19,8 @@ $adu = 0;
 $nin = 0;
 $masco = 1;
 $totalg = $adum + $adu + $nin + $masco;
-$cvuelosnum = 1; // Por ejemplo, puedes cambiar este valor según tus necesidades
-$creservanum = 1; // Por ejemplo, puedes cambiar este valor según tus necesidades
+$cvuelosnum = 7; // Por ejemplo, puedes cambiar este valor según tus necesidades
+$creservanum = 7; // Por ejemplo, puedes cambiar este valor según tus necesidades
 
 // Guarda $creserva en una variable de sesión
 $_SESSION['cvuelosnum'] = $cvuelosnum;
@@ -81,7 +81,7 @@ $_SESSION['reservation_counter'] = 0;
         <?php
         // Establish connection to the database
         $host = 'localhost'; // Cambia esto
-        $dbname = 'aerolinea';
+        $dbname = 'aerio';
         $username = 'postgres'; // Cambia esto
         $password = 'admin'; // Cambia esto
         try {
