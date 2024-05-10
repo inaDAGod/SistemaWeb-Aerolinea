@@ -57,10 +57,58 @@ $(document).ready(function() {
                 <td>${item.tipo_asiento}</td>
                 <td>${item.nombres}</td>
                 <td>${item.apellidos}</td>
-                <td>${item.documento}</td>
-                <td>${item.estado_checkin}</td>
+                <td class="documento">${item.documento}</td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="estadoCheckInDropdown${item.documento}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            ${item.estado_checkin}
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="estadoCheckInDropdown${item.documento}">
+                            <a class="dropdown-item" href="#" data-value="Pendiente">Pendiente</a>
+                            <a class="dropdown-item" href="#" data-value="Realizado">Realizado</a>
+                        </div>
+                    </div>
+                </td>
             </tr>`;
             tbody.append(row);
+        });
+
+        // Manejar el cambio de estado del combo box
+        $('.dropdown-item').click(function() {
+            var newStatus = $(this).attr('data-value');
+            var documento = $(this).closest('tr').find('.documento').text(); // Obtener el documento del pasajero
+
+            // Obtener el estado actual del check-in
+            var estadoActual = $('#estadoCheckInDropdown' + documento).text().trim();
+
+            // Verificar si el estado actual es "Realizado" y el nuevo estado es "Pendiente"
+            if (estadoActual === "Realizado" && newStatus === "Pendiente") {
+                alert("No se puede cambiar el estado a 'Pendiente' porque ya está 'Realizado'");
+                return; // Evitar enviar la solicitud AJAX
+            }
+
+            // Si no hay problemas con la validación, enviar la solicitud AJAX
+            updateCheckInStatus(documento, newStatus);
+        });
+    }
+
+    function updateCheckInStatus(documento, newStatus) {
+        $.ajax({
+            url: 'http://localhost/SistemaWeb-Aerolinea/backend/estado_checkin.php',
+            type: 'POST',
+            data: { documento: documento, estado: newStatus },
+            success: function(response) {
+                if (response.error) {
+                    alert(response.error);
+                } else {
+                    // Actualizar el texto del botón del combo box después de cambiar el estado
+                    var dropdownButton = $('#estadoCheckInDropdown' + documento);
+                    dropdownButton.text(newStatus);
+                }
+            },
+            error: function(xhr, status, error) {
+                alert("Error en AJAX: " + error);
+            }
         });
     }
 });
