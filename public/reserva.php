@@ -48,19 +48,10 @@ $_SESSION['reservation_counter'] = 0;
     <!-- Your custom CSS -->
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/reserva.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
 
     <link rel="stylesheet" type="text/css" href="styles/default.css" />
 		<link rel="stylesheet" type="text/css" href="styles/component.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
-        rel="stylesheet">
-
-
+    
 
 
 
@@ -76,8 +67,7 @@ $_SESSION['reservation_counter'] = 0;
             <a style="font-family: 'Inter', sans-serif;font-size:20px;color:black;text-algin:center;" href="#">Premios Millas</a>
             <a style="font-family: 'Inter', sans-serif;font-size:20px;color:black;text-algin:center;" href="#">Log out</a>
             
-		</nav>
-        
+		</nav>  
 </div>
 <body>
 
