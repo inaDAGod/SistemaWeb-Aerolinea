@@ -1,63 +1,104 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto_NAV</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Your custom CSS -->
-    <link rel="stylesheet" href="styles/style.css">
+    <title>Aerolinea Web</title>
+    <link rel="stylesheet" href="styles/style.css"> 
+
+    <link rel="stylesheet" type="text/css" href="styles/default.css" />
+		<link rel="stylesheet" type="text/css" href="styles/component.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <link rel="stylesheet" href="styles/styleIndex.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
 </head>
-<body>
-<header class="py-3">
-    <div class="container d-flex justify-content-between align-items-center"style=" padding: 20px; margin-top: 15px; margin-bottom: 5px;color:white;">
-    <nav class="navbar navbar-expand-lg navbar" style="position: absolute; left: 0; margin-bottom: 5px;">
-
-                <ul class="navbar-nav" style="display: flex; align-items: center;position: absolute; left: 0;margin-right:10%;">
-                    <li class="nav-item">
-                        <div style="display: flex; align-items: center;margin-right: 10px;">
-                            <img src="assets\avion.png" alt="Menu Icon" style="width:70%;">
-                            <h3>VuelaBodo</h3>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php" style="font-size: 25px;color:white;margin-left: 100%;top: 2%;">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="servicios.php" style="font-size: 25px;color:white;margin-left: 100%;">Vuelos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="Login.php" style="font-size: 25px;color:white;width:150%;margin-left: 100%;">Reserva</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="Login.php" style="font-size: 25px;color:white;width:150%;margin-left: 100%;">Dashboard</a>
-                    </li>
-                </ul>
-            </nav>
-    
-    
-
-        <button id="menu-toggle" class="btn btn"  style="position: absolute; right: 0;top:-1%;">
-            <img src="assets\perfil.png" alt="Menu Icon" style="width:40%;">
-        </button>
-    </div>
-</header>
-
-<!-- Mini navigation bar placed outside the header -->
-<nav id="mini-nav" class="mini-nav  py-200 px-3" style="position: absolute; top: calc(10% + 3px); right: 15%;background-color: rgba(143, 188, 234, 1);width:15%;font-size:25px; border-radius: 10px;">
-    <ul class="list-unstyled mb-0">
+<div style="display: flex; align-items: center;margin-right: 10px;background-color:rgba(143, 188, 234, 1);">
+    <img src="assets\logoavion.png" alt="Menu Icon" style="width:10%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
+    <button id="showRight" style="margin-left:85%;"><img src="assets\home2.png" alt="Menu Icon" style="width:40px;height:50%;background-color:white;"></button>
+        <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
+			<h3 style="font-family: 'Inter', sans-serif;font-size:35px;color:black;text-algin:center;" id="menuHeader">Menu</h3>
+			<a style="font-family: 'Inter', sans-serif;font-size:20px;color:black;text-algin:center;" href="#">Vuelos</a>
+            <a style="font-family: 'Inter', sans-serif;font-size:20px;color:black;text-algin:center;" href="#">Reservas</a>
+            <a style="font-family: 'Inter', sans-serif;font-size:20px;color:black;text-algin:center;" href="#">Dashboard</a>
+            <a style="font-family: 'Inter', sans-serif;font-size:20px;color:black;text-algin:center;" href="#">Agregar vuelo</a>
+            
+            <a style="font-family: 'Inter', sans-serif;font-size:20px;color:black;text-algin:center;" href="#">Agregar producto millas</a>
+            <a style="font-family: 'Inter', sans-serif;font-size:20px;color:black;text-algin:center;" href="#">Registrar admin</a>
+            <a style="font-family: 'Inter', sans-serif;font-size:20px;color:black;text-algin:center;" href="#">Log out</a>
+            
+		</nav>
         
-        <li><a href="#">Agregar vuelo</a></li>
-        <li><a href="#">Agregar producto millas</a></li>
-        <li><a href="#">Registrar admin</a></li>
-        <li><a href="menunologin.php">Log out</a></li>
-    </ul>
-</nav>
+</div>
 
-<h1>Bienvenido, vuela con los mejores</h1>
+<body>
+    
 
-<!-- Link to the JavaScript file -->
-<script src="scripts\menu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+    <script src="scripts/script.js"></script>
+    <script src="scripts/classie.js"></script>
+
+    <script src="scripts/classie.js"></script>
+    <script>
+        var 
+            menuRight = document.getElementById('cbp-spmenu-s2'),
+            showRight = document.getElementById('showRight'),
+            menuHeader = document.getElementById('menuHeader'),
+            body = document.body;
+    
+        showRight.onclick = function() {
+            classie.toggle(this, 'active');
+            classie.toggle(menuRight, 'cbp-spmenu-open');
+            disableOther('showRight');
+        };
+    
+        // Function to disable other elements
+        function disableOther(button) {
+            if (button !== 'showRight') {
+                classie.toggle(showRight, 'disabled');
+            }
+        }
+    
+        // Add event listener to close menu when header is clicked
+        menuHeader.addEventListener('click', function() {
+            classie.remove(menuRight, 'cbp-spmenu-open');
+            classie.remove(showRight, 'active');
+        });
+    
+        // Add event listener to close menu when clicked outside of it
+        document.addEventListener('click', function(event) {
+            var isClickInside = menuRight.contains(event.target) || showRight.contains(event.target);
+            if (!isClickInside) {
+                classie.remove(menuRight, 'cbp-spmenu-open');
+                classie.remove(showRight, 'active');
+            }
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
+
 </html>

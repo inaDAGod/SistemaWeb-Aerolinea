@@ -3,6 +3,13 @@
 
 -- tables
 -- Table: asientos
+CREATE TABLE verificaciones_correo (
+    id SERIAL PRIMARY KEY,
+    correo VARCHAR(255) NOT NULL,
+    codigo_verificacion VARCHAR(100) NOT NULL,
+    fecha_expiracion TIMESTAMP NOT NULL
+);
+
 CREATE TABLE asientos (
     casiento varchar(100)  NOT NULL,
     cavion int  NOT NULL,
@@ -82,6 +89,7 @@ CREATE TABLE premios_millas (
     tipo_premio varchar(100)  NOT NULL,
     producto_destacado boolean  NOT NULL,
     millas int  NOT NULL,
+    src_foto varchar(100)  NOT NULL,
     CONSTRAINT premios_millas_pk PRIMARY KEY (premio)
 );
 
