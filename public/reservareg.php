@@ -399,9 +399,9 @@ setTimeout(function() {
                     </select>
                 </div>
             </div>
-            <div class="seat-selection">
-            <h3 class="vuelos">Seleccionar Asiento de Vuelo</h3>
-            <table border="1">
+            <div class="seat-selection" >
+            <h3 class="vuelos" style="margin-left:30%;width:100%;margin-top:-23%;color:black;">Seleccionar Asiento de Vuelo</h3>
+            <table style="margin-left:50%;background-color:rgba(248, 248, 248, 1);margin-top:2%;border: 1px solid black;">
     <tr>
         <?php
         // Establish connection to the database
@@ -432,7 +432,7 @@ setTimeout(function() {
 
                 // Mostrar los tipos de asientos como columnas en la tabla
                 foreach ($tipos_asiento as $tipo) {
-                    echo '<th>' . $tipo . '</th>';
+                    echo '<th style="background-color:rgba(220, 220, 220, 1);border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black; padding-left:2%";padding-right:2%">' . $tipo . '</th>';
                 }
             } else {
                 echo "No se encontró el avión para el vuelo dado.";
@@ -462,7 +462,7 @@ try {
     foreach ($asientos_por_fila as $fila => $asientos) {
         echo '<tr>';
         foreach ($tipos_asiento as $tipo) {
-            echo '<td>';
+            echo '<td style="border-left: 1px solid black;border-right: 1px solid black;border-bottom: 1px solid black;padding:10%">';
             if (isset($asientos[$tipo])) {
                 // Display the seat number along with the radio button
                 echo '<label><input type="radio" name="casiento_seleccionado" value="' . $asientos[$tipo] . '" onchange="updateSelectedSeat(this.value)"> ' . $asientos[$tipo] . '</label>';
