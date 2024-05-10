@@ -9,7 +9,7 @@ $_SESSION['creservanum'] = $creservanum;
 // Parámetros de conexión (reemplaza con tus propios valores)
 $host = 'localhost'; // Cambia esto
 $port = '5432'; // Puerto predeterminado de PostgreSQL
-$dbname = 'aerio';
+$dbname = 'aerolinea';
 $user = 'postgres'; // Cambia esto
 $password = 'admin';
 
@@ -150,7 +150,7 @@ try {
         <?php
         // Establish connection to the database
         $host = 'localhost'; // Change this
-        $dbname = 'aerio';
+        $dbname = 'aerolinea';
         $username = 'postgres'; // Change this
         $password = 'admin'; // Change this
         try {
