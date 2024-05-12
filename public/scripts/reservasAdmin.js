@@ -58,10 +58,10 @@ $(document).ready(function() {
                 <td>${item.apellidos}</td>
                 <td>${item.documento}</td>
                 <td>
-                    <select class="estado-reserva-dropdown" data-documento="${item.documento}">
-                        <option value="Pendiente" ${item.estado_reserva === "Pendiente" ? "selected" : ""}>Pendiente</option>
-                        <option value="Pagado" ${item.estado_reserva === "Pagado" ? "selected" : ""}>Pagado</option>
-                        <option value="Cancelado" ${item.estado_reserva === "Cancelado" ? "selected" : ""}>Cancelado</option>
+                    <select class="btn btn-secondary dropdown-toggle" data-documento="${item.documento}">
+                        <option class="dropdown-item" value="Pendiente" ${item.estado_reserva === "Pendiente" ? "selected" : ""}>Pendiente</option>
+                        <option class="dropdown-item" value="Pagado" ${item.estado_reserva === "Pagado" ? "selected" : ""}>Pagado</option>
+                        <option class="dropdown-item" value="Cancelado" ${item.estado_reserva === "Cancelado" ? "selected" : ""}>Cancelado</option>
                     </select>
                 </td>
             </tr>`;
