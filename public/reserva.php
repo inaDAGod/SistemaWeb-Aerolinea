@@ -19,19 +19,55 @@ $adu = 1;
 $nin = 1;
 
 $totalg = $adum + $adu + $nin ;
-$cvuelosnum = 6; // Por ejemplo, puedes cambiar este valor según tus necesidades
-$creservanum = 6; // Por ejemplo, puedes cambiar este valor según tus necesidades
 
-// Guarda $creserva en una variable de sesión
-$_SESSION['cvuelosnum'] = $cvuelosnum;
-$_SESSION['creservanum'] = $creservanum;
-$_SESSION['adum'] = $adum;
-$_SESSION['adu'] = $adu;
-$_SESSION['nin'] = $nin;
-$_SESSION['total_people'] = $totalg;
-// Reset reservation counter to 0
-$_SESSION['reservation_counter'] = 0;
 
+$correo_usuario = 'ejemplo@gmail.com';
+$fecha_reserva = '2024-05-15'; // Puedes cambiar esta fecha según sea necesario
+$fecha_limite = '2024-06-15'; // Puedes cambiar esta fecha según sea necesario
+
+// Función para generar dinámicamente el número de reserva
+function generar_numero_reserva($conn, $correo_usuario, $fecha_reserva, $fecha_limite) {
+    // Preparar la consulta SQL para insertar en la tabla 'reservas'
+    $query = "INSERT INTO reservas (correo_usuario, fecha_reserva, fecha_limite) VALUES (:correo_usuario, :fecha_reserva, :fecha_limite)";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':correo_usuario', $correo_usuario);
+    $stmt->bindParam(':fecha_reserva', $fecha_reserva);
+    $stmt->bindParam(':fecha_limite', $fecha_limite);
+    $stmt->execute();
+
+    // Obtener el ID de la reserva creada
+    $creservanum = $conn->lastInsertId();
+
+    // Devolver el número de reserva generado
+    return $creservanum;
+}
+
+// Establish connection to the database
+$host = 'localhost'; // Cambia esto
+$dbname = 'aerolinea';
+$username = 'postgres'; // Cambia esto
+$password = 'admin'; // Cambia esto
+try {
+    $conn = new PDO("pgsql:host=$host;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Insertar reserva con valores predefinidos
+    $creservanum = generar_numero_reserva($conn, $correo_usuario, $fecha_reserva, $fecha_limite);
+
+    $cvuelosnum = 1; // Por ejemplo, puedes cambiar este valor según tus necesidades
+
+    // Guarda $creserva en una variable de sesión
+    $_SESSION['cvuelosnum'] = $cvuelosnum;
+    $_SESSION['creservanum'] = $creservanum;
+    $_SESSION['adum'] = $adum;
+    $_SESSION['adu'] = $adu;
+    $_SESSION['nin'] = $nin;
+    $_SESSION['total_people'] = $totalg;
+    // Reset reservation counter to 0
+    $_SESSION['reservation_counter'] = 0;
+} catch(PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+}
 
 ?>
 
@@ -80,7 +116,7 @@ $_SESSION['reservation_counter'] = 0;
         <?php
         // Establish connection to the database
         $host = 'localhost'; // Cambia esto
-        $dbname = 'aerio';
+        $dbname = 'aerolinea';
         $username = 'postgres'; // Cambia esto
         $password = 'admin'; // Cambia esto
         try {

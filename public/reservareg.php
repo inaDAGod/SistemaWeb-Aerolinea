@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Connection to the database
     // Move this section to the top to ensure database connection before using it in the rest of the script.
     $host = 'localhost'; // Change this
-    $dbname = 'aerio';
+    $dbname = 'aerolinea';
     $username = 'postgres'; // Change this
     $password = 'admin'; // Change this
     try {
@@ -165,14 +165,30 @@ function obtener_cvuelo_del_asiento($conn, $casiento_seleccionado) {
 
 
 
-function obtener_costo_del_vuelo($conn, $cvuelo) {
-    $query = "SELECT costo FROM vuelos WHERE cvuelo = :cvuelo";
+function obtener_costo_del_vuelo($conn, $cvuelo, $tipo_clase) {
+    $columna_costo = '';
+    switch ($tipo_clase) {
+        case 'VIP':
+            $columna_costo = 'costoVip';
+            break;
+        case 'Business':
+            $columna_costo = 'costoBusiness';
+            break;
+        case 'Economy':
+            $columna_costo = 'costoEco';
+            break;
+        default:
+            return null; // Tipo de clase no válido
+    }
+    
+    $query = "SELECT $columna_costo FROM vuelos WHERE cvuelo = :cvuelo";
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':cvuelo', $cvuelo);
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $result['costo'];
+    return $result[$columna_costo];
 }
+
 
 
 
@@ -293,7 +309,7 @@ setTimeout(function() {
         <?php
         // Establish connection to the database
         $host = 'localhost'; // Cambia esto
-        $dbname = 'aerio';
+        $dbname = 'aerolinea';
         $username = 'postgres'; // Cambia esto
         $password = 'admin'; // Cambia esto
         try {
@@ -391,7 +407,7 @@ setTimeout(function() {
         <?php
         // Establish connection to the database
         $host = 'localhost'; // Change this
-        $dbname = 'aerio';
+        $dbname = 'aerolinea';
         $username = 'postgres'; // Change this
         $password = 'admin'; // Change this
         try {
