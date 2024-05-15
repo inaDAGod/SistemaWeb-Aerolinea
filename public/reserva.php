@@ -21,18 +21,18 @@ $nin = 1;
 $totalg = $adum + $adu + $nin ;
 
 
-$correo_usuario = 'ejemplo@gmail.com';
+$correo_usuario = 'example@example.com';
 $fecha_reserva = '2024-05-15'; // Puedes cambiar esta fecha según sea necesario
-$fecha_limite = '2024-06-15'; // Puedes cambiar esta fecha según sea necesario
+$fecha_lmite  = '2024-06-15'; // Puedes cambiar esta fecha según sea necesario
 
 // Función para generar dinámicamente el número de reserva
-function generar_numero_reserva($conn, $correo_usuario, $fecha_reserva, $fecha_limite) {
+function generar_numero_reserva($conn, $correo_usuario, $fecha_reserva, $fecha_lmite) {
     // Preparar la consulta SQL para insertar en la tabla 'reservas'
-    $query = "INSERT INTO reservas (correo_usuario, fecha_reserva, fecha_limite) VALUES (:correo_usuario, :fecha_reserva, :fecha_limite)";
+    $query = "INSERT INTO reservas (correo_usuario, fecha_reserva, fecha_lmite) VALUES (:correo_usuario, :fecha_reserva, :fecha_lmite)";
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':correo_usuario', $correo_usuario);
     $stmt->bindParam(':fecha_reserva', $fecha_reserva);
-    $stmt->bindParam(':fecha_limite', $fecha_limite);
+    $stmt->bindParam(':fecha_lmite', $fecha_lmite);
     $stmt->execute();
 
     // Obtener el ID de la reserva creada
@@ -41,6 +41,7 @@ function generar_numero_reserva($conn, $correo_usuario, $fecha_reserva, $fecha_l
     // Devolver el número de reserva generado
     return $creservanum;
 }
+
 
 // Establish connection to the database
 $host = 'localhost'; // Cambia esto
@@ -52,9 +53,9 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Insertar reserva con valores predefinidos
-    $creservanum = generar_numero_reserva($conn, $correo_usuario, $fecha_reserva, $fecha_limite);
+    $creservanum = generar_numero_reserva($conn, $correo_usuario, $fecha_reserva, $fecha_lmite );
 
-    $cvuelosnum = 1; // Por ejemplo, puedes cambiar este valor según tus necesidades
+    $cvuelosnum = 2; // Por ejemplo, puedes cambiar este valor según tus necesidades
 
     // Guarda $creserva en una variable de sesión
     $_SESSION['cvuelosnum'] = $cvuelosnum;
@@ -123,10 +124,18 @@ try {
             $conn = new PDO("pgsql:host=$host;dbname=$dbname", $username, $password);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            // Prepare SQL query
-            $query = "SELECT cvuelo, origen, destino FROM vuelos WHERE cvuelo = $cvuelosnum LIMIT 1";
 
-            $stmt = $conn->prepare($query);
+
+
+
+
+
+// Prepare SQL query
+$query = "SELECT cvuelo, origen, destino FROM vuelos WHERE cvuelo = :cvuelo";
+$stmt = $conn->prepare($query);
+$stmt->bindParam(':cvuelo', $_SESSION['cvuelosnum']); 
+
+
 
             // Execute query
             $stmt->execute();
