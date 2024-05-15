@@ -16,21 +16,25 @@
 </head>
 
 <body>
-
-<div style="background-color: #8FBCEA">
-    <img src="assets\logoavion.png" alt="Menu Icon" style="width:10%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
+<div style="background-color: #8FBCEA"></div>
+<img src="assets\logoavion.png" alt="Menu Icon" style="width:10%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
     </div>
+
+    <header class="header" id="inicio">
         <img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger">
         <nav class="menu-navegacion">
             <a href="reserva.php">Vuelos</a>
-            <a href="">Check-In</a>
+            <a href="#">Check-In</a>
             <a href="#">Premios Millas</a>
-            <a href="#">Inciar Sesion</a>
-            <a href="#">Contactos</a>
+            <a href="#">Perfil</a>
+            <a href="#">Cerrar Sesion</a>
+            
         </nav>
         <div class="contenedor head">
-            <h1 class="titulo">Bienvenido vuela con los mejores</h1>
+            <h1 class="titulo">Titulo default</h1>
         </div>
+    </header>
+
     
 
 
