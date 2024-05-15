@@ -15,12 +15,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 // Store total number of people in session
 $adum = 1;
-$adu = 0;
-$nin = 0;
-$masco = 1;
-$totalg = $adum + $adu + $nin + $masco;
-$cvuelosnum = 7; // Por ejemplo, puedes cambiar este valor según tus necesidades
-$creservanum = 7; // Por ejemplo, puedes cambiar este valor según tus necesidades
+$adu = 1;
+$nin = 1;
+
+$totalg = $adum + $adu + $nin ;
+$cvuelosnum = 6; // Por ejemplo, puedes cambiar este valor según tus necesidades
+$creservanum = 6; // Por ejemplo, puedes cambiar este valor según tus necesidades
 
 // Guarda $creserva en una variable de sesión
 $_SESSION['cvuelosnum'] = $cvuelosnum;
@@ -28,7 +28,6 @@ $_SESSION['creservanum'] = $creservanum;
 $_SESSION['adum'] = $adum;
 $_SESSION['adu'] = $adu;
 $_SESSION['nin'] = $nin;
-$_SESSION['masco'] = $masco;
 $_SESSION['total_people'] = $totalg;
 // Reset reservation counter to 0
 $_SESSION['reservation_counter'] = 0;
@@ -58,7 +57,7 @@ $_SESSION['reservation_counter'] = 0;
 </head>
 <div style="display: flex; align-items: center;margin-right: 10px;background-color:rgba(143, 188, 234, 1);">
     <img src="assets\logoavion.png" alt="Menu Icon" style="width:10%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
-    <button id="showRight" style="margin-left:85%;"><img src="assets\home2.png" alt="Menu Icon" style="width:40px;height:50%;background-color:white;"></button>
+    <button id="showRight" style="margin-left:85%;"><img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger"></button>
         <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
 			<h3 style="font-family: 'Inter', sans-serif;font-size:35px;color:white;" id="menuHeader">Menu</h3>
             <a style="font-family: 'Inter', sans-serif;font-size:20px;color:black;text-algin:center;" href="#">Perfil</a>
@@ -69,11 +68,11 @@ $_SESSION['reservation_counter'] = 0;
             
 		</nav>  
 </div>
-<body>
+<body style="color:black">
 
 
 
-<button class="btn btn" style="position: absolute; leftt: 0; top:14%; color:rgba(8, 86, 167, 1);"><a href="index.html">< Cancelar reserva</a></button>
+<button class="btn btn" style="position: absolute; leftt: 0; top:14%; color:black;"><a href="index.html">< Cancelar reserva</a></button>
 <h1 class="h1rese">Reservar </h1>
 
 <div class="datos">
@@ -136,11 +135,7 @@ $_SESSION['reservation_counter'] = 0;
             <td class="tdre1"><p><?php echo isset($_SESSION['nin']) ? $_SESSION['nin'] : 0; ?></p></td>
             <td class="tdre1"></td>
         </tr>
-        <tr class="trre1">
-            <td class="tdre1">Mascotas</td>
-            <td class="tdre1"><p><?php echo isset($_SESSION['masco']) ? $_SESSION['masco'] : 0; ?></p></td>
-            <td class="tdre1"></td>
-        </tr>
+       
         <tr class="trre1">
             <td class="tdre1"></td>
             <td class="tdre1"></td>

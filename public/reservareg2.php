@@ -163,8 +163,6 @@ function obtener_cvuelo_del_asiento($conn, $casiento_seleccionado) {
     }
 }
 
-
-
 function obtener_costo_del_vuelo($conn, $cvuelo) {
     $query = "SELECT costo FROM vuelos WHERE cvuelo = :cvuelo";
     $stmt = $conn->prepare($query);
@@ -173,8 +171,6 @@ function obtener_costo_del_vuelo($conn, $cvuelo) {
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
     return $result['costo'];
 }
-
-
 
 
 
@@ -386,6 +382,7 @@ setTimeout(function() {
             </div>
             <div class="seat-selection">
             <h3 class="vuelos" style="margin-left:20%;margin-top:-23%;color:black">Seleccionar Asiento de Vuelo</h3>
+           <br><br><br>
             <table border="1" style="margin-left:40%">
     <tr>
         <?php
