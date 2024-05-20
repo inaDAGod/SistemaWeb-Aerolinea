@@ -61,40 +61,57 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 exit; // Exit script to prevent further execution
             }
         }
-        if (!empty($ci_persona)) {
-            try {
-                // Insert data into the personas table
-                $stmt = $conn->prepare("INSERT INTO personas (ci_persona, nombres, apellidos, fecha_nacimiento, sexo, tipo_persona) 
-                    VALUES (:ci_persona, :nombres, :apellidos, :fecha_nacimiento, :sexo, :tipo_persona)");
 
-                // Determine the tipo_persona based on the number of each type of person
-                if ($adum > 0) {
-                    $tipo_persona = 'Adulto mayor';
-                    $adum--; // Decrement the count of Adulto mayor after assigning it
-                } elseif ($adu > 0) {
-                    $tipo_persona = 'Adulto';
-                    $adu--; // Decrement the count of Adulto after assigning it
-                } elseif ($nin > 0) {
-                    $tipo_persona = 'Niño';
-                    $nin--; // Decrement the count of Niño after assigning it
-                } else {
-                    $tipo_persona = 'No especificado';
+
+
+
+
+        $stmt_check_person = $conn->prepare("SELECT COUNT(*) AS count FROM personas WHERE ci_persona = :ci_persona");
+        $stmt_check_person->bindParam(':ci_persona', $ci_persona);
+        $stmt_check_person->execute();
+        $person_exists = $stmt_check_person->fetch(PDO::FETCH_ASSOC)['count'] > 0;
+
+        if (!$person_exists) {
+            // If the person does not exist, insert them into the personas table
+            if (!empty($ci_persona)) {
+                try {
+                    // Insert data into the personas table
+                    $stmt = $conn->prepare("INSERT INTO personas (ci_persona, nombres, apellidos, fecha_nacimiento, sexo, tipo_persona) 
+                        VALUES (:ci_persona, :nombres, :apellidos, :fecha_nacimiento, :sexo, :tipo_persona)");
+
+                    // Determine the tipo_persona based on the number of each type of person
+                    if ($adum > 0) {
+                        $tipo_persona = 'Adulto mayor';
+                        $adum--; // Decrement the count of Adulto mayor after assigning it
+                    } elseif ($adu > 0) {
+                        $tipo_persona = 'Adulto';
+                        $adu--; // Decrement the count of Adulto after assigning it
+                    } elseif ($nin > 0) {
+                        $tipo_persona = 'Niño';
+                        $nin--; // Decrement the count of Niño after assigning it
+                    } else {
+                        $tipo_persona = 'No especificado';
+                    }
+
+                    // Bind parameters and execute the statement
+                    $stmt->bindParam(':ci_persona', $ci_persona);
+                    $stmt->bindParam(':nombres', $nombres);
+                    $stmt->bindParam(':apellidos', $apellidos);
+                    $stmt->bindParam(':fecha_nacimiento', $fecha_nacimiento);
+                    $stmt->bindParam(':sexo', $sexo);
+                    $stmt->bindParam(':tipo_persona', $tipo_persona);
+                    $stmt->execute();
+
+                } catch(PDOException $e) {
+                    echo "Error: " . $e->getMessage();
+                    // Handle the error as needed
                 }
-
-                // Bind parameters and execute the statement
-                $stmt->bindParam(':ci_persona', $ci_persona);
-                $stmt->bindParam(':nombres', $nombres);
-                $stmt->bindParam(':apellidos', $apellidos);
-                $stmt->bindParam(':fecha_nacimiento', $fecha_nacimiento);
-                $stmt->bindParam(':sexo', $sexo);
-                $stmt->bindParam(':tipo_persona', $tipo_persona);
-                $stmt->execute();
-
-            } catch(PDOException $e) {
-                echo "Error: " . $e->getMessage();
-                // Handle the error as needed
             }
         }
+
+        // Rest of your code for inserting data into other tables...
+
+  
 
 
 
