@@ -22,15 +22,6 @@ $_SESSION['total_people'] = $totalg;
 $_SESSION['reservation_counter'] = $reservation_counter;
 
 
-echo "cvuelosnum: $cvuelosnum\n";
-echo "creservanum: $creservanum\n";
-echo "adum: $adum\n";
-echo "adu: $adu\n";
-echo "nin: $nin\n";
-echo "total_people: $totalg\n";
-echo "reservation_counter: $reservation_counter\n";
-
-
 
 
 
@@ -117,44 +108,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Insert data into the boletos table
         // Insert data into the boletos table
-if ($cvuelo) {
-    // Assuming you have captured the user-selected ticket class in a variable like $ticket_class
-    $ticket_class = isset($_POST['ticket_class']) ? $_POST['ticket_class'] : '';
-
-    // Fetch the cost directly from the vuelos table based on the ticket class
-    $query_costo = "SELECT CASE
-                        WHEN :ticket_class = 'Economy' THEN costoEco
-                        WHEN :ticket_class = 'Business' THEN costoBusiness
-                        WHEN :ticket_class = 'VIP' THEN costoVip
-                    END AS costo
-                    FROM vuelos
-                    WHERE cvuelo = :cvuelo";
-    $stmt_costo = $conn->prepare($query_costo);
-    $stmt_costo->bindParam(':ticket_class', $ticket_class);
-    $stmt_costo->bindParam(':cvuelo', $cvuelo);
-    $stmt_costo->execute();
-    $result_costo = $stmt_costo->fetch(PDO::FETCH_ASSOC);
-
-    // Extract the costo from the result
-    $costo = $result_costo['costo'];
-
-    // Ensure costo is not null
-    if ($costo !== null) {
-        // Calculate total cost based on the obtained costo
-        $total = $costo;
-
-        // Insert data into the boletos table
-        $stmt = $conn->prepare("INSERT INTO boletos (ci_persona, cvuelo, casiento, total) 
-            VALUES (:ci_persona, :cvuelo, :casiento, :total)");
-        $stmt->bindParam(':ci_persona', $ci_persona);
-        $stmt->bindParam(':cvuelo', $cvuelo);
-        $stmt->bindParam(':casiento', $casiento_seleccionado);
-        $stmt->bindParam(':total', $total);
-        $stmt->execute();
-    } else {
-        echo "Error: Costo is null.";
-    }
-}
+        if ($casiento_seleccionado) {
+            $cvuelo = obtener_cvuelo_del_asiento($conn, $casiento_seleccionado);
+        
+            if (!$cvuelo) {
+                echo "Error: No se pudo obtener el cvuelo del asiento seleccionado.";
+                exit; 
+            }
+        
+            // Obtener el tipo de asiento del asiento seleccionado
+            $query_tipo_asiento = "SELECT tipo_asiento FROM asientos WHERE casiento = :casiento";
+            $stmt_tipo_asiento = $conn->prepare($query_tipo_asiento);
+            $stmt_tipo_asiento->bindParam(':casiento', $casiento_seleccionado);
+            $stmt_tipo_asiento->execute();
+            $tipo_asiento_result = $stmt_tipo_asiento->fetch(PDO::FETCH_ASSOC);
+            $tipo_asiento = $tipo_asiento_result['tipo_asiento'];
+        
+            // Obtener el costo del vuelo basado en el tipo de asiento y el cvuelo
+            $costo = obtener_costo_del_vuelo($conn, $cvuelo, $tipo_asiento);
+        
+            if ($costo !== null) {
+                // Calcular el total
+                $total = $costo;
+        
+                // Insertar datos en la tabla de boletos
+                $stmt = $conn->prepare("INSERT INTO boletos (ci_persona, cvuelo, casiento, total) 
+                    VALUES (:ci_persona, :cvuelo, :casiento, :total)");
+                $stmt->bindParam(':ci_persona', $ci_persona);
+                $stmt->bindParam(':cvuelo', $cvuelo);
+                $stmt->bindParam(':casiento', $casiento_seleccionado);
+                $stmt->bindParam(':total', $total);
+                $stmt->execute();
+            } else {
+                echo "Error: No se pudo obtener el costo del vuelo.";
+            }
+        }
+        
 
 
         if (!empty($ci_persona)) {
@@ -220,17 +209,17 @@ function obtener_cvuelo_del_asiento($conn, $casiento_seleccionado) {
 }
 
 
-function obtener_costo_del_vuelo($conn, $cvuelo, $tipo_clase) {
+function obtener_costo_del_vuelo($conn, $cvuelo, $tipo_asiento) {
     $columna_costo = '';
-    switch ($tipo_clase) {
+    switch ($tipo_asiento) {
         case 'VIP':
-            $columna_costo = 'costoVip';
+            $columna_costo = 'costovip';
             break;
         case 'Business':
-            $columna_costo = 'costoBusiness';
+            $columna_costo = 'costobusiness';
             break;
         case 'Económico':
-            $columna_costo = 'costoEco';
+            $columna_costo = 'costoeco';
             break;
         default:
             return null; // Tipo de clase no válido
