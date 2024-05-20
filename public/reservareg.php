@@ -229,7 +229,7 @@ function obtener_costo_del_vuelo($conn, $cvuelo, $tipo_clase) {
         case 'Business':
             $columna_costo = 'costoBusiness';
             break;
-        case 'Economy':
+        case 'Económico':
             $columna_costo = 'costoEco';
             break;
         default:
