@@ -1,0 +1,15 @@
+.badge-orange {
+    background-color: #FFA500; /* Naranja */
+    color: white; /* Texto blanco */
+    padding: 0.5em;
+    border-radius: 0.25em;
+    margin-bottom: 0.5em;
+    display: inline-block;
+}
+
+.star {
+    color: gold; /* Color de la estrella */
+    font-size: 1.5em;
+    margin-left: 0.5em;
+    vertical-align: middle;
+}
