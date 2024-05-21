@@ -35,7 +35,7 @@ button[type="submit"]:hover {
 }
 
 body {
-  background-image: url('../assets/avionFondo.png');
+
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

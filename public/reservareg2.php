@@ -23,21 +23,14 @@ $_SESSION['reservation_counter'] = $reservation_counter;
 
 
 
-
-
-
-
-
 // Process form data if the form has been submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Connection to the database
     // Move this section to the top to ensure database connection before using it in the rest of the script.
     $host = 'localhost'; // Change this
-    $dbname = 'aerolinea';
+    $dbname = 'aerio';
     $username = 'postgres'; // Change this
     $password = 'admin'; // Change this
-
-    
     try {
         $conn = new PDO("pgsql:host=$host;dbname=$dbname", $username, $password);
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -61,107 +54,52 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 exit; // Exit script to prevent further execution
             }
         }
+        if (!empty($ci_persona)) {
+            try {
+                // Insert data into the personas table
+                $stmt = $conn->prepare("INSERT INTO personas (ci_persona, nombres, apellidos, fecha_nacimiento, sexo, tipo_persona) 
+                    VALUES (:ci_persona, :nombres, :apellidos, :fecha_nacimiento, :sexo, :tipo_persona)");
 
-
-
-
-
-        $stmt_check_person = $conn->prepare("SELECT COUNT(*) AS count FROM personas WHERE ci_persona = :ci_persona");
-        $stmt_check_person->bindParam(':ci_persona', $ci_persona);
-        $stmt_check_person->execute();
-        $person_exists = $stmt_check_person->fetch(PDO::FETCH_ASSOC)['count'] > 0;
-
-        if (!$person_exists) {
-            // If the person does not exist, insert them into the personas table
-            if (!empty($ci_persona)) {
-                try {
-                    // Insert data into the personas table
-                    $stmt = $conn->prepare("INSERT INTO personas (ci_persona, nombres, apellidos, fecha_nacimiento, sexo, tipo_persona) 
-                        VALUES (:ci_persona, :nombres, :apellidos, :fecha_nacimiento, :sexo, :tipo_persona)");
-
-                    // Determine the tipo_persona based on the number of each type of person
-                    if ($adum > 0) {
-                        $tipo_persona = 'Adulto mayor';
-                        $adum--; // Decrement the count of Adulto mayor after assigning it
-                    } elseif ($adu > 0) {
-                        $tipo_persona = 'Adulto';
-                        $adu--; // Decrement the count of Adulto after assigning it
-                    } elseif ($nin > 0) {
-                        $tipo_persona = 'Niño';
-                        $nin--; // Decrement the count of Niño after assigning it
-                    } else {
-                        $tipo_persona = 'No especificado';
-                    }
-
-                    // Bind parameters and execute the statement
-                    $stmt->bindParam(':ci_persona', $ci_persona);
-                    $stmt->bindParam(':nombres', $nombres);
-                    $stmt->bindParam(':apellidos', $apellidos);
-                    $stmt->bindParam(':fecha_nacimiento', $fecha_nacimiento);
-                    $stmt->bindParam(':sexo', $sexo);
-                    $stmt->bindParam(':tipo_persona', $tipo_persona);
-                    $stmt->execute();
-
-                } catch(PDOException $e) {
-                    echo "Error: " . $e->getMessage();
-                    // Handle the error as needed
+                // Determine the tipo_persona based on the number of each type of person
+                if ($adum > 0) {
+                    $tipo_persona = 'Adulto mayor';
+                    $adum--; // Decrement the count of Adulto mayor after assigning it
+                } elseif ($adu > 0) {
+                    $tipo_persona = 'Adulto';
+                    $adu--; // Decrement the count of Adulto after assigning it
+                } elseif ($nin > 0) {
+                    $tipo_persona = 'Niño';
+                    $nin--; // Decrement the count of Niño after assigning it
+                } else {
+                    $tipo_persona = 'No especificado';
                 }
-            }
-        }
 
-        // Rest of your code for inserting data into other tables...
-
-  
-
-
-
-
-
-
-
-
-
-
-
-        // Insert data into the boletos table
-        // Insert data into the boletos table
-        if ($casiento_seleccionado) {
-            $cvuelo = obtener_cvuelo_del_asiento($conn, $casiento_seleccionado);
-        
-            if (!$cvuelo) {
-                echo "Error: No se pudo obtener el cvuelo del asiento seleccionado.";
-                exit; 
-            }
-        
-            // Obtener el tipo de asiento del asiento seleccionado
-            $query_tipo_asiento = "SELECT tipo_asiento FROM asientos WHERE casiento = :casiento";
-            $stmt_tipo_asiento = $conn->prepare($query_tipo_asiento);
-            $stmt_tipo_asiento->bindParam(':casiento', $casiento_seleccionado);
-            $stmt_tipo_asiento->execute();
-            $tipo_asiento_result = $stmt_tipo_asiento->fetch(PDO::FETCH_ASSOC);
-            $tipo_asiento = $tipo_asiento_result['tipo_asiento'];
-        
-            // Obtener el costo del vuelo basado en el tipo de asiento y el cvuelo
-            $costo = obtener_costo_del_vuelo($conn, $cvuelo, $tipo_asiento);
-        
-            if ($costo !== null) {
-                // Calcular el total
-                $total = $costo;
-        
-                // Insertar datos en la tabla de boletos
-                $stmt = $conn->prepare("INSERT INTO boletos (ci_persona, cvuelo, casiento, total) 
-                    VALUES (:ci_persona, :cvuelo, :casiento, :total)");
+                // Bind parameters and execute the statement
                 $stmt->bindParam(':ci_persona', $ci_persona);
-                $stmt->bindParam(':cvuelo', $cvuelo);
-                $stmt->bindParam(':casiento', $casiento_seleccionado);
-                $stmt->bindParam(':total', $total);
+                $stmt->bindParam(':nombres', $nombres);
+                $stmt->bindParam(':apellidos', $apellidos);
+                $stmt->bindParam(':fecha_nacimiento', $fecha_nacimiento);
+                $stmt->bindParam(':sexo', $sexo);
+                $stmt->bindParam(':tipo_persona', $tipo_persona);
                 $stmt->execute();
-            } else {
-                echo "Error: No se pudo obtener el costo del vuelo.";
+
+            } catch(PDOException $e) {
+                echo "Error: " . $e->getMessage();
+                // Handle the error as needed
             }
         }
-        
 
+        // Insert data into the boletos table
+        if ($cvuelo) {
+            $total = obtener_costo_del_vuelo($conn, $cvuelo);
+            $stmt = $conn->prepare("INSERT INTO boletos (ci_persona, cvuelo, casiento, total) 
+                VALUES (:ci_persona, :cvuelo, :casiento, :total)");
+            $stmt->bindParam(':ci_persona', $ci_persona);
+            $stmt->bindParam(':cvuelo', $cvuelo);
+            $stmt->bindParam(':casiento', $casiento_seleccionado);
+            $stmt->bindParam(':total', $total);
+            $stmt->execute();
+        }
 
         if (!empty($ci_persona)) {
             try {
@@ -225,36 +163,14 @@ function obtener_cvuelo_del_asiento($conn, $casiento_seleccionado) {
     }
 }
 
-
-function obtener_costo_del_vuelo($conn, $cvuelo, $tipo_asiento) {
-    $columna_costo = '';
-    switch ($tipo_asiento) {
-        case 'VIP':
-            $columna_costo = 'costovip';
-            break;
-        case 'Business':
-            $columna_costo = 'costobusiness';
-            break;
-        case 'Económico':
-            $columna_costo = 'costoeco';
-            break;
-        default:
-            return null; // Tipo de clase no válido
-    }
-    
-    $query = "SELECT $columna_costo FROM vuelos WHERE cvuelo = :cvuelosnum";
+function obtener_costo_del_vuelo($conn, $cvuelo) {
+    $query = "SELECT costo FROM vuelos WHERE cvuelo = :cvuelo";
     $stmt = $conn->prepare($query);
-    $stmt->bindParam(':cvuelosnum', $cvuelo);
+    $stmt->bindParam(':cvuelo', $cvuelo);
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $result[$columna_costo];
+    return $result['costo'];
 }
-
-
-
-
-
-
 
 
 
@@ -373,7 +289,7 @@ setTimeout(function() {
         <?php
         // Establish connection to the database
         $host = 'localhost'; // Cambia esto
-        $dbname = 'aerolinea';
+        $dbname = 'aerio';
         $username = 'postgres'; // Cambia esto
         $password = 'admin'; // Cambia esto
         try {
@@ -422,7 +338,10 @@ setTimeout(function() {
     } elseif ($nin > 0) {
         $tipo_persona = 'Niño';
         $nin--; // Decrement the count of Niño after assigning it
-    }  else {
+    } elseif ($masco > 0) {
+        $tipo_persona = 'Mascota';
+        $masco--; // Decrement the count of Mascota after assigning it
+    } else {
         $tipo_persona = 'No especificado';
     }
 
@@ -463,12 +382,13 @@ setTimeout(function() {
             </div>
             <div class="seat-selection">
             <h3 class="vuelos" style="margin-left:20%;margin-top:-23%;color:black">Seleccionar Asiento de Vuelo</h3>
+           <br><br><br>
             <table border="1" style="margin-left:40%">
     <tr>
         <?php
         // Establish connection to the database
         $host = 'localhost'; // Change this
-        $dbname = 'aerolinea';
+        $dbname = 'aerio';
         $username = 'postgres'; // Change this
         $password = 'admin'; // Change this
         try {
