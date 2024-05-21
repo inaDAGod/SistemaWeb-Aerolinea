@@ -1,138 +1,45 @@
-
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-body{
-    background-image: url('../assets/fondoP.jpg');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    min-height: 100vh;
-}
-.w50{
-    width: 50%;
-    float: left;
-    padding-right: 15px;
-}
-.box{
-    display: flex;
-    width: 930px;
-}
-.img-box{
-    background-color: rgba(255, 255, 255, 0.5);
-    width: 30%;
-    display: flex;
-    align-items: center;
-    padding: 20px;
-    border-radius: 20px  0 0 20px;
-}
-.img-box img{
-    width: 100%
-}
-.form-box{
-    background-color: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(40px);
-    padding: 30px 40px;
-    width: 70%;
-    border-radius: 0 20px 20px 0;
-}
-.form-box h2{
-    font-size: 30px;
-}
-.form-box p{
-    font-weight: bold;
-    color: #3D3D3D;
-}
-.form-box p a{
-    color: #FF8F15;
-    text-decoration: none;
-}
-.form-box form{
-    margin: 20px 0;
-}
- .input-group{
-    margin-bottom: 15px;
-}
-.input-group label{
-    color: #053A70;
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-}
- .input-group input{
+/* Estilos adicionales personalizados */
+label {
+    margin-bottom: 0.5rem;
+  }
+  input[type="text"],
+  input[type="number"],
+  input[type="file"],
+  select {
     width: 100%;
-    height: 47px;
-    background-color: rgba(255, 255, 255, 0.32);
-    border-radius: 20px;
-    outline: none;
-    border: 2px solid transparent;
-    padding: 15px;
-    font-size: 15px;
-    color: #616161;
-    transition: all 0.4s ease;
-}
- .input-group input:focus{
-    border-color: #FF8F15;
-}
- .input-group button{
-    width: 100%;
-    height: 47px;
-    background: #FF8F15;
-    border-radius: 20px;
-    outline: none;
-    border: none;
-    margin-top: 15px;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
-}
-.radio-group {
-    display: flex;
-    align-items: center;
-}
-.tipos{
-    margin-left: 5%;
-    padding: 1%;
-    width: 50%;
-    height: 47px;
-    background-color: rgba(255, 255, 255, 0.32);
-    border-radius: 20px;
-    outline: none;
-    border: 2px solid transparent;
-    font-size: 15px;
-    color: #616161;
-    transition: all 0.4s ease;
-}
-.radio-group label {
-    display: inline-block;
-    margin-right: 2%;
-    margin-left: 5%; 
-    font-size: 15px;
-}
-.radio-group input{
-    width: 3%;
-}
-@media (max-width:930px) {
-    .img-box{
-        display: none;
-    }
-    .box{
-        width: 700px;
-    }
-    .form-box{
-        width: 100%;
-        border-radius: 20px;
-    }
-}
-@media (max-width:500px) {
-    .w50{
-        width: 100%;
-        padding: 0;
-    }
-}
+    margin-bottom: 1rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  input[type="text"]:focus,
+  select:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+  button[type="submit"] {
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  button[type="submit"]:hover {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  
+  .container {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: #0668ca;
+  }
