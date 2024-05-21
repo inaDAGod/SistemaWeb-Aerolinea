@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Reservas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #b8c9ff;">
+        <div class="nav-item">
+             <div style="display: flex; align-items: center; margin-right: 10px;">
+                 <img src="assets\logoavion.png" alt="Menu Icon" style="width:25%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
+             </div>
+         </div>
+     </nav>
+
+    <div class="container mt-4">
+        <h2 style="text-align: center; font-weight: bold;">Reservas</h2>
+        <div class="row mb-3">
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Número de documento" id="numeroDocumento">
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-primary" id="buscarBtn" type="button">
+                    <i class="fa fa-search"></i> Buscar
+                </button>
+            </div>
+        </div>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Tipo pasajero</th>
+                    <th>Asiento</th>
+                    <th>Tipo Asiento</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Documento</th>
+                    <th>Estado Reserva</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Los datos de la tabla se insertarán aquí mediante JavaScript o servidor -->
+            </tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="scripts/reservasAdmin.js"></script>
+</body>
+</html>
