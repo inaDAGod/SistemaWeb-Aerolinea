@@ -44,8 +44,8 @@ var fechaVueloDate = new Date(partesFecha[2], partesFecha[1] - 1, partesFecha[0]
 var fechaActual = new Date();
 fechaActual.setHours(0, 0, 0, 0);
 
-if (fechaVueloDate < fechaActual) {
-    Swal.fire('Error', 'La fecha del vuelo no puede ser anterior a la fecha actual.', 'error');
+if (fechaVueloDate <= fechaActual) {
+    Swal.fire('Error', 'La fecha del vuelo no puede ser anterior o igual a la fecha actual.', 'error');
     return;
 }
         if (origen === destino) {
