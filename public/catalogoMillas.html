@@ -16,8 +16,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
-
         <link rel="stylesheet" href="styles/catalogoPremios.css">
+       
 </head>
 
 <body>
@@ -37,7 +37,54 @@
             <h1 class="titulo">Catalogo Premios</h1>
         </div>
     </header>
+  
     <h1 style="text-align: center; color: #053A70; padding: 1%;">Catalogo Premios</h1>
+    <div class="container">
+        <div class="col1">
+            <div >
+                <input type="text" placeholder="Nombre del premio a buscar" id="premio" width="100%">
+            </div>
+            <div class="input-group">
+                <label for="" style=" width: 100%;">Millas entre:</label>
+                <div>
+                    <label for="">Menor a</label>
+                    <input type="number" id="menora">
+                    <label for="destacado">Mayor a</label>
+                    <input type="number" id="mayora">
+                </div>
+                
+                
+            </div>
+            <div class="input-group">
+                <div style=" width: 50%;">
+                    <label for="destacado" style=" width: 100%;">Producto Destacado:</label>
+                    <div class="radio-group">
+                        <label for="destacado">Destacado</label>
+                        <input type="radio" id="destacado" name="destacadosOption" value="destacado">
+                        <label for="no-destacado">No Destacado</label>
+                        <input type="radio" id="no-destacado" name="destacadosOption" value="no-destacado">
+                    </div>
+                </div>
+                <div class="input-group" style=" width: 50%;">
+                    <label for="tipo">Tipo Producto</label>
+                    <select id="tipo" name="tipo" class="tipos">
+                        <option value="Electrodomestico">Electrodomestico</option>
+                        <option value="Viaje">Viaje</option>
+                        <option value="Cuidado Personal">Cuidado Personal</option>
+                        <option value="Comida">Comida</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+                
+            </div>
+            
+        </div>
+        <div class="col2">
+            <button  style="width: 100%;" class="btn btn-primary" id="buscar" onclick="buscar()  ">Buscar</button>
+            <button  style="width: 100%;" class="btn btn-primary" id="filtrar" onclick="filtrar()  ">Filtrar</button>
+        </div>
+
+    </div>
     <div class="container">
         <div class="row cards"></div>
     </div>
