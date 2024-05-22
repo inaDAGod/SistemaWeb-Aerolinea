@@ -19,7 +19,6 @@ if ($method == 'GET') {
 } elseif ($method == 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
 
-    // Validaciones adicionales
     if (empty($data['origen']) || empty($data['destino']) || empty($data['avion']) ||
         empty($data['fecha_vuelo']) || empty($data['hora']) ||
         !is_numeric($data['costo_vip']) || !is_numeric($data['costo_business']) || !is_numeric($data['costo_economico'])) {
@@ -32,16 +31,17 @@ if ($method == 'GET') {
         exit;
     }
 
-    // Insertar el nuevo vuelo
+    // Concatenar la fecha y la hora correctamente
+    $fechaVuelo = $data['fecha_vuelo'] . ' ' . $data['hora'];
+
     $sql = "INSERT INTO vuelos (fecha_vuelo, costovip, origen, destino, costobusiness, costoeco) 
-            VALUES ('{$data['fecha_vuelo']}', '{$data['costo_vip']}', '{$data['origen']}', '{$data['destino']}', '{$data['costo_business']}', '{$data['costo_economico']}') RETURNING cvuelo";
+            VALUES ('$fechaVuelo', '{$data['costo_vip']}', '{$data['origen']}', '{$data['destino']}', '{$data['costo_business']}', '{$data['costo_economico']}') RETURNING cvuelo";
     $resultado = pg_query($conexion, $sql);
 
     if ($resultado) {
         $row = pg_fetch_assoc($resultado);
         $cvuelo = $row['cvuelo'];
         
-        // Insertar asientos para este vuelo en asientos_vuelo
         for ($i = 1; $i <= 80; $i++) {
             $casiento = 'Asiento ' . $i;
             $sql = "INSERT INTO asientos_vuelo (cvuelo, casiento, cavion)
