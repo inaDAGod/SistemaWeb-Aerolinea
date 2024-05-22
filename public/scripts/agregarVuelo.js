@@ -36,7 +36,18 @@ $(document).ready(function() {
         var costo_vip = $('#costo_vip').val();
         var costo_business = $('#costo_business').val();
         var costo_economico = $('#costo_economico').val();
+        // Convertir la fecha de vuelo del formato dd/mm/yyyy a Date object para comparación
+var partesFecha = fecha_vuelo.split('/');
+var fechaVueloDate = new Date(partesFecha[2], partesFecha[1] - 1, partesFecha[0]);
 
+// Obtener la fecha actual y ajustarla para comparar solo las fechas, sin las horas
+var fechaActual = new Date();
+fechaActual.setHours(0, 0, 0, 0);
+
+if (fechaVueloDate < fechaActual) {
+    Swal.fire('Error', 'La fecha del vuelo no puede ser anterior a la fecha actual.', 'error');
+    return;
+}
         if (origen === destino) {
             Swal.fire('Error', 'El origen y el destino no pueden ser el mismo.', 'error');
             return;
