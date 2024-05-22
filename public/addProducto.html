@@ -20,10 +20,8 @@
     <title>Añadir producto</title>
 </head>
 <body>
-<div style="background-color: #8FBCEA"></div>
-<img src="assets\logoavion.png" alt="Menu Icon" style="width:10%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
-    </div>
-
+    <div style="background-color: #8FBCEA"></div>
+    <img src="assets\logoavion.png" alt="Menu Icon" style="width:10%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
     <header class="header" id="inicio">
         <img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger">
         <nav class="menu-navegacion">
@@ -34,58 +32,53 @@
             <a href="addProducto.html">Agregar producto millas</a>
             <a href="registroAdmi.html">Registrar admin</a>
             <a href="index.html">Cerrar Sesion</a>
-          
-    
         </nav>
         <div class="contenedor head">
             <h1 class="titulo">Añadir Premio</h1>
         </div>
     </header>
     <div class="container">
-        <div class="form-box">
             <h1 style="text-align: center; color: #053A70;">Añadir Premio</h1>
-                <div class="input-group">
-                    <label for="premio"> Premio:</label>
-                    <input type="text" id="premio" placeholder="Premio nombre" required>
+            <div class="input-group">
+                <label for="premio" class="label1"> Premio:</label>
+                <input type="text" id="premio" class="form-control" placeholder="Premio nombre" required>
+                <div class="invalid-feedback">Por favor ingresa un premio válido.</div>
+            </div>
+            <div class="input-group">
+                <label for="millas" class="label1">Millas:</label>
+                <input type="number" id="millas" class="form-control" placeholder="Precio en millas" required min="20">
+                <div class="invalid-feedback">Por favor ingresa un número de millas válido (mínimo 20).</div>
+            </div>
+            <div class="input-group">
+                <label for="destacado" class="label1">Producto Destacado:</label>
+                <div class="invalid-feedback">Por favor selecciona si el producto es destacado o no.</div>
+                <div class="radio-group">
+                    <label for="destacado">Destacado</label>
+                    <input type="radio" id="destacado" name="destacadosOption" value="destacado" required>
+                    <label for="no-destacado">No Destacado</label>
+                    <input type="radio" id="no-destacado" name="destacadosOption" value="no-destacado">
                 </div>
-
-                <div class="input-group">
-                    <label for="millas">Millas:</label>
-                    <input  type="number" id="millas" placeholder="Precio en millas" required min="20">
-                </div>
-                <div class="input-group">
-                    <label for="destacado" style=" width: 100%;">Producto Destacado:</label>
-                    <div class="radio-group">
-                        <label for="destacado">Destacado</label>
-                        <input type="radio" id="destacado" name="destacadosOption" value="destacado">
-                        <label for="no-destacado">No Destacado</label>
-                        <input type="radio" id="no-destacado" name="destacadosOption" value="no-destacado">
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <label for="tipo">Tipo Producto</label>
-                    <select id="tipo" name="tipo" class="tipos">
-                        <option value="Electrodomestico">Electrodomestico</option>
-                        <option value="Viaje">Viaje</option>
-                        <option value="Cuidado Personal">Cuidado Personal</option>
-                        <option value="Comida">Comida</option>
-                        <option value="Otro">Otro</option>
-                    </select>
-                </div>
-
-
-                <div class="input-group">
-                    <label for="tipo">Subir foto</label>
-                    <input type="file" id="foto" required>
-                </div>
-                
-
-
-                <div  align="center">
-                    <button   class="btn btn-primary" id="registrar" onclick="guardarProducto()">Registrar</button>
-                </div>
-        </div>
+            </div>
+            <div class="input-group">
+                <label for="tipo" class="label1">Tipo Producto</label>
+                <select id="tipo" name="tipo" class="form-control tipos" required>
+                    <option value="" disabled selected>Seleccione un tipo...</option>
+                    <option value="Electrodomestico">Electrodomestico</option>
+                    <option value="Viaje">Viaje</option>
+                    <option value="Cuidado Personal">Cuidado Personal</option>
+                    <option value="Comida">Comida</option>
+                    <option value="Otro">Otro</option>
+                </select>
+                <div class="invalid-feedback">Por favor selecciona un tipo de producto.</div>
+            </div>
+            <div class="input-group">
+                <label for="tipo" class="label1">Subir foto</label>
+                <input type="file" id="foto" class="form-control" required>
+                <div class="invalid-feedback">Por favor selecciona una foto.</div>
+            </div>
+            <div align="center">
+                <button class="btn btn-primary" id="registrar" onclick="guardarProducto()">Registrar</button>
+            </div>
     </div>
 
     

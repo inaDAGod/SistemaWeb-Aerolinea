@@ -42,4 +42,25 @@ label {
     padding: 20px;
     border-radius: 5px;
     box-shadow: #0668ca;
-  }
+}
+
+.is-valid {
+    border-color: #28a745 !important;
+    padding-right: calc(1.5em + .75rem);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2328a745' d='M6.72 1.72L3 5.42 1.28 3.72C.84 3.28.16 3.73.16 4.35L0 6l1 1 .65-.65L4 5l2.72 2.72.65.65 1-1-2.72-2.72 1.72-1.72z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(.375em + .1875rem) center;
+    background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+}
+
+.is-invalid {
+    border-color: #dc3545 !important;
+    padding-right: calc(1.5em + .75rem);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23dc3545' d='M6.72 1.72L3 5.42 1.28 3.72C.84 3.28.16 3.73.16 4.35L0 6l1 1 .65-.65L4 5l2.72 2.72.65.65 1-1-2.72-2.72 1.72-1.72z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right calc(.375em + .1875rem) center;
+    background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+}
+.label1{
+  width: 100%;
+}
