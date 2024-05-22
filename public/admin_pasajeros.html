@@ -18,10 +18,17 @@
     </nav>
 
     <div class="container mt-4">
+        <div id="alert-container"></div> <!-- Contenedor para las alertas -->
         <h2 style="text-align: center; font-weight: bold;">Pasajeros</h2>
         <div class="row mb-3">
             <div class="col">
                 <input type="text" class="form-control" placeholder="Número de documento" id="numeroDocumento">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Nombre" id="nombre">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Apellido" id="apellido">
             </div>
             <div class="col-auto">
                 <button class="btn btn-primary" id="buscarBtn" type="button">
