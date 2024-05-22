@@ -9,16 +9,16 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffffff;">
-       <div class="nav-item">
+        <div class="nav-item">
             <div style="display: flex; align-items: center; margin-right: 10px;">
-                <img src="assets\logoavion.png" alt="Menu Icon" style="width:25%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
+                <img src="assets/logoavion.png" alt="Menu Icon" style="width:25%; height:10%; margin-left:10px; margin-top: 10px; margin-bottom: 20px;">
             </div>
         </div>
     </nav>
     <br><br>
     <div class="container">
-      <h2 class="mt-4 mb-3" style="text-align: center;">AGREGAR VUELO</h2>
-      <form id="formAgregarVuelo" method="post" action="tu_archivo_php.php">
+        <h2 class="mt-4 mb-3" style="text-align: center; color: #0856A7;">AGREGAR VUELO</h2>
+        <form id="formAgregarVuelo" method="post" action="tu_archivo_php.php">
             <div class="form-group">
                 <label for="origen">Origen:</label>
                 <select class="form-control" name="origen" id="origen">
@@ -65,6 +65,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="scripts/agregarVuelo.js"></script>
 </body>
 </html>

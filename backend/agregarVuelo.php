@@ -31,6 +31,13 @@ if ($method == 'GET') {
         exit;
     }
 
+    if ($data['costo_vip'] < 100 || $data['costo_vip'] > 3500 ||
+        $data['costo_business'] < 100 || $data['costo_business'] > 3500 ||
+        $data['costo_economico'] < 100 || $data['costo_economico'] > 3500) {
+        echo json_encode(['success' => false, 'error' => 'Los costos deben estar entre 100 y 3500']);
+        exit;
+    }
+
     // Concatenar la fecha y la hora correctamente
     $fechaVuelo = $data['fecha_vuelo'] . ' ' . $data['hora'];
 
