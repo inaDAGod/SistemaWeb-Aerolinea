@@ -1,130 +1,304 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup Form</title>
-    <link rel="stylesheet" href="catal.css">
-    <!--BOOTSTRAP LINK
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">-->
+    <title>Catálogo de Vuelos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .header {
+            background-color: #8FBCEA;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .title {
+            margin-top: 30px;
+            text-align: center;
+            color: #053A70;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .form-group:last-child {
+            margin-right: 0;
+        }
+
+        .form-group select, .form-group input[type="date"], .form-group input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #fcdb4a;
+        }
+
+        .results-table {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 800px;
+            border-collapse: collapse;
+        }
+
+        .results-table th, .results-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .results-table th {
+            background-color: #8FBCEA;
+            color: white;
+        }
+
+        .error {
+            color: rgb(245, 79, 79);
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
-    <form>
+    <div class="header">
+        <h2></h2>
+    </div>
 
-        <div class="signup-form bg-dark">
+    <h3 class="title">Catálogo de Vuelos</h3>
 
-            <div class="Signup-head bg-warning">
-                <h1>Catalogo de Vuelos</h1>
+    <div class="form-container">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="ida-vuelta">Ida / Vuelta:</label>
+                <select id="ida-vuelta">
+                    <option value="">Seleccionar</option>
+                    <option value="ida">Ida</option>
+                    <option value="vuelta">Vuelta</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="origen">Origen:</label>
+                <select id="origen">
+                    <option value="">Seleccionar Origen</option>
+                    <option value="SCZ">Santa Cruz (SCZ)</option>
+                    <option value="CBBA">Cochabamba (CBBA)</option>
+                    <option value="LPZ">La Paz (LPZ)</option>
+                    <option value="TJA">Tarija (TJA)</option>
+                    <option value="SRE">Sucre (SRE)</option>
+                </select>
             </div>
 
-            <div class="signup-content">
-                <input type="radio" class="radio" name="r">
-                <label class="text-white">Ida</label>
-                <input type="radio" class="radio" name="r">
-                <label class="text-white">Vuelta</label>
-                
+            <div class="form-group">
+                <label for="destino">Destino:</label>
+                <select id="destino">
+                    <option value="">Seleccionar Destino</option>
+                    <option value="SCZ">Santa Cruz (SCZ)</option>
+                    <option value="CBBA">Cochabamba (CBBA)</option>
+                    <option value="LPZ">La Paz (LPZ)</option>
+                    <option value="TJA">Tarija (TJA)</option>
+                    <option value="SRE">Sucre (SRE)</option>
+                </select>
             </div>
 
-            <div class="signup-content2">
-                <input type="text" placeholder="From" class="input bg-dark">
-                <input type="text" placeholder="To" class="input bg-dark"><br>
-            
+            <div class="form-group">
+                <label for="partida">Partida:</label>
+                <input type="date" id="partida">
+            </div>
 
-            <label class="text-white" style="margin-left:10px;">Partida</label>
-            <input type="date" class="tarikh bg-dark text-white">
-            <label class="text-white" style="margin-left:10px;">Regreso</label>
-            <input type="date" class="tarikh bg-dark">
-
-    
-            
-
-            <input type="number" class="bg-dark person" placeholder="Adultos Mayores">
-            <input type="number" class="bg-dark person" placeholder="Adultos">
-            <input type="number" class="bg-dark person" placeholder="Niños">
-            <input type="number" class="bg-dark person" placeholder="Mascotas"><br>
-
-            <!--<label class="text-white travel">Travel Class</label>
-            <select class="bg-dark text-white travel2">
-                <option></option>
-                <option>Vip</option>
-                <option>AC 2tier/2A</option>
-                <option>AC 3tier/3A</option>
-                <option>Executive class chair car/Economy Class</option>
-                <option>General</option>
-                <option></option>
-                <option></option>
-                
-            </select>-->
-
-            <!--<div style="margin-top: 1cm;"></div>-->
-
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>05/08/24</th>
-                        <th>09/05/24</th>
-                        <th>10/05/24</th>
-                        <th>11/05/24</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Esta tabla está vacía -->
-                </tbody>
-            </table>
-
-            <!--<div style="margin-top: 1cm;"></div>-->
-
-            
-            <div style="margin-top: 1cm;"></div>
-
-            <input type="submit" value="BUSCAR VUELOS " class="submit-btn bg-warning">
-            <div style="margin-top: 1cm;"></div>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Vuelo</th>
-                        <th>Origen</th>
-                        <th>Destino</th>
-                        <th>Duracion</th>
-                        <th>Economico</th>
-                        <th>Normal</th>
-                        <th>Vip</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>305</td>
-                        <td>SCZ</td>
-                        <td>CBBA</td>
-                        <td>30min</td>
-                        <td>250Bs</td>
-                        <td>410Bs</td>
-                        <td>899Bs</td>
-                    </tr>
-                    <tr>
-                        <td>305</td>
-                        <td>SCZ</td>
-                        <td>CBBA</td>
-                        <td>30min</td>
-                        <td>250Bs</td>
-                        <td>410Bs</td>
-                        <td>899Bs</td>
-                    </tr>
-                    <tr>
-                        <td>305</td>
-                        <td>SCZ</td>
-                        <td>CBBA</td>
-                        <td>30min</td>
-                        <td>250Bs</td>
-                        <td>410Bs</td>
-                        <td>899Bss</td>
-                    </tr>
-                    <!-- Puedes agregar más filas según sea necesario -->
-                </tbody>
-            </table>
-            
+            <div class="form-group">
+                <label for="regreso">Regreso:</label>
+                <input type="date" id="regreso">
+            </div>
         </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="adulto-mayor">Adulto Mayor:</label>
+                <input type="number" id="adulto-mayor" value="0" min="0">
+            </div>
+
+            <div class="form-group">
+                <label for="adultos">Adultos:</label>
+                <input type="number" id="adultos" value="1" min="1">
+            </div>
+
+            <div class="form-group">
+                <label for="ninos">Niños:</label>
+                <input type="number" id="ninos" value="0" min="0">
+            </div>
+
+            <div class="form-group">
+                <label for="mascotas">Mascotas:</label>
+                <input type="number" id="mascotas" value="0" min="0">
+            </div>
         </div>
-    </form>
+
+        <button class="btn" id="buscar-vuelos">Buscar Vuelos</button>
+        <div class="error" id="error-message"></div>
+        <table class="results-table" id="resultados">
+            <thead>
+                <tr>
+                    <th>Vuelo</th>
+                    <th>Origen</th>
+                    <th>Destino</th>
+                    <th>Partida</th>
+                    <th>Llegada</th>
+                    <th>Económico</th>
+                    <th>Normal</th>
+                    <th>Vip</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- resultados -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.getElementById('buscar-vuelos').addEventListener('click', function() {
+            const idaVuelta = document.getElementById('ida-vuelta').value;
+            const origen = document.getElementById('origen').value;
+            const destino = document.getElementById('destino').value;
+            const partida = document.getElementById('partida').value;
+            const regreso = document.getElementById('regreso').value;
+            const adultoMayor = document.getElementById('adulto-mayor').value;
+            const adultos = document.getElementById('adultos').value;
+            const ninos = document.getElementById('ninos').value;
+            const mascotas = document.getElementById('mascotas').value;
+            const errorMessage = document.getElementById('error-message');
+
+            // aalidación de campos
+            if (!idaVuelta || !origen || !destino || !partida || (idaVuelta === 'vuelta' && !regreso)) {
+                errorMessage.textContent = "Por favor, complete todos los campos requeridos.";
+                return;
+            } else {
+                errorMessage.textContent = "";
+            }
+
+            //fechas de vuelo con meses a partir de fecha de partida
+            let resultados = [];
+            let fechaPartida = new Date(partida);
+            let fechaLimite = new Date(partida);
+            fechaLimite.setMonth(fechaLimite.getMonth() + 2);
+
+            while (resultados.length < 15 && fechaPartida <= fechaLimite) {
+                // vuelos para cada día dentro del rango
+                for (let i = 0; i < 15; i++) {
+                    let duracionHoras = Math.floor(Math.random() * 5) + 1;
+                    let duracionMinutos = Math.floor(Math.random() * 60);
+                    let partidaHora = new Date(fechaPartida);
+                    partidaHora.setHours(Math.floor(Math.random() * 24), Math.floor(Math.random() * 60));
+                    let llegadaHora = new Date(partidaHora);
+                    llegadaHora.setHours(partidaHora.getHours() + duracionHoras, partidaHora.getMinutes() + duracionMinutos);
+
+                    let economico = `${Math.floor(Math.random() * 100 + 200)}Bs`;
+                    let normal = `${Math.floor(Math.random() * 100 + 300)}Bs`;
+                    let vip = `${Math.floor(Math.random() * 100 + 400)}Bs`;
+
+                    let vuelo = {
+                        vuelo: `VUE${Math.floor(Math.random() * 9000) + 1000}`,
+                        origen: origen,
+                        destino: destino,
+                        partida: partidaHora.toLocaleString(),
+                        llegada: llegadaHora.toLocaleString(),
+                        economico: economico,
+                        normal: normal,
+                        vip: vip
+                    };
+
+                    resultados.push(vuelo);
+                }
+
+                // avanza un día
+                fechaPartida.setDate(fechaPartida.getDate() + 1);
+            }
+
+            mostrarResultados(resultados, adultoMayor, adultos, ninos, mascotas);
+        });
+
+        function mostrarResultados(vuelos, adultoMayor, adultos, ninos, mascotas) {
+            const resultadosTabla = document.getElementById('resultados').getElementsByTagName('tbody')[0];
+            resultadosTabla.innerHTML = '';
+
+            vuelos.forEach(vuelo => {
+                let fila = resultadosTabla.insertRow();
+                fila.insertCell(0).textContent = vuelo.vuelo;
+                fila.insertCell(1).textContent = vuelo.origen;
+                fila.insertCell(2).textContent = vuelo.destino;
+                fila.insertCell(3).textContent = vuelo.partida;
+                fila.insertCell(4).textContent = vuelo.llegada;
+                fila.insertCell(5).textContent = vuelo.economico;
+                fila.insertCell(6).textContent = vuelo.normal;
+                fila.insertCell(7).textContent = vuelo.vip;
+                let reservarBtn = document.createElement('button');
+                reservarBtn.textContent = 'Reservar';
+                reservarBtn.classList.add('btn');
+                reservarBtn.addEventListener('click', function() {
+                    reservarVuelo(vuelo.vuelo, adultoMayor, adultos, ninos, mascotas);
+                });
+                fila.insertCell(8).appendChild(reservarBtn);
+            });
+        }
+
+        function reservarVuelo(vuelo, adultoMayor, adultos, ninos, mascotas) {
+            const url = `verasientos.php?vuelo=${vuelo}&adultoMayor=${adultoMayor}&adultos=${adultos}&ninos=${ninos}&mascotas=${mascotas}`;
+
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    // Dirigir a la pantalla de reserva
+                    window.location.href = `verasientos.php?vuelo=${vuelo}&adultoMayor=${adultoMayor}&adultos=${adultos}&ninos=${ninos}&mascotas=${mascotas}`;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
 </body>
 </html>
