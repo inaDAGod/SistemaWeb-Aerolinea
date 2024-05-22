@@ -52,13 +52,13 @@ $(document).ready(function() {
         tbody.empty(); // Limpia la tabla antes de agregar nuevos datos
         data.forEach(function(item) {
             var row = `<tr>
-                <td>${item.tipo_pasajero}</td>
-                <td>${item.asiento}</td>
-                <td>${item.tipo_asiento}</td>
-                <td>${item.nombres}</td>
-                <td>${item.apellidos}</td>
-                <td class="documento">${item.documento}</td>
-                <td>
+                <td data-label="Tipo pasajero">${item.tipo_pasajero}</td>
+                <td data-label="Asiento">${item.asiento}</td>
+                <td data-label="Tipo Asiento">${item.tipo_asiento}</td>
+                <td data-label="Nombres">${item.nombres}</td>
+                <td data-label="Apellidos">${item.apellidos}</td>
+                <td data-label="Documento" class="documento">${item.documento}</td>
+                <td data-label="Estado Check-In">
                     <div class="dropdown">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="estadoCheckInDropdown${item.documento}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             ${item.estado_checkin}
@@ -72,25 +72,25 @@ $(document).ready(function() {
             </tr>`;
             tbody.append(row);
         });
-
+    
         // Manejar el cambio de estado del combo box
         $('.dropdown-item').click(function() {
             var newStatus = $(this).attr('data-value');
             var documento = $(this).closest('tr').find('.documento').text(); // Obtener el documento del pasajero
-
+    
             // Obtener el estado actual del check-in
             var estadoActual = $('#estadoCheckInDropdown' + documento).text().trim();
-
+    
             // Verificar si el estado actual es "Realizado" y el nuevo estado es "Pendiente"
             if (estadoActual === "Realizado" && newStatus === "Pendiente") {
                 alert("No se puede cambiar el estado a 'Pendiente' porque ya está 'Realizado'");
                 return; // Evitar enviar la solicitud AJAX
             }
-
+    
             // Si no hay problemas con la validación, enviar la solicitud AJAX
             updateCheckInStatus(documento, newStatus);
         });
-    }
+    }    
 
     function updateCheckInStatus(documento, newStatus) {
         $.ajax({
