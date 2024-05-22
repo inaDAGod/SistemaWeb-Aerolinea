@@ -32,14 +32,16 @@ function guardarProducto() {
             })
             .then(data => {
                 if (data.estado === "registro_exitoso") {
-                    window.location.href = 'http://localhost/SistemaWeb-Aerolinea/public/addProducto.html';
+                    showAlert('success', '¡Producto guardado con éxito!');
+                    limpiarCampos();
                 } else if (data.estado === "error_registro") {
-                    alert('Ya se añadió un producto igual');
+                    showAlert('danger', 'Ya se añadió un producto igual');
                 }
             })
             .catch(error => {
                 console.error('Error en la solicitud:', error);
-                alert('Parece que hubo un error en la solicitud. Vuelve a intentar más tarde.');
+                showAlert('danger', 'Ya se añadió un producto igual');
+                showAlert('danger', 'Parece que hubo un error en la solicitud. Vuelve a intentar más tarde.');
             });
     } else {
         // Agregar clases de Bootstrap para mostrar los estilos de validación incorrecta
@@ -77,4 +79,12 @@ function guardarProducto() {
             foto.classList.add('is-valid');
         }
     }
+}
+
+function limpiarCampos() {
+    document.getElementById("premio").value = "";
+    document.getElementById("millas").value = "";
+    document.querySelector('input[name="destacadosOption"]:checked').checked = false;
+    document.getElementById("tipo").selectedIndex = 0;
+    document.getElementById("foto").value = "";
 }
