@@ -287,32 +287,32 @@
         }
 
         function reservarVuelo(vuelo, adultoMayor, adultos, ninos, mascotas) {
-    const url = `verasientos.php?vuelo=${vuelo}&adultoMayor=${adultoMayor}&adultos=${adultos}&ninos=${ninos}&mascotas=${mascotas}`;
+        const url = `verasientos.php?vuelo=${vuelo}&adultoMayor=${adultoMayor}&adultos=${adultos}&ninos=${ninos}&mascotas=${mascotas}`;
 
-    fetch(url)
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                throw new Error('Ocurrió un error en el servidor');
-            }
-        })
-        .then(data => {
-            if (data.error) {
-                // Mostrar el mensaje de error
+        fetch(url)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Ocurrió un error en el servidor');
+                }
+            })
+            .then(data => {
+                if (data.error) {
+                    // Mostrar el mensaje de error
+                    const errorMessage = document.getElementById('error-message');
+                    errorMessage.textContent = data.error;
+                } else {
+                    // Redirigir a la página de reserva si no hay errores
+                    window.location.href = `reserva.php?vuelo=${vuelo}&adultoMayor=${adultoMayor}&adultos=${adultos}&ninos=${ninos}&mascotas=${mascotas}`;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
                 const errorMessage = document.getElementById('error-message');
-                errorMessage.textContent = data.error;
-            } else {
-                // Procesar los datos de verasientos.php si es necesario
-                window.location.href = `reserva.php?vuelo=${vuelo}&adultoMayor=${adultoMayor}&adultos=${adultos}&ninos=${ninos}&mascotas=${mascotas}`;
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            const errorMessage = document.getElementById('error-message');
-            errorMessage.textContent = 'Ocurrió un error en el servidor';
-        });
-}
+                errorMessage.textContent = 'Ocurrió un error en el servidor';
+            });
+    }
     </script>
 </body>
 </html>

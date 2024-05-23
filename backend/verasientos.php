@@ -26,7 +26,6 @@ if ($result_cavion && pg_num_rows($result_cavion) > 0) {
     // Verificar la disponibilidad de asientos para cada tipo de asiento
     $query_asientos = "SELECT tipo_asiento, COUNT(*) as disponibles FROM asientos WHERE cavion = '$cavion' AND estado = 'disponible' GROUP BY tipo_asiento";
     $result_asientos = pg_query($conexion, $query_asientos);
-
     $asientos_suficientes = true;
     $asientos_por_tipo = [
         'económico' => 0,
@@ -37,10 +36,12 @@ if ($result_cavion && pg_num_rows($result_cavion) > 0) {
     while ($asiento = pg_fetch_assoc($result_asientos)) {
         $tipo = $asiento['tipo_asiento'];
         $disponibles = (int)$asiento['disponibles'];
+
         if ($disponibles < $totalPersonas) {
             $asientos_suficientes = false;
             break;
         }
+
         $asientos_por_tipo[$tipo] = $disponibles;
     }
 
