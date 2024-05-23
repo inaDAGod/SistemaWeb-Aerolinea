@@ -1,60 +1,47 @@
 <?php
-// Establecer conexión a la base de datos
-$conexion = pg_connect("dbname=aerolinea user=postgres password=admin");
+$cvuelosnum = $_GET['vuelo'];
+$adultoMayor = $_GET['adultoMayor'];
+$adultos = $_GET['adultos'];
+$ninos = $_GET['ninos'];
+$mascotas = $_GET['mascotas'];
 
+// Conexión a la base de datos
+$conexion = pg_connect("dbname=aerolinea user=postgres password=admin");
 if (!$conexion) {
-    echo json_encode(['disponible' => false, 'mensaje' => 'Error al conectar a la base de datos.']);
+    echo json_encode(['status' => 'error', 'message' => 'Error de conexión a la base de datos.']);
     exit;
 }
 
-// Obtener los parámetros de la URL
-$vuelo = $_GET['vuelo'];
-$adultoMayor = (int)$_GET['adultoMayor'];
-$adultos = (int)$_GET['adultos'];
-$ninos = (int)$_GET['ninos'];
-$mascotas = (int)$_GET['mascotas'];
-$totalPersonas = $adultoMayor + $adultos + $ninos + $mascotas;
-
-// Obtener el código del avión para el vuelo dado desde la tabla asientos_vuelo
+// Consultar el código del avión para el vuelo dado
 $query_cavion = "SELECT cavion FROM asientos_vuelo WHERE cvuelo = $1 LIMIT 1";
-$result_cavion = pg_query_params($conexion, $query_cavion, [$vuelo]);
+$result_cavion = pg_query_params($conexion, $query_cavion, array($cvuelosnum));
 
 if ($result_cavion && pg_num_rows($result_cavion) > 0) {
     $cavion_result = pg_fetch_assoc($result_cavion);
     $cavion = $cavion_result['cavion'];
 
-    // Verificar la disponibilidad de asientos para cada tipo de asiento
-    $query_asientos = "SELECT tipo_asiento, COUNT(*) as disponibles FROM asientos WHERE cavion = $1 AND estado = 'disponible' GROUP BY tipo_asiento";
-    $result_asientos = pg_query_params($conexion, $query_asientos, [$cavion]);
+    // Verificar la disponibilidad de asientos
+    $query_disponibilidad = "SELECT tipo_asiento, COUNT(*) AS disponibles FROM asientos WHERE cavion = $1 AND disponible = true GROUP BY tipo_asiento";
+    $result_disponibilidad = pg_query_params($conexion, $query_disponibilidad, array($cavion));
+    $disponibilidad = pg_fetch_all($result_disponibilidad);
 
-    $asientos_suficientes = true;
-    $asientos_por_tipo = [
-        'económico' => 0,
-        'normal' => 0,
-        'vip' => 0
-    ];
-
-    if ($result_asientos) {
-        while ($asiento = pg_fetch_assoc($result_asientos)) {
-            $tipo = $asiento['tipo_asiento'];
-            $disponibles = (int)$asiento['disponibles'];
-            if ($disponibles < $totalPersonas) {
-                $asientos_suficientes = false;
-                break;
-            }
-            $asientos_por_tipo[$tipo] = $disponibles;
+    $suficiente = true;
+    foreach ($disponibilidad as $tipo_asiento) {
+        if (($tipo_asiento['tipo_asiento'] === 'economico' && $tipo_asiento['disponibles'] < $adultos) ||
+            ($tipo_asiento['tipo_asiento'] === 'normal' && $tipo_asiento['disponibles'] < $adultoMayor) ||
+            ($tipo_asiento['tipo_asiento'] === 'vip' && $tipo_asiento['disponibles'] < $ninos)) {
+            $suficiente = false;
+            break;
         }
+    }
 
-        if ($asientos_suficientes) {
-            echo json_encode(['disponible' => true]);
-        } else {
-            echo json_encode(['disponible' => false]);
-        }
+    if ($suficiente) {
+        echo json_encode(['status' => 'success']);
     } else {
-        echo json_encode(['disponible' => false, 'mensaje' => 'Error al consultar la disponibilidad de asientos.']);
+        echo json_encode(['status' => 'error', 'message' => 'No hay suficientes asientos disponibles.']);
     }
 } else {
-    echo json_encode(['disponible' => false, 'mensaje' => 'No se encontró el avión para el vuelo dado.']);
+    echo json_encode(['status' => 'error', 'message' => 'No se encontró el avión para el vuelo dado.']);
 }
 
 pg_close($conexion);
