@@ -287,18 +287,24 @@
         }
 
         function reservarVuelo(vuelo, adultoMayor, adultos, ninos, mascotas) {
-            const url = `verasientos.php?vuelo=${vuelo}&adultoMayor=${adultoMayor}&adultos=${adultos}&ninos=${ninos}&mascotas=${mascotas}`;
+    const url = `verasientos.php?vuelo=${vuelo}&adultoMayor=${adultoMayor}&adultos=${adultos}&ninos=${ninos}&mascotas=${mascotas}`;
 
-            fetch(url)
-                .then(response => response.text())
-                .then(data => {
-                    // Procesar los datos de verasientos.php si es necesario
-                    window.location.href = `reserva.php?vuelo=${vuelo}&adultoMayor=${adultoMayor}&adultos=${adultos}&ninos=${ninos}&mascotas=${mascotas}`;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                // Mostrar el mensaje de error
+                const errorMessage = document.getElementById('error-message');
+                errorMessage.textContent = data.error;
+            } else {
+                // Procesar los datos de verasientos.php si es necesario
+                window.location.href = `reserva.php?vuelo=${vuelo}&adultoMayor=${adultoMayor}&adultos=${adultos}&ninos=${ninos}&mascotas=${mascotas}`;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
     </script>
 </body>
 </html>

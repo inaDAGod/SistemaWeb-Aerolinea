@@ -49,7 +49,7 @@ if ($result_cavion && pg_num_rows($result_cavion) > 0) {
         header("Location: reserva_vuelo.php?vuelo=$vuelo&adultoMayor=$adultoMayor&adultos=$adultos&ninos=$ninos&mascotas=$mascotas");
         exit;
     } else {
-        echo "No hay suficientes asientos disponibles para el vuelo seleccionado.";
+        echo json_encode(['error' => 'No hay suficientes asientos disponibles para el vuelo seleccionado.']);
     }
 } else {
     echo "No se encontró el avión para el vuelo dado.";
