@@ -290,7 +290,13 @@
     const url = `verasientos.php?vuelo=${vuelo}&adultoMayor=${adultoMayor}&adultos=${adultos}&ninos=${ninos}&mascotas=${mascotas}`;
 
     fetch(url)
-        .then(response => response.json())
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Ocurrió un error en el servidor');
+            }
+        })
         .then(data => {
             if (data.error) {
                 // Mostrar el mensaje de error
@@ -303,6 +309,8 @@
         })
         .catch(error => {
             console.error('Error:', error);
+            const errorMessage = document.getElementById('error-message');
+            errorMessage.textContent = 'Ocurrió un error en el servidor';
         });
 }
     </script>
