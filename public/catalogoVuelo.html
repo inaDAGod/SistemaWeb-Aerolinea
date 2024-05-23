@@ -212,7 +212,7 @@
             const ninos = document.getElementById('ninos').value;
             const mascotas = document.getElementById('mascotas').value;
             const errorMessage = document.getElementById('error-message');
-    
+
             // Validación de campos
             if (!idaVuelta || !origen || !destino || !partida || (idaVuelta === 'vuelta' && !regreso)) {
                 errorMessage.textContent = "Por favor, complete todos los campos requeridos.";
@@ -220,13 +220,13 @@
             } else {
                 errorMessage.textContent = "";
             }
-    
+
             // fechas de vuelo con meses a partir de fecha de partida
             let resultados = [];
             let fechaPartida = new Date(partida);
             let fechaLimite = new Date(partida);
             fechaLimite.setMonth(fechaLimite.getMonth() + 2);
-    
+
             while (resultados.length < 15 && fechaPartida <= fechaLimite) {
                 // vuelos para cada día dentro del rango
                 for (let i = 0; i < 15; i++) {
@@ -236,11 +236,11 @@
                     partidaHora.setHours(Math.floor(Math.random() * 24), Math.floor(Math.random() * 60));
                     let llegadaHora = new Date(partidaHora);
                     llegadaHora.setHours(partidaHora.getHours() + duracionHoras, partidaHora.getMinutes() + duracionMinutos);
-    
+
                     let economico = `${Math.floor(Math.random() * 100 + 200)}Bs`;
                     let normal = `${Math.floor(Math.random() * 100 + 300)}Bs`;
                     let vip = `${Math.floor(Math.random() * 100 + 400)}Bs`;
-    
+
                     let vuelo = {
                         vuelo: `VUE${Math.floor(Math.random() * 9000) + 1000}`,
                         origen: origen,
@@ -251,21 +251,21 @@
                         normal: normal,
                         vip: vip
                     };
-    
+
                     resultados.push(vuelo);
                 }
-    
+
                 // avanza un día
                 fechaPartida.setDate(fechaPartida.getDate() + 1);
             }
-    
+
             mostrarResultados(resultados, adultoMayor, adultos, ninos, mascotas);
         });
-    
+
         function mostrarResultados(vuelos, adultoMayor, adultos, ninos, mascotas) {
             const resultadosTabla = document.getElementById('resultados').getElementsByTagName('tbody')[0];
             resultadosTabla.innerHTML = '';
-    
+
             vuelos.forEach(vuelo => {
                 let fila = resultadosTabla.insertRow();
                 fila.insertCell(0).textContent = vuelo.vuelo;
@@ -280,29 +280,16 @@
                 reservarBtn.textContent = 'Reservar';
                 reservarBtn.classList.add('btn');
                 reservarBtn.addEventListener('click', function() {
-                    verificarAsientosYReservar(vuelo.vuelo, adultoMayor, adultos, ninos, mascotas);
+                    reservarVuelo(vuelo.vuelo, adultoMayor, adultos, ninos, mascotas);
                 });
                 fila.insertCell(8).appendChild(reservarBtn);
             });
         }
-    
-        function verificarAsientosYReservar(vuelo, adultoMayor, adultos, ninos, mascotas) {
-            fetch(`verasientos.php?vuelo=${vuelo}&adultoMayor=${adultoMayor}&adultos=${adultos}&ninos=${ninos}&mascotas=${mascotas}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status === 'success') {
-                        window.location.href = `reserva.php?vuelo=${vuelo}&adultoMayor=${adultoMayor}&adultos=${adultos}&ninos=${ninos}&mascotas=${mascotas}`;
-                    } else {
-                        console.error(data.message);
-                        alert('No hay suficientes asientos disponibles.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Error al verificar asientos.');
-                });
+
+        function reservarVuelo(vuelo, adultoMayor, adultos, ninos, mascotas) {
+            const url = `reserva.php?vuelo=${vuelo}&adultoMayor=${adultoMayor}&adultos=${adultos}&ninos=${ninos}&mascotas=${mascotas}`;
+            window.location.href = url;
         }
     </script>
-    
 </body>
 </html>
