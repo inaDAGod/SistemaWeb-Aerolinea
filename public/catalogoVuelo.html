@@ -290,6 +290,30 @@
             const url = `reserva.php?vuelo=${vuelo}&adultoMayor=${adultoMayor}&adultos=${adultos}&ninos=${ninos}&mascotas=${mascotas}`;
             window.location.href = url;
         }
+
+        /*
+        function verificarAsientosYReservar(vuelo, adultoMayor, adultos, ninos, mascotas) {
+        fetch(`verasientos.php?vuelo=${vuelo}&adultoMayor=${adultoMayor}&adultos=${adultos}&ninos=${ninos}&mascotas=${mascotas}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data); // Para ver la respuesta en la consola
+                if (data.status === 'success') {
+                    window.location.href = `reserva.php?vuelo=${vuelo}&adultoMayor=${adultoMayor}&adultos=${adultos}&ninos=${ninos}&mascotas=${mascotas}`;
+                } else {
+                    console.error(data.message);
+                    alert('No hay suficientes asientos disponibles.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al verificar asientos.');
+            });
+    }*/
     </script>
 </body>
 </html>

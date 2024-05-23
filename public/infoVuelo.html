@@ -125,25 +125,9 @@
         <h2></h2>
     </div>
 
-    <h3 class="title">Catálogo de Vuelos</h3>
-
-    <div class="nav">
-        <a href="admin_pasajeros.html">Pasajeros</a>
-        <a href="reservasAdmin.html">Reservas</a>
-    </div>
+    <h3 class="title">Vuelos</h3>
 
     <div class="form-container">
-        <div class="form-row">
-            <div class="form-group">
-                <label for="ida-vuelta">Ida / Vuelta:</label>
-                <select id="ida-vuelta">
-                    <option value="">Seleccionar</option>
-                    <option value="ida">Ida</option>
-                    <option value="vuelta">Vuelta</option>
-                </select>
-            </div>
-        </div>
-
         <div class="form-row">
             <div class="form-group">
                 <label for="origen">Origen:</label>
@@ -180,28 +164,6 @@
             </div>
         </div>
 
-        <div class="form-row">
-            <div class="form-group">
-                <label for="adulto-mayor">Adulto Mayor:</label>
-                <input type="number" id="adulto-mayor" value="0" min="0">
-            </div>
-
-            <div class="form-group">
-                <label for="adultos">Adultos:</label>
-                <input type="number" id="adultos" value="1" min="1">
-            </div>
-
-            <div class="form-group">
-                <label for="ninos">Niños:</label>
-                <input type="number" id="ninos" value="0" min="0">
-            </div>
-
-            <div class="form-group">
-                <label for="mascotas">Mascotas:</label>
-                <input type="number" id="mascotas" value="0" min="0">
-            </div>
-        </div>
-
         <button class="btn" id="buscar-vuelos">Buscar Vuelos</button>
         <div class="error" id="error-message"></div>
         <table class="results-table" id="resultados">
@@ -215,7 +177,8 @@
                     <th>Económico</th>
                     <th>Normal</th>
                     <th>Vip</th>
-                    <th>Acción</th>
+                    <th>Reservas</th>
+                    <th>Pasajeros</th>
                 </tr>
             </thead>
             <tbody>
@@ -226,19 +189,14 @@
 
     <script>
         document.getElementById('buscar-vuelos').addEventListener('click', function() {
-            const idaVuelta = document.getElementById('ida-vuelta').value;
             const origen = document.getElementById('origen').value;
             const destino = document.getElementById('destino').value;
             const partida = document.getElementById('partida').value;
             const regreso = document.getElementById('regreso').value;
-            const adultoMayor = document.getElementById('adulto-mayor').value;
-            const adultos = document.getElementById('adultos').value;
-            const ninos = document.getElementById('ninos').value;
-            const mascotas = document.getElementById('mascotas').value;
             const errorMessage = document.getElementById('error-message');
 
             // Validación de campos
-            if (!idaVuelta || !origen || !destino || !partida || (idaVuelta === 'vuelta' && !regreso)) {
+            if (!origen || !destino || !partida || !regreso) {
                 errorMessage.textContent = "Por favor, complete todos los campos requeridos.";
                 return;
             } else {
@@ -271,7 +229,9 @@
                         llegada: llegadaHora.toISOString().substring(0, 16).replace('T', ' '),
                         economico: (Math.random() * 100).toFixed(2),
                         normal: (Math.random() * 200).toFixed(2),
-                        vip: (Math.random() * 300).toFixed(2)
+                        vip: (Math.random() * 300).toFixed(2),
+                        reservas: Math.floor(Math.random() * 100),
+                        pasajeros: Math.floor(Math.random() * 200)
                     });
 
                     if (resultados.length >= 15) {
@@ -297,7 +257,8 @@
                     <td>$${vuelo.economico}</td>
                     <td>$${vuelo.normal}</td>
                     <td>$${vuelo.vip}</td>
-                    <td><button>Reservar</button></td>
+                    <td>${vuelo.reservas}</td>
+                    <td>${vuelo.pasajeros}</td>
                 `;
                 tbody.appendChild(tr);
             });
