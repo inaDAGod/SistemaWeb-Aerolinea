@@ -124,10 +124,7 @@ try {
 
 </head>
 
-<body style="color:black">
-
-
-<body style="color:black">
+<body style="color:white">
 
 <div style="background-color: #8FBCEA">
 <img src="assets\logoavion.png" alt="Menu Icon" style="width:10%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">

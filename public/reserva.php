@@ -100,7 +100,7 @@ try {
 
 </head>
 
-<body style="color:black">
+<body style="color:white">
 
 <div style="background-color: #8FBCEA">
 <img src="assets\logoavion.png" alt="Menu Icon" style="width:10%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
@@ -116,7 +116,7 @@ try {
             
         </nav>
 
-<button class="btn btn" style="position: absolute; leftt: 0; top:14%; color:black;"><a href="index.html">< Cancelar reserva</a></button>
+<button class="btn btn" style="position: absolute; leftt: 0; top:14%; color: rgba(8, 86, 167, 1);"><a href="index.html">< Cancelar reserva</a></button>
 <h1 class="h1rese">Reservar </h1>
 
 <div class="datos">
