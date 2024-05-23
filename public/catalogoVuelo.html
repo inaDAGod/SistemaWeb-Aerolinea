@@ -103,7 +103,7 @@
 </head>
 <body>
     <div class="header">
-        <h2></h2>
+        <h2>Catálogo de Vuelos</h2>
     </div>
 
     <h3 class="title">Catálogo de Vuelos</h3>
@@ -213,7 +213,7 @@
             const mascotas = document.getElementById('mascotas').value;
             const errorMessage = document.getElementById('error-message');
 
-            // aalidación de campos
+            // Validación de campos
             if (!idaVuelta || !origen || !destino || !partida || (idaVuelta === 'vuelta' && !regreso)) {
                 errorMessage.textContent = "Por favor, complete todos los campos requeridos.";
                 return;
@@ -221,7 +221,7 @@
                 errorMessage.textContent = "";
             }
 
-            //fechas de vuelo con meses a partir de fecha de partida
+            // fechas de vuelo con meses a partir de fecha de partida
             let resultados = [];
             let fechaPartida = new Date(partida);
             let fechaLimite = new Date(partida);
@@ -292,8 +292,8 @@
             fetch(url)
                 .then(response => response.text())
                 .then(data => {
-                    // Dirigir a la pantalla de reserva
-                    window.location.href = `verasientos.php?vuelo=${vuelo}&adultoMayor=${adultoMayor}&adultos=${adultos}&ninos=${ninos}&mascotas=${mascotas}`;
+                    // Procesar los datos de verasientos.php si es necesario
+                    window.location.href = `reserva.php?vuelo=${vuelo}&adultoMayor=${adultoMayor}&adultos=${adultos}&ninos=${ninos}&mascotas=${mascotas}`;
                 })
                 .catch(error => {
                     console.error('Error:', error);
