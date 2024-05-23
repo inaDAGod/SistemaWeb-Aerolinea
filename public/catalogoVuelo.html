@@ -103,7 +103,7 @@
 </head>
 <body>
     <div class="header">
-        <h2>Catálogo de Vuelos</h2>
+        <h2></h2>
     </div>
 
     <h3 class="title">Catálogo de Vuelos</h3>
@@ -287,7 +287,7 @@
         }
         
         function reservarVuelo(vuelo, adultoMayor, adultos, ninos, mascotas) {
-            const url = `verasientos.php?vuelo=${vuelo}&adultoMayor=${adultoMayor}&adultos=${adultos}&ninos=${ninos}&mascotas=${mascotas}`;
+            const url = `verificar_disponibilidad.php?vuelo=${vuelo}&adultoMayor=${adultoMayor}&adultos=${adultos}&ninos=${ninos}&mascotas=${mascotas}`;
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
