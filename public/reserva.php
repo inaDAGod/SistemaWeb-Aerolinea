@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Store total number of people in session
-$adum = 0;
+$adum = 1;
 $adu = 1;
 $nin = 0;
 
@@ -22,8 +22,8 @@ $totalg = $adum + $adu + $nin ;
 
 
 $correo_usuario = 'example@example.com';
-$fecha_reserva = '2024-05-15'; // Puedes cambiar esta fecha según sea necesario
-$fecha_lmite  = '2024-06-15'; // Puedes cambiar esta fecha según sea necesario
+$fecha_reserva = '2024-06-25'; // Puedes cambiar esta fecha según sea necesario
+$fecha_lmite  = '2024-06-27'; // Puedes cambiar esta fecha según sea necesario
 
 // Función para generar dinámicamente el número de reserva
 function generar_numero_reserva($conn, $correo_usuario, $fecha_reserva, $fecha_lmite) {
