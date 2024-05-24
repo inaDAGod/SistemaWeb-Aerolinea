@@ -118,4 +118,10 @@ $(document).ready(function() {
             }
         });
     }
+    $("#mostrarTodosBtn").click(function() {
+        $("#numeroDocumento").val('');
+        $("#nombre").val('');
+        $("#apellido").val('');
+        loadAllPassengers();
+    });
 });
