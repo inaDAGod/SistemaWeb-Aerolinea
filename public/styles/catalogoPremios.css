@@ -6,6 +6,12 @@
     margin-bottom: 0.5em;
     display: inline-block;
 }
+.card {
+  flex: 1 1 calc(25% - 20px); /* Fórmula para calcular el ancho, dejando espacio para el margen entre tarjetas */
+  min-width: 200px; /* Ancho mínimo de la tarjeta */
+  margin-bottom: 20px; /* Espacio entre las tarjetas */
+}
+
 
 .star {
     color: gold; /* Color de la estrella */
@@ -92,3 +98,4 @@ label {
     display: flex;
     padding: 2%;
 }
+

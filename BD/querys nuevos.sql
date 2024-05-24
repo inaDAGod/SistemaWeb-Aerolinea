@@ -85,3 +85,17 @@ select * from reservas_personas
 UPDATE estados_reserva
 SET estado_reserva = 'Cancelado'
 WHERE estado_reserva = 'Realizado';
+
+--UPDATE PARA CHECKIN AQUI DE JOSH
+--AGREGO CHECKCIN
+INSERT INTO check_in (correo_usuario, fecha_check_in, numero_documento, tipodoc, equipaje_mano, maleta, equipaje_extra) VALUES
+('joshnisth@gmail.com', '2024-06-09', '8002000', 'DNI', true, false, true),
+('joshnisth@gmail.com', '2024-06-11', '8002003', 'Pasaporte', true, true, false),
+('ellie13@gmail.com', '2024-06-14', '8002001', 'Carnet de Identidad', false, true, false);
+--Y ESTO MAS
+alter table check_in
+add column estado_checkin varchar (20);
+
+--Agrego un boleto 
+INSERT INTO boletos (ci_persona,cvuelo,casiento,total) VALUES
+('8002001','2','Asiento 39','500');
