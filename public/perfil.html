@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <link rel="stylesheet" href="styles/styleIndex.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+    <title>Detalles de Usuario y Vuelos</title>
+    <style>
+        .container {
+            margin-top: 20px;
+        }
+        .header{
+            height: 100%;
+        }
+        .section-content h2 {
+            text-align: center;
+        }
+        #user-info h2 {
+            margin-bottom: 20px;
+            font-size: 5.2em;
+            text-align: center;
+            color: white;
+        }
+        .section-content {
+            display: none;
+        }
+        .section-content.active {
+            display: block;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        #user-info {
+            padding: 20px;
+        }
+        .user-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .user-details div {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .user-details div span {
+            font-weight: bold;
+        }
+        .user-info-header {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .millas-info {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            text-align: left;
+        }
+        .table-user {
+            margin: 0 auto;
+            text-align: center;
+            border-spacing: 100px; /* Add space between th elements */
+        }
+        .table-user th {
+            vertical-align: top;
+        }
+
+        .esta-user {
+            margin: 0 auto;
+            text-align: center;
+            background-color: rgba(143, 188, 234, 1);
+            border-radius: 40px;
+            padding: 0.5%;
+            margin-top:2% ;
+        }
+        .esta-user tr {
+            vertical-align: top;
+            width: 80%;
+        }
+        .esta-user th {
+            vertical-align: top;
+            font-size: 1.2em;
+            padding-left: 1.5%;
+            padding-right: 1.5%;
+            padding-top: 0.5%;
+            padding-bottom: 0.5%;
+            color: white;
+            
+        }
+        .section{
+            background-color: rgba(143, 188, 234, 1);
+            border-radius: 40px;
+            width: 63%;
+        }
+        .section-button {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        
+        .section-button input[type="radio"] {
+            display: none;
+        }
+        
+        .section-button span {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 1.5em;
+        }
+        
+        .section-button input[type="radio"]:checked + span {
+            background-color: rgba(8, 86, 167, 1);
+            color: #fff;
+        }
+        
+
+    </style>
+</head>
+<body>
+    <div style="background-color: #8FBCEA"></div>
+    <img src="assets/logoavion.png" alt="Menu Icon" style="width:10%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
+    <header class="header" id="inicio">
+        <img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger">
+        <nav class="menu-navegacion">
+            <a href="reserva.php">Vuelos</a>
+            <a href="#">Check-In</a>
+            <a href="#">Premios Millas</a>
+            <a href="perfil.html">Perfil</a>
+            <a href="index.html">Cerrar Sesion</a>
+        </nav>
+
+        <table class="table-user">
+            <tr>
+                <th >
+                    <img src="assets/perfil.png" style="width:120%;height:120%;margin-left:-10%">
+                    <div class="millas-info">
+                        <span>Millas:</span> <span id="user-millas"></span>
+                    </div>
+                </th>
+                <th>
+                    <div id="user-info" class="user-info section-content active">
+                        <h2 class="user-info-header">Hola <span id="user-name"></span></h2>
+                    </div>
+                    <div id="user-info" class="user-info section-content active">
+                        <div style="font-size: 1.5em;color:white;" id="user-details" class="user-details"></div>
+                    </div>
+                </th>
+            </tr>
+        </table>
+    </header>
+    <div id="userStatistics"></div>
+    <div class="container" style="margin-top: 5%;margin-bottom:20%">
+        <div class="section">
+            <label class="section-button">
+                <input type="radio" name="section" id="week-flights-radio" onclick="showSection('week-flights')" checked>
+                <span>Proximos</span>
+            </label>
+            <label class="section-button">
+                <input type="radio" name="section" id="reservations-radio" onclick="showSection('reservations')">
+                <span>Reservas</span>
+            </label>
+            <label class="section-button">
+                <input type="radio" name="section" id="past-flights-radio" onclick="showSection('past-flights')">
+                <span>Pasados</span>
+            </label>
+        </div>
+        
+        
+        <div id="week-flights" class="flights section-content active">
+            <h2>Vuelos de la Semana</h2>
+            <div id="week-flights-content"></div>
+        </div>
+        
+        <div id="reservations" class="reservations section-content">
+            <h2>Reservas</h2>
+            <div id="user-reservations-content"></div>
+        </div>
+        
+        <div id="past-flights" class="past-flights section-content">
+            <h2>Vuelos Pasados</h2>
+            <div id="past-user-flights-content"></div>
+        </div>
+    </div>
+
+
+    <script>
+        // Fetch user statistics from PHP script
+        fetch('user_statistics.php')
+            .then(response => response.json())
+            .then(data => {
+                // Update HTML with user statistics
+                document.getElementById('userStatistics').innerHTML = data.message;
+            })
+            .catch(error => {
+                console.error('Error fetching user statistics:', error);
+            });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="scripts/scripts/scriptperfil.js" defer></script>
+    <script>
+        // Define the showSection function in the global scope
+        function showSection(sectionId) {
+            // Hide all sections except for "Datos del Usuario"
+            var sections = document.querySelectorAll('.section-content:not(#user-info)');
+            sections.forEach(function(section) {
+                section.classList.remove('active');
+            });
+            
+            // Show the selected section
+            var selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.classList.add('active');
+            }
+        }
+    
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch and display user details
+            loadUserInfo();
+            loadStatistics();
+            loadWeekFlights();
+            loadUserReservations();
+            loadPastUserFlights();
+        });
+    
+        function loadUserInfo() {
+            // Lógica para cargar los detalles del usuario utilizando AJAX
+            fetch('http://localhost/SistemaWeb-Aerolinea/backend/user_info.php')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('user-name').textContent = data.nombres_usuario;
+                    document.getElementById('user-details').innerHTML = `
+                        <div><span>Nombre:</span> ${data.nombres_usuario}</div>
+                        <div><span>Apellido:</span> ${data.apellidos_usuario}</div>
+                        <div><span>Correo:</span> ${data.correo_usuario}</div>
+                    `;
+                    document.getElementById('user-millas').textContent = data.millas;
+                })
+                .catch(error => {
+                    console.error('Error fetching user info:', error);
+                });
+        }
+    
+        function loadStatistics() {
+            // Fetch user statistics
+            fetch('http://localhost/SistemaWeb-Aerolinea/backend/user_statistics.php')
+            .then(response => response.json())
+            .then(data => {
+                // Update HTML with user statistics
+                document.getElementById('userStatistics').innerHTML = `
+                <table class='esta-user'>
+                    <tr><th><span>Total días de viaje:</span> ${data.total_days_travelled}</th>
+                    <th><span>Total ciudades visitadas:</span> ${data.total_cities_visited}</th>
+                    <th><span>Total millas ganadas:</span> ${data.total_miles_earned}<th>
+
+                    </tr></table>
+                `;
+            })
+            .catch(error => {
+                console.error('Error fetching user statistics:', error);
+            });
+        }
+    
+        function loadWeekFlights() {
+            // Lógica para cargar los vuelos de la semana utilizando AJAX
+            fetch('http://localhost/SistemaWeb-Aerolinea/backend/week_flights.php')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('week-flights-content').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error fetching week flights:', error);
+                });
+        }
+    
+        function loadUserReservations() {
+            // Lógica para cargar las reservas del usuario utilizando AJAX
+            fetch('http://localhost/SistemaWeb-Aerolinea/backend/reservations.php')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('user-reservations-content').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error fetching user reservations:', error);
+                });
+        }
+    
+        function loadPastUserFlights() {
+            // Lógica para cargar los vuelos pasados del usuario utilizando AJAX
+            fetch('http://localhost/SistemaWeb-Aerolinea/backend/past_flights.php')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('past-user-flights-content').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error fetching past user flights:', error);
+                });
+        }
+    </script>
+    
+</body>
+</html>

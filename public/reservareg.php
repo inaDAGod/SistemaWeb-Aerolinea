@@ -5,28 +5,16 @@ $adu = isset($_SESSION['adu']) ? $_SESSION['adu'] : 0;
 $nin = isset($_SESSION['nin']) ? $_SESSION['nin'] : 0;
 $totalg = isset($_SESSION['total_people']) ? $_SESSION['total_people'] : 0;
 $reservation_counter = isset($_SESSION['reservation_counter']) ? $_SESSION['reservation_counter'] : 0;
-
-
 $cvuelosnum = isset($_SESSION['cvuelosnum']) ? $_SESSION['cvuelosnum'] : 0;
-$_SESSION['cvuelosnum'] = $cvuelosnum;
-
 $creservanum = isset($_SESSION['creservanum']) ? $_SESSION['creservanum'] : 0;
+$_SESSION['cvuelosnum'] = $cvuelosnum;
 $_SESSION['creservanum'] = $creservanum;
-
 // Store values in the session
 $_SESSION['adum'] = $adum;
 $_SESSION['adu'] = $adu;
 $_SESSION['nin'] = $nin;
-
 $_SESSION['total_people'] = $totalg;
 $_SESSION['reservation_counter'] = $reservation_counter;
-
-
-
-
-
-
-
 
 // Process form data if the form has been submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -36,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $dbname = 'aerolinea';
     $username = 'postgres'; // Change this
     $password = 'admin'; // Change this
-
     
     try {
         $conn = new PDO("pgsql:host=$host;dbname=$dbname", $username, $password);
@@ -61,10 +48,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 exit; // Exit script to prevent further execution
             }
         }
-
-
-
-
 
         $stmt_check_person = $conn->prepare("SELECT COUNT(*) AS count FROM personas WHERE ci_persona = :ci_persona");
         $stmt_check_person->bindParam(':ci_persona', $ci_persona);
@@ -110,58 +93,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         // Rest of your code for inserting data into other tables...
-
-  
-
-
-
-
-
-
-
-
-
-
-
-        // Insert data into the boletos table
-        // Insert data into the boletos table
-        if ($casiento_seleccionado) {
-            $cvuelo = obtener_cvuelo_del_asiento($conn, $casiento_seleccionado);
-        
-            if (!$cvuelo) {
-                echo "Error: No se pudo obtener el cvuelo del asiento seleccionado.";
-                exit; 
-            }
-        
-            // Obtener el tipo de asiento del asiento seleccionado
-            $query_tipo_asiento = "SELECT tipo_asiento FROM asientos WHERE casiento = :casiento";
-            $stmt_tipo_asiento = $conn->prepare($query_tipo_asiento);
-            $stmt_tipo_asiento->bindParam(':casiento', $casiento_seleccionado);
-            $stmt_tipo_asiento->execute();
-            $tipo_asiento_result = $stmt_tipo_asiento->fetch(PDO::FETCH_ASSOC);
-            $tipo_asiento = $tipo_asiento_result['tipo_asiento'];
-        
-            // Obtener el costo del vuelo basado en el tipo de asiento y el cvuelo
-            $costo = obtener_costo_del_vuelo($conn, $cvuelo, $tipo_asiento);
-        
-            if ($costo !== null) {
-                // Calcular el total
-                $total = $costo;
-        
-                // Insertar datos en la tabla de boletos
-                $stmt = $conn->prepare("INSERT INTO boletos (ci_persona, cvuelo, casiento, total) 
-                    VALUES (:ci_persona, :cvuelo, :casiento, :total)");
-                $stmt->bindParam(':ci_persona', $ci_persona);
-                $stmt->bindParam(':cvuelo', $cvuelo);
-                $stmt->bindParam(':casiento', $casiento_seleccionado);
-                $stmt->bindParam(':total', $total);
-                $stmt->execute();
-            } else {
-                echo "Error: No se pudo obtener el costo del vuelo.";
-            }
-        }
-        
-
 
         if (!empty($ci_persona)) {
             try {
@@ -225,39 +156,6 @@ function obtener_cvuelo_del_asiento($conn, $casiento_seleccionado) {
     }
 }
 
-
-function obtener_costo_del_vuelo($conn, $cvuelo, $tipo_asiento) {
-    $columna_costo = '';
-    switch ($tipo_asiento) {
-        case 'VIP':
-            $columna_costo = 'costovip';
-            break;
-        case 'Business':
-            $columna_costo = 'costobusiness';
-            break;
-        case 'Económico':
-            $columna_costo = 'costoeco';
-            break;
-        default:
-            return null; // Tipo de clase no válido
-    }
-    
-    $query = "SELECT $columna_costo FROM vuelos WHERE cvuelo = :cvuelosnum";
-    $stmt = $conn->prepare($query);
-    $stmt->bindParam(':cvuelosnum', $cvuelo);
-    $stmt->execute();
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    return $result[$columna_costo];
-}
-
-
-
-
-
-
-
-
-
 ?>
 
 
@@ -287,9 +185,16 @@ setTimeout(function() {
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="styles/reserva.css">
 
-    <link rel="stylesheet" type="text/css" href="styles/default.css" />
-		<link rel="stylesheet" type="text/css" href="styles/component.css" />
 
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <link rel="stylesheet" href="styles/styleIndex.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
 
     <style>
         .centerfor {
@@ -346,19 +251,20 @@ setTimeout(function() {
 </head>
 
 <body style="color:black">
-<div style="display: flex; align-items: center;margin-right: 10px;background-color:rgba(143, 188, 234, 1);">
-    <img src="assets\logoavion.png" alt="Menu Icon" style="width:10%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
-    <button id="showRight" style="margin-left:85%;"><img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger"></button>
-        <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right" id="cbp-spmenu-s2">
-			<h3 style="font-family: 'Inter', sans-serif;font-size:35px;color:white;" id="menuHeader">Menu</h3>
-            <a style="font-family: 'Inter', sans-serif;font-size:20px;color:black;text-algin:center;" href="#">Perfil</a>
-			<a style="font-family: 'Inter', sans-serif;font-size:20px;color:black;text-algin:center;" href="#">Vuelos</a>
-            <a style="font-family: 'Inter', sans-serif;font-size:20px;color:black;text-algin:center;" href="#">Check-In</a>
-            <a style="font-family: 'Inter', sans-serif;font-size:20px;color:black;text-algin:center;" href="#">Premios Millas</a>
-            <a style="font-family: 'Inter', sans-serif;font-size:20px;color:black;text-algin:center;" href="#">Log out</a>
+<div style="background-color: #8FBCEA">
+<img src="assets\logoavion.png" alt="Menu Icon" style="width:10%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
+    </div>
+
+        <img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger">
+        <nav class="menu-navegacion">
+            <a href="reserva.php">Vuelos</a>
+            <a href="#">Check-In</a>
+            <a href="#">Premios Millas</a>
+            <a href="#">Perfil</a>
+            <a href="index.html">Cerrar Sesion</a>
             
-		</nav>  
-</div>
+        </nav>
+   
 
 
 <!-- Botón de Cancelar Reserva -->
@@ -430,16 +336,15 @@ setTimeout(function() {
     echo $tipo_persona;
     ?>
 </p>
-
-
         <div class="container">
         <input  type="hidden" id="tipo_persona_hidden" name="tipo_persona" value="<?php echo $tipo_persona; ?>">
     
             <div class="mejora">
-                <div class="input-group">
-                    <label for="ci_persona">Cédula de Identidad:</label>
-                    <input type="text" id="ci_persona" name="ci_persona" required>
-                </div>
+            <div class="input-group">
+    <label for="ci_persona">Cédula de Identidad:</label>
+    <input type="text" id="ci_persona" name="ci_persona" required>
+    <span style="background-color: #f28f8f;color:red;" id="ci_error_message" style="color: red;"></span>
+</div>
                 <div class="input-group">
                     <label for="nombres">Nombres:</label>
                     <input type="text" id="nombres" name="nombres">
@@ -537,11 +442,8 @@ try {
     echo "Error: " . $e->getMessage();
 }
 ?>
-
 </table>
-
-
-            </div>
+</div>
         </div><br><br>
         <button type="submit" class="btn btn-success" style="position: absolute; right: 0; color: rgba(8, 86, 167, 1); background-color: rgba(255, 196, 79, 1); border-radius: 20px; margin-right: 2%; margin-top: 3%; width: 10%; font-size: 20px;">Siguiente</button>
     </form>
@@ -562,9 +464,63 @@ try {
     // Call the function initially to set the tipo_persona value
     updateTipoPersona();
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Function to validate the CI number
+    function validateCI(ci) {
+        // Check if the length is 8
+        if (ci.length !== 8) {
+            return false;
+        }
+        // Check if all characters are numbers
+        return /^\d+$/.test(ci);
+    }
 
+    // Function to validate the form
+    function validateForm() {
+        var ciInput = document.getElementById("ci_persona").value.trim();
+        var errorMessageElement = document.getElementById("ci_error_message");
 
+        // Validate the CI input
+        if (validateCI(ciInput)) {
+            // Clear error message if CI is valid
+            errorMessageElement.textContent = "";
+            return true; // Allow form submission
+        } else {
+            // Display error message if CI is invalid
+            errorMessageElement.textContent = "La cédula de identidad debe contener 8 dígitos.";
+            return false; // Prevent form submission
+        }
+    }
 
+    // Add event listener to the input field
+    document.getElementById("ci_persona").addEventListener("input", function() {
+        var ciInput = this.value.trim();
+        var errorMessageElement = document.getElementById("ci_error_message");
+
+        // Validate the input
+        if (validateCI(ciInput)) {
+            // Clear error message if CI is valid
+            errorMessageElement.textContent = "";
+        } else {
+            // Display error message if CI is invalid
+            errorMessageElement.textContent = "La cédula de identidad debe contener 8 dígitos.";
+        }
+    });
+
+    // Add event listener to the form to validate on submit
+    document.querySelector("form").addEventListener("submit", function(event) {
+        if (!validateForm()) {
+            event.preventDefault(); // Prevent form submission
+        }
+    });
+});
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+    <script src="scripts/script.js"></script>
 
 </body>
 </html>
