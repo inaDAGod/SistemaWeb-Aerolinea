@@ -1,15 +1,3 @@
-function showAlert(message, type = 'danger') {
-    var alertHtml = `
-        <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-            ${message}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    `;
-    $('#alert-container').html(alertHtml);
-}
-
 $(document).ready(function() {
     // Función para cargar todos los pasajeros al cargar la página
     loadAllPassengers();
@@ -20,7 +8,7 @@ $(document).ready(function() {
         var apellido = $("#apellido").val(); // Nuevo: obtener el valor del campo de apellido
 
         if (!documento && !nombre && !apellido) {
-            showAlert('Por favor ingrese un criterio de búsqueda.');
+            Swal.fire('Por favor ingrese un criterio de búsqueda.', 'error');
             return;
         }
 
@@ -32,15 +20,15 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response) {
                 if (response.error) {
-                    showAlert(response.error, 'danger');
+                    Swal.fire('Por favor ingrese un criterio de búsqueda.', response.error, 'error');
                 } else if (response.length === 0) {
-                    showAlert("No se encontraron pasajeros con los criterios de búsqueda proporcionados.", 'warning');
+                    Swal.fire('No se encontraron pasajeros con los criterios de búsqueda proporcionados.', 'error');
                 } else {
                     updateTable(response);
                 }
             },
             error: function(xhr, status, error) {
-                showAlert("Error en AJAX: " + xhr.responseText, 'danger');
+                Swal.fire('Error en ajax', xhr.responseText, 'error');
             }
         });
     });
@@ -53,13 +41,13 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response) {
                 if (response.error) {
-                    showAlert(response.error, 'danger');
+                    Swal.fire('No se pudo cargar la lista de pasjeros correctamente', response.error, 'error');
                 } else {
                     updateTable(response);
                 }
             },
             error: function(xhr, status, error) {
-                showAlert("Error en AJAX: " + xhr.responseText, 'danger');
+                Swal.fire('Error en ajax', xhr.responseText, 'error');
             }
         });
     }
@@ -100,7 +88,7 @@ $(document).ready(function() {
 
             // Verificar si el estado actual es "Realizado" y el nuevo estado es "Pendiente"
             if (estadoActual === "Realizado" && newStatus === "Pendiente") {
-                showAlert("No se puede cambiar el estado a 'Pendiente' porque ya está 'Realizado'", 'warning');
+                Swal.fire('No se puede cambiar el estado a Pendiente porque ya está Realizado', 'error');
                 return; // Evitar enviar la solicitud AJAX
             }
 
@@ -117,16 +105,16 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response) {
                 if (response.error) {
-                    showAlert(response.error, 'danger');
+                    Swal.fire('No se puede cambiar el estado', response.error, 'error');
                 } else {
                     // Actualizar el texto del botón del combo box después de cambiar el estado
                     var dropdownButton = $('#estadoCheckInDropdown' + documento);
                     dropdownButton.text(newStatus);
-                    showAlert("Estado de Check-In actualizado correctamente", 'success');
+                    Swal.fire('Estado de Check-In actualizado correctamente', 'success');
                 }
             },
             error: function(xhr, status, error) {
-                showAlert("Error en AJAX: " + xhr.responseText, 'danger');
+                Swal.fire('Error en ajax', xhr.responseText, 'error');
             }
         });
     }
