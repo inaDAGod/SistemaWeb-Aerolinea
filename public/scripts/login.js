@@ -18,6 +18,7 @@ function loginEncript() {
                 })
                 .then(data => {
                     if (data.estado === 'contraseña_correcta') {
+                        audi();
                         window.location.href = 'http://localhost/SistemaWeb-Aerolinea/public/index.html';
                     } else if (data.estado === 'contraseña_incorrecta') {
                         if (intentos === 3) {
@@ -288,4 +289,30 @@ function registrarAdministrador() {
         else{
             alert('Llene todos los campos');
         }
+}
+
+
+
+function audi(){
+    const ahora = new Date().toString();
+    fetch("http://localhost/SistemaWeb-Aerolinea/backend/audi.php", {
+                method: "POST",
+                body: JSON.stringify({ correo: 'ayana.siegle@ucb.edu.bo', fecha:ahora}),
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Error en la solicitud');
+            })
+            .then(data => {
+                if (data.estado === "registro_exitoso") {
+                } else if (data.estado === "error_registro") {
+                    alert('Ya existe un usuario con ese correo electrónico');
+                }
+            })
+            .catch(error => {
+                console.error('Error en la solicitud:', error);
+                alert('Estás seguro que no tienes una cuenta?');
+            });
 }
