@@ -34,9 +34,9 @@
 
 .tablere {
     border-collapse: collapse; /* Collapse table borders */
-    border-bottom: 2px solid rgba(255, 219, 147, 1);
-    border-left: 2px solid rgba(255, 219, 147, 1); /* Add left border to table data cells */
-    border-right: 2px solid rgba(255, 219, 147, 1); /* Add right border to table data cells */
+    border-bottom: 2px solid rgba(143, 188, 234, 1);
+    border-left: 2px solid rgba(143, 188, 234, 1); /* Add left border to table data cells */
+    border-right: 2px solid rgba(143, 188, 234, 1); /* Add right border to table data cells */
     z-index: 2;
     font-family: 'Inter', sans-serif;
     font-size: 20px;
@@ -51,14 +51,14 @@
 }
 
 .thre {
-    border: 1px solid rgba(255, 171, 79, 1); /* Add border to table headers */
-    background-color: rgba(255, 171, 79, 1);
+    border: 1px solid #258ecd; /* Add border to table headers */
+    background-color: #258ecd;
 }
 
 .tdre {
     border-left: 1px solid black; /* Add left border to table data cells */
     border-right: 1px solid black; /* Add right border to table data cells */
-    background-color: rgba(255, 219, 147, 1);
+    background-color: rgba(143, 188, 234, 1);
 }
 
 
@@ -73,9 +73,9 @@
 .tablere1 {
     width: 100%; /* Set table width to 100% of its container */
     border-collapse: collapse; /* Collapse table borders */
-    border-bottom: 2px solid rgba(255, 219, 147, 1);
-    border-left: 2px solid rgba(255, 219, 147, 1); /* Add left border to table data cells */
-    border-right: 2px solid rgba(255, 219, 147, 1); /* Add right border to table data cells */
+    border-bottom: 2px solid rgba(143, 188, 234, 1);
+    border-left: 2px solid rgba(143, 188, 234, 1); /* Add left border to table data cells */
+    border-right: 2px solid rgba(143, 188, 234, 1); /* Add right border to table data cells */
     z-index: 2;
     font-family: 'Inter', sans-serif;
     font-size: 20px;
@@ -90,8 +90,8 @@
 }
 
 .thre1 {
-    border: 1px solid rgba(255, 171, 79, 1); /* Add border to table headers */
-    background-color: rgba(255, 171, 79, 1);
+    border: 1px solid #258ecd; /* Add border to table headers */
+    background-color: #258ecd;
     border-left: 1px solid black; /* Add left border to table data cells */
     border-right: 1px solid black;
     font-family: 'Inter', sans-serif;
@@ -101,6 +101,6 @@
     border-left: 1px solid black; /* Add left border to table data cells */
     border-right: 1px solid black; /* Add right border to table data cells */
     z-index: 2;
-    background-color: rgba(255, 219, 147, 1);
+    background-color: rgba(143, 188, 234, 1);
 
 }
