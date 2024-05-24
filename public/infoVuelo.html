@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informacion de Vuelos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        .header {
+            background-color: #8FBCEA;
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .title {
+            margin-top: 30px;
+            text-align: center;
+            color: #053A70;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .form-group:last-child {
+            margin-right: 0;
+        }
+
+        .form-group select, .form-group input[type="date"], .form-group input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #fcdb4a;
+        }
+
+        .results-table {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 800px;
+            border-collapse: collapse;
+        }
+
+        .results-table th, .results-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .results-table th {
+            background-color: #8FBCEA;
+            color: white;
+        }
+
+        .error {
+            color: rgb(245, 79, 79);
+            margin-top: 10px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .nav a {
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .nav a:hover {
+            background-color: #fcdb4a;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2></h2>
+    </div>
+
+    <h3 class="title">Vuelos</h3>
+
+    <div class="form-container">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="origen">Origen:</label>
+                <select id="origen">
+                    <option value="">Seleccionar Origen</option>
+                    <option value="SCZ">Santa Cruz (SCZ)</option>
+                    <option value="CBBA">Cochabamba (CBBA)</option>
+                    <option value="LPZ">La Paz (LPZ)</option>
+                    <option value="TJA">Tarija (TJA)</option>
+                    <option value="SRE">Sucre (SRE)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="destino">Destino:</label>
+                <select id="destino">
+                    <option value="">Seleccionar Destino</option>
+                    <option value="SCZ">Santa Cruz (SCZ)</option>
+                    <option value="CBBA">Cochabamba (CBBA)</option>
+                    <option value="LPZ">La Paz (LPZ)</option>
+                    <option value="TJA">Tarija (TJA)</option>
+                    <option value="SRE">Sucre (SRE)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="partida">Partida:</label>
+                <input type="date" id="partida">
+            </div>
+
+            <div class="form-group">
+                <label for="regreso">Regreso:</label>
+                <input type="date" id="regreso">
+            </div>
+        </div>
+
+        <button class="btn" id="buscar-vuelos">Buscar Vuelos</button>
+        <div class="error" id="error-message"></div>
+        <table class="results-table" id="resultados">
+            <thead>
+                <tr>
+                    <th>Vuelo</th>
+                    <th>Origen</th>
+                    <th>Destino</th>
+                    <th>Partida</th>
+                    <th>Llegada</th>
+                    <th>Económico</th>
+                    <th>Normal</th>
+                    <th>Vip</th>
+                    <th>Reservas</th>
+                    <th>Pasajeros</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- resultados -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.getElementById('buscar-vuelos').addEventListener('click', function() {
+            const origen = document.getElementById('origen').value;
+            const destino = document.getElementById('destino').value;
+            const partida = document.getElementById('partida').value;
+            const regreso = document.getElementById('regreso').value;
+            const errorMessage = document.getElementById('error-message');
+
+            // Validación de campos
+            if (!origen || !destino || !partida || !regreso) {
+                errorMessage.textContent = "Por favor, complete todos los campos requeridos.";
+                return;
+            } else {
+                errorMessage.textContent = "";
+            }
+
+            // Generar fechas de vuelo con meses a partir de fecha de partida
+            let resultados = [];
+            let fechaPartida = new Date(partida);
+            let fechaLimite = new Date(partida);
+            fechaLimite.setMonth(fechaLimite.getMonth() + 2);
+
+            while (resultados.length < 15 && fechaPartida <= fechaLimite) {
+                // Generar vuelos para cada día dentro del rango
+                for (let i = 0; i < 15; i++) {
+                    let duracionHoras = Math.floor(Math.random() * 5) + 1;
+                    let duracionMinutos = Math.floor(Math.random() * 60);
+                    let partidaHora = new Date(fechaPartida);
+                    partidaHora.setHours(Math.floor(Math.random() * 24));
+                    partidaHora.setMinutes(Math.floor(Math.random() * 60));
+                    let llegadaHora = new Date(partidaHora);
+                    llegadaHora.setHours(partidaHora.getHours() + duracionHoras);
+                    llegadaHora.setMinutes(partidaHora.getMinutes() + duracionMinutos);
+
+                    resultados.push({
+                        vuelo: 'VUELO-' + (resultados.length + 1),
+                        origen: origen,
+                        destino: destino,
+                        partida: partidaHora.toISOString().substring(0, 16).replace('T', ' '),
+                        llegada: llegadaHora.toISOString().substring(0, 16).replace('T', ' '),
+                        economico: (Math.random() * 100).toFixed(2),
+                        normal: (Math.random() * 200).toFixed(2),
+                        vip: (Math.random() * 300).toFixed(2),
+                        reservas: Math.floor(Math.random() * 100),
+                        pasajeros: Math.floor(Math.random() * 200)
+                    });
+
+                    if (resultados.length >= 15) {
+                        break;
+                    }
+                }
+
+                // Incrementar la fecha de partida en 1 día
+                fechaPartida.setDate(fechaPartida.getDate() + 1);
+            }
+
+            // Mostrar resultados
+            const tbody = document.getElementById('resultados').querySelector('tbody');
+            tbody.innerHTML = '';
+            resultados.forEach(vuelo => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${vuelo.vuelo}</td>
+                    <td>${vuelo.origen}</td>
+                    <td>${vuelo.destino}</td>
+                    <td>${vuelo.partida}</td>
+                    <td>${vuelo.llegada}</td>
+                    <td>$${vuelo.economico}</td>
+                    <td>$${vuelo.normal}</td>
+                    <td>$${vuelo.vip}</td>
+                    <td>${vuelo.reservas}</td>
+                    <td>${vuelo.pasajeros}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        });
+    </script>
+</body>
+</html>
