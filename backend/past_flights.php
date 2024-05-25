@@ -14,7 +14,7 @@ if (!$conn) {
 }
 
 // Consulta para obtener los vuelos pasados del usuario
-$email = 'example@example.com'; // El correo del usuario que quieres mostrar
+$email = 'danialee14@gmail.com'; // El correo del usuario que quieres mostrar
 $current_date = date('Y-m-d');
 $query_past_flights = "SELECT v.* FROM vuelos v 
                        JOIN boletos b ON v.cvuelo = b.cvuelo 

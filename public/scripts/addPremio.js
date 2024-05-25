@@ -32,16 +32,15 @@ function guardarProducto() {
             })
             .then(data => {
                 if (data.estado === "registro_exitoso") {
-                    showAlert('success', '¡Producto guardado con éxito!');
+                    Swal.fire('¡Agregado!', '¡Producto guardado con éxito!', 'success');
                     limpiarCampos();
                 } else if (data.estado === "error_registro") {
-                    showAlert('danger', 'Ya se añadió un producto igual');
+                    Swal.fire('Error', 'Ya se añadió un producto igual', 'error');
                 }
             })
             .catch(error => {
                 console.error('Error en la solicitud:', error);
-                showAlert('danger', 'Ya se añadió un producto igual');
-                showAlert('danger', 'Parece que hubo un error en la solicitud. Vuelve a intentar más tarde.');
+                Swal.fire('Error', 'Ya se añadió un producto igual', 'error');
             });
     } else {
         // Agregar clases de Bootstrap para mostrar los estilos de validación incorrecta

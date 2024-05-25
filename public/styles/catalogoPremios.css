@@ -10,9 +10,14 @@
   flex: 1 1 calc(25% - 20px); /* Fórmula para calcular el ancho, dejando espacio para el margen entre tarjetas */
   min-width: 200px; /* Ancho mínimo de la tarjeta */
   margin-bottom: 20px; /* Espacio entre las tarjetas */
+  padding-bottom: 2%;
+  height: 450px;
 }
 
-
+.cardBody{
+  display: flex;
+  flex-direction: column;
+}
 .star {
     color: gold; /* Color de la estrella */
     font-size: 1.5em;
@@ -99,3 +104,9 @@ label {
     padding: 2%;
 }
 
+
+.card button {
+  width: 60%; /* Cambia 'auto' al ancho deseado */
+  padding: 0.25rem 0.5rem; /* Ajusta el relleno del botón según sea necesario */
+  margin: 1% auto; /* Ajusta los márgenes según sea necesario */
+}
