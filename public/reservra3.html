@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostrar Datos en Otra Página</title>
+    <script src="vuelo.js"></script>
+    <script src="mostrar_datos.js"></script>
+</head>
+<body>
+    <h1>Detalles del Vuelo en Otra Página</h1>
+    <div id="vuelo-info">
+        <p><strong>Cvuelo:</strong> <span id="cvuelo"></span></p>
+        <p><strong>Adultos Mayores:</strong> <span id="adum"></span></p>
+        <p><strong>Adultos:</strong> <span id="adu"></span></p>
+        <p><strong>Niños:</strong> <span id="nin"></span></p>
+        <p><strong>Correo del Usuario:</strong> <span id="correo_usuario"></span></p>
+        <p><strong>Fecha de Reserva:</strong> <span id="fecha_reserva"></span></p>
+        <p><strong>Fecha Límite:</strong> <span id="fecha_limite"></span></p>
+        <p><strong>Origen:</strong> <span id="origen"></span></p>
+        <p><strong>Destino:</strong> <span id="destino"></span></p>
+    </div>
+
+    <script>
+        window.onload = function() {
+            mostrarDatosVueloEnPagina();
+        };
+    </script>
+</body>
+</html>

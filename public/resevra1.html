@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mostrar Vuelo</title>
+    <script src="vuelo.js"></script>
+</head>
+<body>
+    <h1>Detalles del Vuelo</h1>
+    <div id="vuelo-info">
+        <p><strong>Cvuelo:</strong> <span id="cvuelo"></span></p>
+        <p><strong>Origen:</strong> <span id="origen"></span></p>
+        <p><strong>Destino:</strong> <span id="destino"></span></p>
+    </div>
+
+    <script>
+        function mostrarVuelo(vuelo) {
+            document.getElementById('cvuelo').textContent = vuelo.cvuelo;
+            document.getElementById('origen').textContent = vuelo.origen;
+            document.getElementById('destino').textContent = vuelo.destino;
+        }
+
+        window.onload = function() {
+            getVuelo(1, mostrarVuelo);
+        };
+    </script>
+</body>
+</html>
