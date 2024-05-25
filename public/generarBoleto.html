@@ -3,20 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generar Boletos</title>
+    <title>Check-in Aerolínea</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <link rel="stylesheet" href="styles/styleIndex.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles/agregarVuelo.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffffff;">
-        <div class="nav-item">
-            <div style="display: flex; align-items: center; margin-right: 10px;">
-                <img src="assets/logoavion.png" alt="Logo Aerolínea" style="width:25%; height:10%; margin-left:10px; margin-top: 10px; margin-bottom: 20px;">
-            </div>
+    <div style="background-color: #8FBCEA"></div>
+    <img src="assets\logoavion.png" alt="Menu Icon" style="width:10%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
         </div>
-    </nav>
+    
+        <header class="header" id="inicio">
+            <img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger">
+            <nav class="menu-navegacion">
+                <a href="reserva.php">Vuelos</a>
+                <a href="generarBoleto.html">Generar Boletos</a>
+                <a href="#">Check-In</a>
+                <a href="#">Premios Millas</a>
+                <a href="login.php">Iniciar Sesion</a>
+                
+            </nav>
+            <div class="contenedor head">
+                <h1 class="titulo">Generar Boletos</h1>
+            </div>
+        </header>
     <div class="container">
-        <h2 class="mt-4 mb-3" style="text-align: center; color: #0856A7;">GENERAR BOLETOS</h2>
+        <h2 class="mt-4 mb-3" style="text-align: center; color: #0856A7;">Generar Boleto</h2>
         <form id="formCheckin">
             <div class="form-row">
                 <div class="col-md-4">
@@ -28,7 +48,7 @@
                     <input type="text" class="form-control" id="numeroVuelo" placeholder="Número de vuelo">
                 </div>
                 <div class="col-md-4">
-                    <button type="button" id="buscarBoletoBtn" class="btn btn-primary mt-4">Buscar boleto</button>
+                    <button type="button" id="buscarReservaBtn" class="btn btn-primary mt-4">Buscar reserva</button>
                 </div>
             </div>
             <div class="row mb-3">
@@ -66,7 +86,6 @@
             <div class="form-group col-md-8">
                 <button type="submit" class="btn btn-success">Generar Boleto</button>
             </div>
-            
         </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
