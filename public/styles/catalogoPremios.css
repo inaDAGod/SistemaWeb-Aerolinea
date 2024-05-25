@@ -110,3 +110,17 @@ label {
   padding: 0.25rem 0.5rem; /* Ajusta el relleno del botón según sea necesario */
   margin: 1% auto; /* Ajusta los márgenes según sea necesario */
 }
+
+/* Media queries para dispositivos pequeños */
+@media (max-width: 768px) {
+  .card {
+      flex: 1 1 100%; /* Ocupa el 100% del ancho */
+      min-width: 100%; /* Ancho mínimo del 100% */
+      height: auto; /* Altura automática para ajustar el contenido */
+  }
+
+  .container {
+      flex-direction: column; /* Cambia la dirección del contenedor a columna */
+      padding: 10px; /* Reduce el relleno para dispositivos pequeños */
+  }
+}
