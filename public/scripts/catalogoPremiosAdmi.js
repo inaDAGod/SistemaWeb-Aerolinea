@@ -102,7 +102,6 @@ function renderAwards(data) {
     });
 }
 
-
 function resetFilters() {
     document.getElementById('premio').value = '';
     document.getElementById('menora').value = '';
@@ -112,7 +111,8 @@ function resetFilters() {
     document.getElementById('tipo').selectedIndex = 0;
     fetchAwards();
 }
-function editAward(award) {
+
+async function editAward(award) {
     // Rellenar los campos del modal con la información del premio
     const editPremioInput = document.getElementById('edit_premio');
     const editMillasInput = document.getElementById('edit_millas');
@@ -170,48 +170,41 @@ function editAward(award) {
         } else {
             document.querySelector('.radio-group').classList.remove('is-invalid');
         }
-        
 
         return isValid;
     };
 
     // Definir la lógica para guardar los cambios
-    document.getElementById('guardarEdicion').addEventListener('click', function() {
+    document.getElementById('guardarEdicion').addEventListener('click', async function() {
         if (!validarCampos()) {
-            alert('Por favor complete todos los campos correctamente.');
             return;
         }
-    
+
         // Obtener los valores editados
         const premioEditado = editPremioInput.value.trim();
         const millasEditadas = editMillasInput.value.trim();
         const tipoEditado = editTipoInput.value;
         const destacadoEditado = editDestacadoInput.checked ? 'true' : 'false';
-    
+
         // Obtener la nueva foto si se seleccionó
         let nuevaFoto = null;
-        const foto = document.getElementById('editar_foto');
-    
-        if (!foto || !foto.checkValidity()) {
-            // Si no se selecciona una nueva foto, utilizar la foto actual
-            nuevaFoto = award.src_foto;
-        } else {
-            // Si se selecciona una nueva foto, usar la foto seleccionada
+        const foto = document.getElementById('edit_foto');
+        if (foto.files[0]) {
             nuevaFoto = foto.files[0];
+        } else {
+            nuevaFoto = await fetchFileFromServer(award.src_foto);
         }
-    
+        console.log(nuevaFoto);
+
         // Crear un FormData para enviar los datos
         const formData = new FormData();
+        formData.append('premioOriginal', award.premio); // Agregar el nombre original del premio
         formData.append('premio', premioEditado);
         formData.append('millas', millasEditadas);
         formData.append('tipo_premio', tipoEditado);
         formData.append('producto_destacado', destacadoEditado);
         formData.append('foto', nuevaFoto);
-        console.log(premioEditado);
-        console.log( millasEditadas);
-        console.log(tipoEditado);
-        console.log( destacadoEditado);
-        console.log(nuevaFoto);
+
         fetch('http://localhost/SistemaWeb-Aerolinea/backend/editarPremio.php', {
             method: 'POST',
             body: formData
@@ -233,8 +226,15 @@ function editAward(award) {
         })
         .catch(error => console.error('Error:', error));
     });
-    
 
     // Abrir el modal
     $('#editarPremioModal').modal('show');
+}
+
+async function fetchFileFromServer(filePath) {
+    const response = await fetch(filePath);
+    const blob = await response.blob();
+    const fileName = filePath.split('/').pop();
+    const file = new File([blob], fileName, { type: blob.type });
+    return file;
 }
