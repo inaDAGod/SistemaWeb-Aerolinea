@@ -4,6 +4,10 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('buscar').addEventListener('click', fetchAwards);
     document.getElementById('filtrar').addEventListener('click', fetchAwards);
     document.getElementById('restablecer').addEventListener('click', resetFilters);
+    document.getElementById('borrarPremio').addEventListener('click', function () {
+        const premio = document.getElementById('edit_premio').value.trim();
+        borrarPremio(premio);
+    });
 });
 
 function fetchAwards() {
@@ -231,4 +235,27 @@ async function fetchFileFromServer(filePath) {
     const fileName = filePath.split('/').pop();
     const file = new File([blob], fileName, { type: blob.type });
     return file;
+}
+function borrarPremio(premio) {
+    fetch('http://localhost/SistemaWeb-Aerolinea/backend/borrarPremio.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ premio: premio })
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.estado === 'borrado_exitoso') {
+            Swal.fire('¡Borrado!', 'Premio borrado exitosamente.', 'success');
+            fetchAwards();
+            $('#editarPremioModal').modal('hide');
+        } else {
+            Swal.fire('Error', 'Error al borrar el premio.', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Swal.fire('Error', 'Hubo un error al procesar la solicitud.', 'error');
+    });
 }
