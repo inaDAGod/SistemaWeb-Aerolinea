@@ -24,6 +24,7 @@ $(document).ready(function() {
                   $("#destino").val(response.destino);
                   Swal.fire('Encontrado', 'El boleto ha sido encontrado.', 'success');
               } else {
+                resetFields(); // Llamar a la función que borra los campos
                   Swal.fire('No encontrado', response.message, 'error');
               }
           },
@@ -32,4 +33,17 @@ $(document).ready(function() {
           }
       });
   });
+  function resetFields() {
+    $("#nombre").val('');
+    $("#apellido").val('');
+    $("#numeroDocumento").val('');
+    $("#fechaVuelo").val('');
+    $("#horaVuelo").val('');
+    $("#origen").val('');
+    $("#destino").val('');
+    // Desmarcar todos los checkboxes
+    $("#equipajeMano").prop('checked', false);
+    $("#maleta").prop('checked', false);
+    $("#equipajeExtra").prop('checked', false);
+}
 });
