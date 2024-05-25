@@ -113,7 +113,7 @@ function resetFilters() {
 }
 
 async function editAward(award) {
-    // Rellenar los campos del modal con la información del premio
+   
     const editPremioInput = document.getElementById('edit_premio');
     const editMillasInput = document.getElementById('edit_millas');
     const editTipoInput = document.getElementById('edit_tipo');
@@ -122,7 +122,7 @@ async function editAward(award) {
     editMillasInput.value = award.millas;
     editTipoInput.value = award.tipo_premio;
 
-    // Marcar el radio button correspondiente según si es destacado o no
+ 
     const editDestacadoInput = document.getElementById('edit_destacado');
     const editNoDestacadoInput = document.getElementById('edit_no-destacado');
 
@@ -132,11 +132,11 @@ async function editAward(award) {
         editNoDestacadoInput.checked = true;
     }
 
-    // Mostrar la foto actual del premio
+   
     const imgPreview = document.getElementById('edit_img_preview');
     imgPreview.src = award.src_foto;
 
-    // Lógica para validar los campos
+
     const validarCampos = () => {
         let isValid = true;
 
@@ -174,19 +174,21 @@ async function editAward(award) {
         return isValid;
     };
 
-    // Definir la lógica para guardar los cambios
-    document.getElementById('guardarEdicion').addEventListener('click', async function() {
+  
+    const guardarEdicionButton = document.getElementById('guardarEdicion');
+    guardarEdicionButton.removeEventListener('click', handleGuardarEdicionClick);
+    guardarEdicionButton.addEventListener('click', handleGuardarEdicionClick, { once: true });
+
+    async function handleGuardarEdicionClick() {
         if (!validarCampos()) {
             return;
         }
 
-        // Obtener los valores editados
         const premioEditado = editPremioInput.value.trim();
         const millasEditadas = editMillasInput.value.trim();
         const tipoEditado = editTipoInput.value;
         const destacadoEditado = editDestacadoInput.checked ? 'true' : 'false';
 
-        // Obtener la nueva foto si se seleccionó
         let nuevaFoto = null;
         const foto = document.getElementById('edit_foto');
         if (foto.files[0]) {
@@ -194,11 +196,9 @@ async function editAward(award) {
         } else {
             nuevaFoto = await fetchFileFromServer(award.src_foto);
         }
-        console.log(nuevaFoto);
 
-        // Crear un FormData para enviar los datos
         const formData = new FormData();
-        formData.append('premioOriginal', award.premio); // Agregar el nombre original del premio
+        formData.append('premioOriginal', award.premio);
         formData.append('premio', premioEditado);
         formData.append('millas', millasEditadas);
         formData.append('tipo_premio', tipoEditado);
@@ -211,23 +211,17 @@ async function editAward(award) {
         })
         .then(response => response.json())
         .then(result => {
-            // Verificar el resultado del servidor
             if (result.estado === 'registro_exitoso') {
-                // Actualización exitosa, puedes realizar acciones adicionales si es necesario
-                alert('Premio actualizado exitosamente.');
-                // Opcional: recargar los premios después de la edición
+                Swal.fire('¡Actualizado!', 'Premio actualizado exitosamente.', 'success');
                 fetchAwards();
-                // Cerrar el modal
                 $('#editarPremioModal').modal('hide');
             } else {
-                // Error al actualizar el premio
-                alert('Error al actualizar el premio.');
+                Swal.fire('Error', 'Error al actualizar el premio.', 'error');
             }
         })
         .catch(error => console.error('Error:', error));
-    });
+    }
 
-    // Abrir el modal
     $('#editarPremioModal').modal('show');
 }
 
