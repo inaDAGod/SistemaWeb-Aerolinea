@@ -32,7 +32,7 @@ if ($result && pg_num_rows($result) > 0) {
         'encontrado' => true,
         'nombre' => $row['nombres'],
         'apellido' => $row['apellidos'],
-        'fechaVuelo' => $row['fecha_vuelo'],
+        'fechaVuelo' => date('Y-m-d', strtotime($row['fecha_vuelo'])), // Formatea como 'YYYY-MM-DD'
         'horaVuelo' => date('H:i', strtotime($row['fecha_vuelo'])),
         'origen' => $row['origen'],
         'destino' => $row['destino']
