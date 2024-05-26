@@ -83,19 +83,19 @@ $(document).ready(function() {
 
     emailjs.init("zIi78GtT-tPurllpe"); // Reemplaza con tu User ID real
 
-    function enviarCorreo(email, nombre, apellido, numeroDocumento, fechaVuelo, horaVuelo, origen, destino, numeroVuelo, cboleto) {
-        var templateParams = {
-            to_email: email,
-            from_name: 'Vuela Bo',
-            subject: 'Detalles del Check-in',
-            message: `Nombre: ${nombre}\nApellido: ${apellido}\nNúmero de Documento: ${numeroDocumento}\nNúmero de Vuelo: ${numeroVuelo}\nBoleto: ${cboleto}\nFecha de Vuelo: ${fechaVuelo}\nHora del Vuelo: ${horaVuelo}\nOrigen: ${origen}\nDestino: ${destino}`
-        };
-    
-        emailjs.send('service_pks7xqo', 'template_cbqy3ke', templateParams) // Asegúrate de que estos ID sean correctos
-            .then(function(response) {
-                console.log('Correo enviado exitosamente', response.status, response.text);
-            }, function(error) {
-                console.log('Fallo el envío de correo', error);
-            });
-    }
+function enviarCorreo(email, nombre, apellido, numeroDocumento, fechaVuelo, horaVuelo, origen, destino) {
+    var templateParams = {
+        to_email: email,
+        from_name: 'Vuela Bo',
+        subject: 'Detalles del Check-in',
+        message: `Nombre: ${nombre}\nApellido: ${apellido}\nNúmero de Documento: ${numeroDocumento}\nFecha de Vuelo: ${fechaVuelo}\nHora del Vuelo: ${horaVuelo}\nOrigen: ${origen}\nDestino: ${destino}`
+    };
+
+    emailjs.send('service_pks7xqo', 'template_cbqy3ke', templateParams) // Asegúrate de que estos ID sean correctos
+        .then(function(response) {
+            console.log('Correo enviado exitosamente', response.status, response.text);
+        }, function(error) {
+            console.log('Fallo el envío de correo', error);
+        });
+}
 });

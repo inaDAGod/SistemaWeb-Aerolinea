@@ -33,6 +33,7 @@ if ($result) {
         $row = pg_fetch_assoc($result);
         $response = [
             'encontrado' => true,
+            'cboleto' => $row['cboleto'],  // Asegúrate de que esta columna exista en tu base de datos
             'nombre' => $row['nombres'],
             'apellido' => $row['apellidos'],
             'fechaVuelo' => date('Y-m-d', strtotime($row['fecha_vuelo'])), // Formatea como 'YYYY-MM-DD'
