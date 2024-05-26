@@ -7,14 +7,13 @@ if (!$conexion) {
     exit;
 }
 
-$email = $_POST['email'];
-$carnet = $_POST['carnet'];
-$numeroVuelo = $_POST['numeroVuelo'];
-$equipajeMano = $_POST['equipajeMano'] ? 'true' : 'false';
-$maleta = $_POST['maleta'] ? 'true' : 'false';
-$equipajeExtra = $_POST['equipajeExtra'] ? 'true' : 'false';
+$email = $_POST['email'] ?? '';
+$carnet = $_POST['carnet'] ?? '';
+$numeroVuelo = $_POST['numeroVuelo'] ?? '';
+$equipajeMano = $_POST['equipajeMano'] === 'true' ? 'true' : 'false'; // Asegurarse de que el valor es estrictamente 'true' o 'false'
+$maleta = $_POST['maleta'] === 'true' ? 'true' : 'false';
+$equipajeExtra = $_POST['equipajeExtra'] === 'true' ? 'true' : 'false';
 
-// Suponiendo que $ccheck_in es recuperado de la base de datos previamente
 $query = "UPDATE check_in SET 
             correo_usuario = $1, 
             estado_checkin = 'Realizado', 
