@@ -66,7 +66,7 @@
             right: 0;
             margin-bottom: 20px; /* Ajusta este margen según sea necesario */
             margin-left: 20px; /* Ajusta este margen según sea necesario */
-            margin-top: 8%;
+            margin-top: 18%;
             margin-right: 2%;
             background-color: rgba(5, 58, 112, 1);
        border-radius: 40px;
@@ -78,7 +78,7 @@
             right: left;
             margin-bottom: 20px; /* Ajusta este margen según sea necesario */
             margin-right: 20px; /* Ajusta este margen según sea necesario */
-            margin-top: 8%;
+            margin-top: 18%;
             margin-left: 2%;
             background-color: rgba(5, 58, 112, 1);
        border-radius: 40px;
@@ -97,6 +97,7 @@
                 font-size: 50px;
                 margin-top: -1%;
                 color: rgba(8, 86, 167, 1);
+                text-align: center;
             }
             .seat-selection-table{
                 width: 100%;
@@ -110,30 +111,39 @@
                 margin-bottom: 10px; /* Margen inferior */
             }
             
-        
+            .header{
+                height: 140%;
+            }
     </style>
 </head>
 <body style="color:black">
-    <div style="background-color:  rgba(143, 188, 234, 1)">
-        <img src="assets\logoavion.png" alt="Menu Icon" style="width:8%;height:8%;margin-left:10px;">
-        </div>
-        
+    <div style="background-color: #8FBCEA"></div>
+<img src="assets\logoavion.png" alt="Menu Icon" style="width:8%;height:8%;margin-left:10px;">
+    </div>
+
+    <header class="header" id="inicio">
         <img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger">
         <nav class="menu-navegacion">
             <a href="reserva.php">Vuelos</a>
             <a href="#">Check-In</a>
             <a href="#">Premios Millas</a>
-            <a href="#">Perfil</a>
+            <a href="perfil.html">Perfil</a>
             <a href="index.html">Cerrar Sesion</a>
+            
         </nav>
+            <h1 class="h1rese">Reservar </h1>
+<div style="color: white;text-align:left; margin-left:30%;font-size:150%" id="contenido"></div>
+
+
+<div class="container-fluid">
+        
+    </header>
     
     
     <div class="eliminar-reserva">
     <button id="eliminar-reserva-btn" class="btn btn" style=" border-radius: 40px;color:white;" >
         < Cancelar reserva
     </button></div>
-    <h1 class="h1rese">Reservar </h1>
-    <div style="color: black;text-align:left; margin-left:30%;font-size:150%" id="contenido"></div>
 <br>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="scripts/scriptre.js"></script>
