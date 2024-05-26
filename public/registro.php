@@ -18,9 +18,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // Store total number of people in session
-$adum = 1;
+$adum = 0;
 $adu = 1;
-$nin = 0;
+$nin = 1;
 
 $totalg = $adum + $adu + $nin;
 

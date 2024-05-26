@@ -131,16 +131,21 @@ echo "Total de personas actualizado: {$_SESSION['total_people']}<br>";
 echo "Adum: {$_SESSION['adum']}<br>";
 echo "Adu: {$_SESSION['adu']}<br>";
 echo "Nin: {$_SESSION['nin']}<br>";
+echo "reservation_counter: {$_SESSION['reservation_counter']}<br>";
+echo "totalg: {$_SESSION['total_people']}<br>";
+// Después de procesar el formulario y actualizar las variables de sesión
+// Devuelve un mensaje indicando que la reserva se ha realizado correctamente
+echo "¡Reserva exitosa!";
+
         // Redireccionar si se han completado todas las reservas
         if ($_SESSION['reservation_counter'] >= $totalg) {
-            echo "<span id='reserva_success'>¡Reserva exitosa! Todas las reservas se han completado.</span>";
-            echo "<script>window.location.href = 'reservamu.php';</script>";
-            exit;
+            echo "REDIRECT";
+            exit; // Asegurar que el script termine después de la respuesta
         } else {
-            echo "<span id='reserva_success'>¡Reserva exitosa! Por favor, continua con las siguientes reservas.</span>";
-            
-            
+            echo "SUCCESS";
+            // Otros mensajes o acciones si es necesario
         }
+        
     }
 }
 ?>

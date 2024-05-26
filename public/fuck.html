@@ -80,9 +80,16 @@
     </form>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        
+        
+
         $(document).ready(function () {
+            function loadSeatsTable() {
+                $('#seatSelectionContainer').load('load_seats.php');
+            }
+        
             // Cargar la tabla de asientos al cargar la página
-            $('#seatSelectionContainer').load('load_seats.php');
+            loadSeatsTable();
 
             $('#reservationForm').submit(function (event) {
                 event.preventDefault();
@@ -92,8 +99,17 @@
                     data: $(this).serialize(),
                     success: function (response) {
                         alert(response);
+                        if (response.includes("REDIRECT")) {
+                            // Si la respuesta indica que se debe redirigir
+                            alert("Reserva exitosa. Redirigiendo...");
+                            // Redireccionar a reservamu.php después de un breve retraso
+                            setTimeout(function () {
+                                window.location.href = 'reservamu.php';
+                            }, 500); // Redirigir después de 2 segundos (2000 milisegundos)
+                        }
                         // Redireccionar si es necesario
-                        if (response.includes("¡Reserva exitosa!")) {
+                        else if (response.includes("¡Reserva exitosa!")) {
+                            loadSeatsTable();
                             $('#reservationForm')[0].reset();
                         }
                     },
@@ -103,8 +119,6 @@
                 });
             });
         });
-
-
         
         
 

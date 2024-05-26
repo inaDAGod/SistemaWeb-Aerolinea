@@ -12,3 +12,11 @@ $(document).ready(function() {
         }
     });
 });
+
+$(document).ready(function () {
+    var mySwiper = new Swiper('.swiper-container', {
+        // Configuración de Swiper, como el modo de desplazamiento
+        direction: 'horizontal',
+        // Más opciones de configuración si es necesario
+    });
+});

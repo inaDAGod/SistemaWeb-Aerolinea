@@ -4,23 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyecto_NAV</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Your custom CSS -->
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/reserva.css">
 
-    <link rel="stylesheet" type="text/css" href="styles/default.css" />
-    <link rel="stylesheet" type="text/css" href="styles/component.css" />
-    
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
     <link rel="stylesheet" href="styles/styleIndex.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
 </head>
 
 <body style="color:white">
@@ -44,42 +44,66 @@
 <h1 class="h1rese">Reservar </h1>
 <div style="color: black;" id="contenido"></div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="script.js"></script>
-<div class="datos">
-    <p class="pdatos">
-        <?php include 'cargar_vuelo.php'; ?>
-    </p>
+
+<div id="tablaSesion" class="table table-striped">
+    <div class="swiper-wrapper">
+        <!-- Aquí se generarán las filas de la tabla dinámicamente -->
+        <!-- Ejemplo de fila: <div class="swiper-slide">Contenido de la fila</div> -->
+    </div>
 </div>
 
-<div class="centerre1">
-    <table class="tablere1">
-        <tr class="trre1">
-            <th class="thre1">Tipo Persona</th>
-            <th class="thre1">Cantidad</th>
-            <th class="thre1">Total</th>
-        </tr>
-        <tr class="trre1">
-            <td class="tdre1">Adulto mayor</td>
-            <td class="tdre1"><p><?php echo isset($_SESSION['adum']) ? $_SESSION['adum'] : 0; ?></p></td>
-            <td class="tdre1"></td>
-        </tr>
-        <tr class="trre1">
-            <td class="tdre1">Adultos</td>
-            <td class="tdre1"><p><?php echo isset($_SESSION['adu']) ? $_SESSION['adu'] : 0; ?></p></td>
-            <td class="tdre1"></td>
-        </tr>
-        <tr class="trre1">
-            <td class="tdre1">Niños</td>
-            <td class="tdre1"><p><?php echo isset($_SESSION['nin']) ? $_SESSION['nin'] : 0; ?></p></td>
-            <td class="tdre1"></td>
-        </tr>
-        <tr class="trre1">
-            <td class="tdre1"></td>
-            <td class="tdre1"></td>
-            <td class="tdre1"><p><?php echo isset($_SESSION['total_people']) ? $_SESSION['total_people'] : 0; ?></p></td>
-        </tr>
-    </table>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+</div>
+<script>
+    $(document).ready(function() {
+        // Realiza una solicitud AJAX para obtener los datos de sesión
+        $.ajax({
+            url: 'obtener_datos_sesion.php',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                // Construye la tabla con los datos recibidos
+                var tabla = '<table class="tablere1">' +
+                                '<tr class="trre1">' +
+                                    '<th class="thre1">Tipo Persona</th>' +
+                                    '<th class="thre1">Cantidad</th>' +
+                                    '<th class="thre1">Total</th>' +
+                                '</tr>' +
+                                '<tr class="trre1">' +
+                                    '<td class="tdre1">Adulto mayor</td>' +
+                                    '<td class="tdre1">' + data.adum + '</td>' +
+                                    '<td class="tdre1"></td>' +
+                                '</tr>' +
+                                '<tr class="trre1">' +
+                                    '<td class="tdre1">Adultos</td>' +
+                                    '<td class="tdre1">' + data.adu + '</td>' +
+                                    '<td class="tdre1"></td>' +
+                                '</tr>' +
+                                '<tr class="trre1">' +
+                                    '<td class="tdre1">Niños</td>' +
+                                    '<td class="tdre1">' + data.nin + '</td>' +
+                                    '<td class="tdre1"></td>' +
+                                '</tr>' +
+                                '<tr class="trre1">' +
+                                    '<td class="tdre1"></td>' +
+                                    '<td class="tdre1"></td>' +
+                                    '<td class="tdre1">' + data.total_people + '</td>' +
+                                '</tr>' +
+                            '</table>';
+
+                // Agrega la tabla al contenedor
+                $('#tablaSesion').html(tabla);
+            },
+            error: function() {
+                // Maneja el caso de error
+                $('#tablaSesion').html('<p>Error al cargar los datos de sesión.</p>');
+            }
+        });
+    });
+</script>
+
 </div>
 <br>
 <form method="post" action="fuck.html">
@@ -88,12 +112,7 @@
 </form>
 
 <!-- Link to the JavaScript file -->
-<script src="scripts\menu.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-
-<script src="scripts/script.js"></script>
-<script src="scripts/classie.js"></script>
 
 <script>
     var menuRight = document.getElementById('cbp-spmenu-s2'),
@@ -127,6 +146,11 @@
     });
 </script>
 
-
+<!-- Swiper JS -->
+<script src="scripts/script.js"></script>
+<script src="scripts/classie.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Your custom JavaScript -->
+<script src="script.js"></script>
 </body>
 </html>
