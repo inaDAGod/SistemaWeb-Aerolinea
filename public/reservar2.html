@@ -40,8 +40,9 @@
         <div class="container">
             <div class="mejora">
                 <div class="input-group">
-                    <label for="ci_persona">CI:</label>
-                    <input type="text" name="ci_persona" id="ci_persona" required>
+                    <label for="ci_persona">Cédula de Identidad:</label>
+                    <input type="text" id="ci_persona" name="ci_persona" required>
+                    <span style="background-color: #f28f8f;color:red;" id="ci_error_message" style="color: red;"></span>
                 </div>
                 <div class="input-group">
                     <label for="nombres">Nombres:</label>
@@ -142,5 +143,58 @@
             loadEchoes();
         };
     </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Function to validate the CI number
+            function validateCI(ci) {
+                // Check if the length is 8
+                if (ci.length !== 8) {
+                    return false;
+                }
+                // Check if all characters are numbers
+                return /^\d+$/.test(ci);
+            }
+        
+            // Function to validate the form
+            function validateForm() {
+                var ciInput = document.getElementById("ci_persona").value.trim();
+                var errorMessageElement = document.getElementById("ci_error_message");
+        
+                // Validate the CI input
+                if (validateCI(ciInput)) {
+                    // Clear error message if CI is valid
+                    errorMessageElement.textContent = "";
+                    return true; // Allow form submission
+                } else {
+                    // Display error message if CI is invalid
+                    errorMessageElement.textContent = "La cédula de identidad debe contener 8 dígitos.";
+                    return false; // Prevent form submission
+                }
+            }
+        
+            // Add event listener to the input field
+            document.getElementById("ci_persona").addEventListener("input", function() {
+                var ciInput = this.value.trim();
+                var errorMessageElement = document.getElementById("ci_error_message");
+        
+                // Validate the input
+                if (validateCI(ciInput)) {
+                    // Clear error message if CI is valid
+                    errorMessageElement.textContent = "";
+                } else {
+                    // Display error message if CI is invalid
+                    errorMessageElement.textContent = "La cédula de identidad debe contener 8 dígitos.";
+                }
+            });
+        
+            // Add event listener to the form to validate on submit
+            document.querySelector("form").addEventListener("submit", function(event) {
+                if (!validateForm()) {
+                    event.preventDefault(); // Prevent form submission
+                }
+            });
+        });
+        
+        </script>
 </body>
 </html>

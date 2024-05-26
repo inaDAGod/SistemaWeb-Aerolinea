@@ -24,7 +24,7 @@ function generar_numero_reserva($conn, $correo_usuario, $fecha_reserva, $fecha_l
 $creservanum = generar_numero_reserva($conn, $correo_usuario, $fecha_reserva, $fecha_lmite);
 
 $cvuelosnum = 2; // Por ejemplo, puedes cambiar este valor según tus necesidades
-
+$_SESSION['correo_usuario'] =$correo_usuario;
 $_SESSION['cvuelosnum'] = $cvuelosnum;
 $_SESSION['creservanum'] = $creservanum;
 $_SESSION['reservation_counter'] = 0;

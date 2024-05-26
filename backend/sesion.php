@@ -5,6 +5,7 @@ include 'generar_reserva.php';
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+$correo_usuario = isset($_SESSION['correo_usuario']);
 
 // Verificar si la sesión adum está establecida, de lo contrario, establecerla en 0
 $adum = isset($_SESSION['adum']) ? $_SESSION['adum'] : 0;
@@ -35,4 +36,5 @@ $_SESSION['adu'] = $adu;
 $_SESSION['nin'] = $nin;
 $_SESSION['total_people'] = $totalg;
 $_SESSION['reservation_counter'] = $reservation_counter;
+$_SESSION['correo_usuario'] =$correo_usuario;
 ?>
