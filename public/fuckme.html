@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debugging Echoes</title>
+</head>
+<body>
+    <h1>Echos from PHP Script</h1>
+    <div id="echoContainer">
+        <!-- Aquí se mostrarán los echos -->
+    </div>
+
+    <script>
+        // Función para cargar los echos del archivo PHP
+        function loadEchoes() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Inserta los echos en el contenedor
+                        document.getElementById("echoContainer").innerHTML = xhr.responseText;
+                    } else {
+                        console.error('Hubo un error al cargar los echos.');
+                    }
+                }
+            };
+
+            xhr.open('GET', 'process_form.php', true);
+            xhr.send();
+        }
+
+        // Llama a la función para cargar los echos cuando la página se carga completamente
+        window.onload = function() {
+            loadEchoes();
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto_NAV</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/reserva.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <link rel="stylesheet" href="styles/styleIndex.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Open+Sans:wght@300;800&display=swap" rel="stylesheet">
+    <style>
+        .centerfor { text-align: left; width: 100%; margin: 0 auto; margin-top: 2%; }
+        .form-group { display: inline-block; vertical-align: top; margin-left: 80%; margin-top: -30%; }
+        .seat-selection-table { width: 100%; }
+        .container { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 20px; }
+        .mejora { flex: 1; margin-right: 20px; margin-left: 20%; }
+        .seat-selection { flex: 1; }
+        .input-group { display: flex; align-items: center; margin-bottom: 10px; }
+        .input-group label { margin-right: 10px; width: 200px; }
+        .input-group input, .input-group select { width: 50%; }
+    </style>
+</head>
+<body style="color:black">
+    <div style="background-color: #8FBCEA">
+        <img src="assets/logoavion.png" alt="Menu Icon" style="width:10%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
+    </div>
+    <h1>Echos from PHP Script</h1>
+    <div id="echoContainer">
+        <!-- Aquí se mostrarán los echos -->
+    </div>
+
+    <h1>Reserva de vuelo</h1>
+    <form id="reservationForm">
+        <div class="container">
+            <div class="mejora">
+                <div class="input-group">
+                    <label for="ci_persona">CI:</label>
+                    <input type="text" name="ci_persona" id="ci_persona" required>
+                </div>
+                <div class="input-group">
+                    <label for="nombres">Nombres:</label>
+                    <input type="text" name="nombres" id="nombres" required>
+                </div>
+                <div class="input-group">
+                    <label for="apellidos">Apellidos:</label>
+                    <input type="text" name="apellidos" id="apellidos" required>
+                </div>
+                <div class="input-group">
+                    <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+                    <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" required>
+                </div>
+                <div class="input-group">
+                    <label for="sexo">Sexo:</label>
+                    <select name="sexo" id="sexo" required>
+                        <option value="Hombre">Masculino</option>
+                        <option value="Mujer">Femenino</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Confirmar Reserva</button>
+                </div>
+            </div>
+            <div class="seat-selection">
+                <h3>Selección de Asiento</h3>
+                <div id="seatSelectionContainer" class="seat-selection-table">
+                    <!-- La tabla de selección de asientos se cargará aquí -->
+                </div>
+            </div>
+        </div>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Cargar la tabla de asientos al cargar la página
+            $('#seatSelectionContainer').load('load_seats.php');
+
+            $('#reservationForm').submit(function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: 'process_form.php',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        alert(response);
+                        // Redireccionar si es necesario
+                        if (response.includes("¡Reserva exitosa!")) {
+                            $('#reservationForm')[0].reset();
+                        }
+                    },
+                    error: function () {
+                        alert('Error al procesar la solicitud.');
+                    }
+                });
+            });
+        });
+
+
+        
+        
+
+
+        function loadEchoes() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Inserta los echos en el contenedor
+                        document.getElementById("echoContainer").innerHTML = xhr.responseText;
+                    } else {
+                        console.error('Hubo un error al cargar los echos.');
+                    }
+                }
+            };
+
+            xhr.open('GET', 'process_form.php', true);
+            xhr.send();
+        }
+
+        // Llama a la función para cargar los echos cuando la página se carga completamente
+        window.onload = function() {
+            loadEchoes();
+        };
+    </script>
+</body>
+</html>
