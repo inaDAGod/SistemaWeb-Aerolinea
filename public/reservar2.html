@@ -35,7 +35,7 @@
     <div style="color: black;" id="contenido"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="scriptre.js"></script>
+    <script src="scripts/scriptre.js"></script>
     <form id="reservationForm">
         <div class="container">
             <div class="mejora">
@@ -82,7 +82,7 @@
 
         $(document).ready(function () {
             function loadSeatsTable() {
-                $('#seatSelectionContainer').load('load_seats.php');
+                $('#seatSelectionContainer').load('http://localhost/SistemaWeb-Aerolinea/backend/load_seats.php');
             }
         
             // Cargar la tabla de asientos al cargar la página
@@ -91,7 +91,7 @@
             $('#reservationForm').submit(function (event) {
                 event.preventDefault();
                 $.ajax({
-                    url: 'process_form.php',
+                    url: 'http://localhost/SistemaWeb-Aerolinea/backend/process_form.php',
                     type: 'POST',
                     data: $(this).serialize(),
                     success: function (response) {
@@ -133,7 +133,7 @@
                 }
             };
 
-            xhr.open('GET', 'process_form.php', true);
+            xhr.open('GET', 'http://localhost/SistemaWeb-Aerolinea/backend/process_form.php', true);
             xhr.send();
         }
 

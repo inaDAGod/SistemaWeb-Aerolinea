@@ -1,5 +1,5 @@
 <?php
-echo "El script se está ejecutando correctamente.";
+
 session_start();
 include 'conexion.php';
 include 'functions.php';
@@ -13,15 +13,7 @@ $reservation_counter = isset($_SESSION['reservation_counter']) ? $_SESSION['rese
 $cvuelosnum = isset($_SESSION['cvuelosnum']) ? $_SESSION['cvuelosnum'] : 0;
 $creservanum = isset($_SESSION['creservanum']) ? $_SESSION['creservanum'] : 0;
 
-// Mostrar todos los datos antes de procesar el formulario
-echo "Datos antes de procesar el formulario:<br>";
-echo "Adum: $adum<br>";
-echo "Adu: $adu<br>";
-echo "Nin: $nin<br>";
-echo "Total de personas: $totalg<br>";
-echo "Contador de reservas: $reservation_counter<br>";
-echo "CVuelosNum: $cvuelosnum<br>";
-echo "CReservaNum: $creservanum<br>";
+
 
 $_SESSION['cvuelosnum'] = $cvuelosnum;
 $_SESSION['creservanum'] = $creservanum;
@@ -54,9 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit;
     }
     
-    // Debugging: Mostrar información del cvuelo
-    echo "CVuelo: $cvuelo<br>";
-    echo "CReservaNum: $creservanum<br>";
 
     // Verificar si la persona ya existe en la base de datos
     $stmt_check_person = $conn->prepare("SELECT COUNT(*) AS count FROM personas WHERE ci_persona = :ci_persona");
@@ -101,12 +90,7 @@ if ($adum > 0) {
     }
 
     // Debugging: Mostrar los datos a insertar en la tabla reservas_personas
-    echo "Datos a insertar en reservas_personas:<br>";
-    echo "CReserva: $creserva<br>";
-    echo "CIPersona: $ci_persona<br>";
-    echo "EstadoReserva: Pendiente<br>";
-    echo "CVuelo: $cvuelo<br>";
-    echo "Casiento: $casiento_seleccionado<br>";
+    
     if (!empty($ci_persona)) {
         $creserva = isset($_SESSION['creservanum']) ? $_SESSION['creservanum'] : null;
         $estado_reserva = 'Pendiente';
@@ -124,17 +108,7 @@ if ($adum > 0) {
         $_SESSION['adu'] = $adu; // Update adu session variable
         $_SESSION['nin'] = $nin; // Update nin session variable
         
-// Debugging: Echo updated totalg
-echo "Total de personas actualizado: {$_SESSION['total_people']}<br>";
 
-        echo "Variables de sesión actualizadas:<br>";
-echo "Adum: {$_SESSION['adum']}<br>";
-echo "Adu: {$_SESSION['adu']}<br>";
-echo "Nin: {$_SESSION['nin']}<br>";
-echo "reservation_counter: {$_SESSION['reservation_counter']}<br>";
-echo "totalg: {$_SESSION['total_people']}<br>";
-// Después de procesar el formulario y actualizar las variables de sesión
-// Devuelve un mensaje indicando que la reserva se ha realizado correctamente
 echo "¡Reserva exitosa!";
 
         // Redireccionar si se han completado todas las reservas

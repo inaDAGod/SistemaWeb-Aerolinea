@@ -38,7 +38,7 @@
 <div style="color: black;" id="contenido"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="scriptre.js"></script>
+    <script src="scripts/scriptre.js"></script>
 
 <div class="centerre">
     <table class="table table-striped" id="reservas-table" >
@@ -59,7 +59,7 @@
 
 </div>
 <center>
-    <form method="post" action="confirmar_reserva.php" id="confirmar-reserva-form">
+    <form method="post" action="http://localhost/SistemaWeb-Aerolinea/backend/confirmar_reserva.php" id="confirmar-reserva-form">
         <button type="submit" class="btn btn" name="confirmar_reserva" style="color: rgba(8, 86, 167, 1); background-color: rgba(255, 196, 79, 1); border-radius: 20px; margin-right: 2%; margin-top: 3%; width: 10%; font-size: 20px;">Confirmar</button>
     </form>
 </center>
@@ -71,7 +71,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        fetch('get_vuelo.php')
+        fetch('http://localhost/SistemaWeb-Aerolinea/backend/get_vuelo.php')
             .then(response => response.json())
             .then(data => {
                 const vueloInfo = document.getElementById('vuelo-info');
@@ -85,7 +85,7 @@
                 console.error('Error fetching vuelo data:', error);
             });
 
-        fetch('get_reserva.php')
+        fetch('http://localhost/SistemaWeb-Aerolinea/backend/get_reserva.php')
             .then(response => response.json())
             .then(data => {
                 const tableBody = document.querySelector('#reservas-table tbody');
@@ -113,7 +113,7 @@
 
         document.getElementById('confirmar-reserva-form').addEventListener('submit', function(event) {
             event.preventDefault();
-            fetch('confirmar_reserva.php', {
+            fetch('http://localhost/SistemaWeb-Aerolinea/backend/confirmar_reserva.php', {
                 method: 'POST'
             })
             .then(response => response.json())

@@ -1,5 +1,5 @@
 <?php
-include 'registro.php';
+include 'registrores.php';
 include 'generar_reserva.php';
 // Inicia la sesión solo si no ha sido iniciada previamente
 if (session_status() == PHP_SESSION_NONE) {
