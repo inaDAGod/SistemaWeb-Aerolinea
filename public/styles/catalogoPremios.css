@@ -110,6 +110,10 @@ label {
   padding: 0.25rem 0.5rem; 
   margin: 1% auto; 
 }
+.card img{
+  height: 230px;
+  object-fit: cover;
+}
 
 
 @media (max-width: 768px) {
