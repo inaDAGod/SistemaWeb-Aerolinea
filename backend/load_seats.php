@@ -51,7 +51,7 @@ if ($cvuelosnum) {
         }
 
         // Genera la tabla de asientos
-        echo '<table border="1" style="margin-left:40%">';
+        echo '<table border="1" style="margin-left:30%" class="table table-striped">';
         echo '<tr>';
         foreach ($tipos_asiento as $tipo) {
             echo '<th>' . $tipo . '</th>';

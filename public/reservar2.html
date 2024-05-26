@@ -23,6 +23,23 @@
         .input-group { display: flex; align-items: center; margin-bottom: 10px; }
         .input-group label { margin-right: 10px; width: 200px; }
         .input-group input, .input-group select { width: 50%; }
+
+
+            .h1rese{
+                font-family: 'Inter', sans-serif;
+                font-size: 50px;
+                text-align: center;
+                margin-top: 1%;
+                color: rgba(8, 86, 167, 1);
+            }
+            .h1rese2{
+                font-family: 'Inter', sans-serif;
+                font-size: 50px;
+                text-align: center;
+                margin-top: -1%;
+                color: rgba(8, 86, 167, 1);
+            }
+        
     </style>
 </head>
 <body style="color:black">
@@ -30,9 +47,11 @@
         <img src="assets/logoavion.png" alt="Menu Icon" style="width:10%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
     </div>
     
-
-    <h1>Reserva de vuelo</h1>
-    <div style="color: black;" id="contenido"></div>
+    <button class="btn btn" style="position: absolute; left: 0; top:14%; color:rgba(8, 86, 167, 1);">
+        <a href="index.html">< Cancelar reserva</a>
+    </button>
+    <h1 class="h1rese">Reservar </h1>
+    <div style="color: black;text-align:left; margin-left:30%;font-size:150%" id="contenido"></div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="scripts/scriptre.js"></script>
@@ -64,15 +83,18 @@
                         <option value="Otro">Otro</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Confirmar Reserva</button>
+                <br><br><br><br><br><br><br>
+                <div class="form-group" >
+                    <button type="submit" style="bottom:0;margin-left:-27%;" class="btn btn-primary">Confirmar Reserva</button>
                 </div>
             </div>
             <div class="seat-selection">
-                <h3>Selección de Asiento</h3>
+                <h3 style="margin-left: 30%;color:black;margin-top:-13%;font-size:150%;">Selección de Asiento</h3>
                 <div id="seatSelectionContainer" class="seat-selection-table">
                     <!-- La tabla de selección de asientos se cargará aquí -->
                 </div>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
             </div>
         </div>
     </form>
