@@ -1,32 +1,17 @@
 <?php
 session_start();
+
 include 'conexion.php';
+include 'functions.php';
 
-// Datos de prueba
-$correo_usuario = 'andrea.fernandez.l@ucb.edu.bo';
-$fecha_reserva = '2024-06-25'; // Puedes cambiar esta fecha según sea necesario
-$fecha_lmite = '2024-06-27'; // Puedes cambiar esta fecha según sea necesario
 
-function generar_numero_reserva($conn, $correo_usuario, $fecha_reserva, $fecha_lmite) {
-    // Preparar la consulta SQL para insertar en la tabla 'reservas'
-    $query = "INSERT INTO reservas (correo_usuario, fecha_reserva, fecha_lmite) VALUES (:correo_usuario, :fecha_reserva, :fecha_lmite)";
-    $stmt = $conn->prepare($query);
-    $stmt->bindParam(':correo_usuario', $correo_usuario);
-    $stmt->bindParam(':fecha_reserva', $fecha_reserva);
-    $stmt->bindParam(':fecha_lmite', $fecha_lmite);
-    $stmt->execute();
+$reservation_counter = isset($_SESSION['reservation_counter']) ? $_SESSION['reservation_counter'] : 0;
+$cvuelosnum = isset($_SESSION['cvuelosnum']) ? $_SESSION['cvuelosnum'] : 0;
+$creservanum = isset($_SESSION['creservanum']) ? $_SESSION['creservanum'] : 0;
 
-    // Obtener el ID de la reserva creada
-    return $conn->lastInsertId();
-}
-
-$creservanum = generar_numero_reserva($conn, $correo_usuario, $fecha_reserva, $fecha_lmite);
-
-$cvuelosnum = 2; // Por ejemplo, puedes cambiar este valor según tus necesidades
 
 $_SESSION['cvuelosnum'] = $cvuelosnum;
 $_SESSION['creservanum'] = $creservanum;
-$_SESSION['reservation_counter'] = 0;
 
 // Obtén el número de vuelo de la sesión
 $cvuelosnum = isset($_SESSION['cvuelosnum']) ? $_SESSION['cvuelosnum'] : null;
@@ -39,10 +24,7 @@ if ($cvuelosnum) {
     $stmt_cavion->execute();
     $cavion_result = $stmt_cavion->fetch(PDO::FETCH_ASSOC);
 
-    // Agrega mensajes de depuración
-    echo "<pre>";
-    print_r($cavion_result);
-    echo "</pre>";
+   
 
     if ($cavion_result) {
         $cavion = $cavion_result['cavion'];
