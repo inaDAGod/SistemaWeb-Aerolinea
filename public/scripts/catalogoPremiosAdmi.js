@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
     fetchAwards();
 
     document.getElementById('buscar').addEventListener('click', fetchAwards);
-    document.getElementById('filtrar').addEventListener('click', fetchAwards);
     document.getElementById('restablecer').addEventListener('click', resetFilters);
     document.getElementById('borrarPremio').addEventListener('click', function () {
         const premio = document.getElementById('edit_premio').value.trim();
