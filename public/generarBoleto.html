@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Check-in Aerolínea</title>
+    <title>Generar Boletos</title>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
@@ -16,6 +17,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles/agregarVuelo.css">
 </head>
+
 <body>
     <div style="background-color: #8FBCEA"></div>
     <img src="assets\logoavion.png" alt="Menu Icon" style="width:10%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
@@ -25,7 +27,6 @@
             <img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger">
             <nav class="menu-navegacion">
                 <a href="reserva.php">Vuelos</a>
-                <a href="generarBoleto.html">Generar Boletos</a>
                 <a href="#">Check-In</a>
                 <a href="#">Premios Millas</a>
                 <a href="login.php">Iniciar Sesion</a>
@@ -36,7 +37,7 @@
             </div>
         </header>
     <div class="container">
-        <h2 class="mt-4 mb-3" style="text-align: center; color: #0856A7;">Generar Boleto</h2>
+        <h2 class="mt-4 mb-3" style="text-align: center; color: #0856A7;">Generar Boletos</h2>
         <form id="formCheckin">
             <div class="form-row">
                 <div class="col-md-4">
@@ -64,15 +65,19 @@
                     <label for="numeroDocumento" class="form-label">Número de documento</label>
                     <input type="text" class="form-control" id="numeroDocumento" readonly>
                 </div>
+                <div class="col-md-3">
+                    <label for="numeroVuelo" class="form-label">Número de vuelo</label>
+                    <input type="text" class="form-control" id="numeroVuelo" readonly>
+                </div>
             </div>
             <div class="row mb-3">
                 <div class="col-md-3">
                     <label for="fechaVuelo" class="form-label">Fecha de vuelo</label>
-                    <input type="date" class="form-control" id="fechaVuelo">
+                    <input type="date" class="form-control" id="fechaVuelo" readonly>
                 </div>
                 <div class="col-md-3">
                     <label for="horaVuelo" class="form-label">Hora vuelo</label>
-                    <input type="time" class="form-control" id="horaVuelo">
+                    <input type="time" class="form-control" id="horaVuelo" readonly>
                 </div>
                 <div class="col-md-3">
                     <label for="origen" class="form-label">Origen</label>
@@ -83,14 +88,41 @@
                     <input type="text" class="form-control" id="destino" readonly>
                 </div>
             </div>
+            <div class="form-row">
+                
+                
+            </div>
             <div class="form-group col-md-8">
-                <button type="submit" class="btn btn-success">Generar Boleto</button>
+                <button type="submit" class="btn btn-success">Generar Boletos</button>
             </div>
         </form>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+     <!-- Modal para ingresar correo electrónico -->
+     <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="emailModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="emailModalLabel">Confirmar Boletos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="emailForm">
+                        <div class="form-group">
+                            <label for="emailInput">Ingrese su correo electrónico:</label>
+                            <input type="email" class="form-control" id="emailInput" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="scripts/verificarChekin.js"></script>
+    <script src="https://cdn.emailjs.com/dist/emailjs.min.js"></script>
 </body>
 </html>
