@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 include 'conexion.php';
 
 $correo_usuario = 'andrea.fernandez.l@ucb.edu.bo';

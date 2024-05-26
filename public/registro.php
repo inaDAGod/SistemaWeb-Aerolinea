@@ -1,9 +1,9 @@
 
 <?php 
 
-// Start session
-session_start();
-
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 // Initialize reservation counter to 0 if not already set
 if (!isset($_SESSION['reservation_counter'])) {
     $_SESSION['reservation_counter'] = 0;
