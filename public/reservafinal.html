@@ -131,7 +131,35 @@
         });
     });
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Obtener el correo del usuario
+        fetch('http://localhost/SistemaWeb-Aerolinea/backend/get_correo_usuario.php')
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error('Error obteniendo correo del usuario:', data.error);
+                } else {
+                    // Si se obtiene el correo del usuario, llamar a la función programaMillas() con el correo como argumento
+                    programaMillas(data.correo_usuario);
+                }
+            })
+            .catch(error => {
+                console.error('Error obteniendo correo del usuario:', error);
+            });
+    });
 
+    function programaMillas(correoUsuario){
+        fetch("http://localhost/SistemaWeb-Aerolinea/backend/programaMillas.php", {
+            method: "POST",
+            body: JSON.stringify({ correo: correoUsuario }),
+        })
+        .catch(error => {
+            console.error('Error en la solicitud:', error);
+        });
+    }
+</script>
+<script src="scripts/programaMillas.js"></script>
 
 </body>
 </html>
