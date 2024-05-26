@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proyecto_NAV</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="styles/style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+<link rel="stylesheet" href="styles/styleIndex.css">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+    rel="stylesheet">
+</head>
+<body style="color:white">
+
+<div style="background-color: #8FBCEA">
+    <img src="assets\logoavion.png" alt="Menu Icon" style="width:10%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
+</div>
+
+<img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger">
+<nav class="menu-navegacion">
+    <a href="reserva.php">Vuelos</a>
+    <a href="#">Check-In</a>
+    <a href="#">Premios Millas</a>
+    <a href="#">Perfil</a>
+    <a href="index.html">Cerrar Sesion</a>
+</nav>
+
+<button class="btn btn" style="position: absolute; left: 0; top:14%; color:rgba(8, 86, 167, 1);">
+    <a href="index.html">< Cancelar reserva</a>
+</button>
+<h1 class="h1rese">Reservar </h1>
+
+<div style="color: black;" id="contenido"></div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+
+<div class="centerre">
+    <table class="table table-striped" id="reservas-table" >
+        <thead>
+            <tr class="trre">
+                <th class="thre" style='padding: 8px;'>Tipo Persona</th>
+                <th class="thre" style='padding: 8px;'>Nombre</th>
+                <th class="thre" style='padding: 8px;'>Apellido</th>
+                <th class="thre" style='padding: 8px;'>CI</th>
+                <th class="thre" style='padding: 8px;'>Fecha de Nacimiento</th>
+                <th class="thre" style='padding: 8px;'>Asiento</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+</div>
+<center>
+    <form method="post" action="confirmar_reserva.php" id="confirmar-reserva-form">
+        <button type="submit" class="btn btn" name="confirmar_reserva" style="color: rgba(8, 86, 167, 1); background-color: rgba(255, 196, 79, 1); border-radius: 20px; margin-right: 2%; margin-top: 3%; width: 10%; font-size: 20px;">Confirmar</button>
+    </form>
+</center>
+
+<script src="scripts\menu.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<script src="scripts/script.js"></script>
+<script src="scripts/classie.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('get_vuelo.php')
+            .then(response => response.json())
+            .then(data => {
+                const vueloInfo = document.getElementById('vuelo-info');
+                if (data.error) {
+                    vueloInfo.innerText = "Error: " + data.error;
+                } else {
+                    vueloInfo.innerHTML = `Vuelo: ${data.cvuelo}<br>Origen: ${data.origen}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Destino: ${data.destino}<br>`;
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching vuelo data:', error);
+            });
+
+        fetch('get_reserva.php')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.querySelector('#reservas-table tbody');
+                if (data.error) {
+                    tableBody.innerHTML = `<tr><td colspan="6">Error: ${data.error}</td></tr>`;
+                } else {
+                    data.forEach(row => {
+                        const tr = document.createElement('tr');
+                        tr.classList.add('trre');
+                        tr.innerHTML = `
+                            <td class='tdre' style='padding: 8px;'>${row.tipo_persona}</td>
+                            <td class='tdre' style='padding: 8px;'>${row.nombre}</td>
+                            <td class='tdre' style='padding: 8px;'>${row.apellido}</td>
+                            <td class='tdre' style='padding: 8px;'>${row.ci_persona}</td>  <!-- Asegúrate de que esto corresponda con el nombre del campo en el JSON -->
+                            <td class='tdre' style='padding: 8px;'>${row.fecha_nacimiento}</td>
+                            <td class='tdre' style='padding: 8px;'>${row.asiento}</td>
+                        `;
+                        tableBody.appendChild(tr);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching reserva data:', error);
+            });
+
+        document.getElementById('confirmar-reserva-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            fetch('confirmar_reserva.php', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert("Error: " + data.error);
+                } else {
+                    alert(data.message);
+                    window.location.href = 'index.html';
+                }
+            })
+            .catch(error => {
+                console.error('Error confirming reserva:', error);
+            });
+        });
+    });
+</script>
+
+
+</body>
+</html>
