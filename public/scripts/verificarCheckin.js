@@ -68,9 +68,9 @@ $(document).ready(function() {
                     email: email,
                     carnet: $("#carnet").val(),
                     numeroVuelo: $("#numeroVuelo").val(),
-                    equipajeMano: $("#equipajeMano").is(':checked') ? true : false,
-                    maleta: $("#maleta").is(':checked') ? true : false,
-                    equipajeExtra: $("#equipajeExtra").is(':checked') ? true : false
+                    equipajeMano: $("#equipajeMano").is(':checked'),
+                    maleta: $("#maleta").is(':checked'),
+                    equipajeExtra: $("#equipajeExtra").is(':checked')
                 },
                 success: function(response) {
                     if (response.success) {
