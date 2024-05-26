@@ -44,16 +44,18 @@
         right: left;
         margin-bottom: 20px; /* Ajusta este margen según sea necesario */
         margin-right: 20px; /* Ajusta este margen según sea necesario */
-        margin-top: 7%;
+        margin-top: 8%;
         margin-left: 2%;
        color: white;
+       background-color: rgba(5, 58, 112, 1);
+       border-radius: 40px;
     }
 </style>
 
 <body style="color:white">
 
-<div style="background-color: #8FBCEA">
-<img src="assets\logoavion.png" alt="Menu Icon" style="width:10%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
+<div style="background-color: rgba(143, 188, 234, 1)">
+<img src="assets\logoavion.png" alt="Menu Icon" style="width:8%;height:8%;margin-left:10px;">
 </div>
 
 <img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger">
@@ -67,7 +69,7 @@
 
 
 <div class="eliminar-reserva">
-    <a href="index.html" class="btn btn-primary" style="border-radius: 40px;">
+    <a href="index.html" class="btn btn" style="border-radius: 40px;color:white;">
         &lt; Cancelar reserva
     </a>
 </div>
@@ -146,7 +148,8 @@
 <br>
 <form method="post" action="reservar2.html">
     <input type="hidden" id="total_people_input" name="total_people" value="<?php echo $_SESSION['total_people']; ?>">
-    <button type="submit" class="btn btn-primary" style=" border-radius: 40px; position: absolute; right: 0; margin-right: 2%; margin-top: -15px; width: 10%; font-size: 20px;">Siguiente ></button>
+    <button type="submit" class="btn btn"  style="background-color: rgba(5, 58, 112, 1);
+    color:white; border-radius: 40px; position: absolute; right: 0; margin-right: 2%; margin-top: -15px; width: 10%; font-size: 20px;">Siguiente ></button>
 </form>
 
 <!-- Link to the JavaScript file -->

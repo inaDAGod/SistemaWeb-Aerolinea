@@ -4,7 +4,7 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 include 'conexion.php';
 
-$correo_usuario = 'andrea.fernandez.l@ucb.edu.bo';
+$correo_usuario = 'danialee14@gmail.com';
 $fecha_reserva = '2024-06-25'; // Puedes cambiar esta fecha según sea necesario
 $fecha_lmite = '2024-06-27'; // Puedes cambiar esta fecha según sea necesario
 
