@@ -15,6 +15,7 @@ $creservanum = isset($_SESSION['creservanum']) ? $_SESSION['creservanum'] : 0;
 
 
 
+
 $_SESSION['cvuelosnum'] = $cvuelosnum;
 $_SESSION['creservanum'] = $creservanum;
 $_SESSION['adum'] = $adum;
@@ -63,20 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $nin = isset($_SESSION['nin']) ? $_SESSION['nin'] : 0;
         error_log("Adum: $adum, Adu: $adu, Nin: $nin");
 
-        // Determinar el tipo de persona en función de la cantidad de cada tipo
-        // Determinar el tipo de persona en función de la cantidad de cada tipo
-if ($adum > 0) {
-    $tipo_persona = 'Adulto mayor';
-    $adum--; // Decrement adum here
-} elseif ($adu > 0) {
-    $tipo_persona = 'Adulto';
-    $adu--; // Decrement adu here
-} elseif ($nin > 0) {
-    $tipo_persona = 'Niño';
-    $nin--; // Decrement nin here
-} else {
-    $tipo_persona = 'No especificado';
-}
+        
+$tipo_persona = determinarTipoPersona($adum, $adu, $nin);
 
 
         // Asignar parámetros y ejecutar la consulta
@@ -109,7 +98,8 @@ if ($adum > 0) {
         $_SESSION['nin'] = $nin; // Update nin session variable
         
 
-echo "¡Reserva exitosa!";
+        echo '<div class="success-message">¡Reserva exitosa!</div>';
+
 
         // Redireccionar si se han completado todas las reservas
         if ($_SESSION['reservation_counter'] >= $totalg) {
@@ -117,9 +107,13 @@ echo "¡Reserva exitosa!";
             exit; // Asegurar que el script termine después de la respuesta
         } else {
             echo "SUCCESS";
+            
             // Otros mensajes o acciones si es necesario
         }
         
     }
 }
+
+
+
 ?>

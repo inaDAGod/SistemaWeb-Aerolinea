@@ -5,25 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proyecto_NAV</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/reserva.css">
+   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
     <link rel="stylesheet" href="styles/styleIndex.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Open+Sans:wght@300;800&display=swap" rel="stylesheet">
-    <style>
-        .centerfor { text-align: left; width: 100%; margin: 0 auto; margin-top: 2%; }
-        .form-group { display: inline-block; vertical-align: top; margin-left: 80%; margin-top: -30%; }
-        .seat-selection-table { width: 100%; }
-        .container { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 20px; }
-        .mejora { flex: 1; margin-right: 20px; margin-left: 20%; }
-        .seat-selection { flex: 1; }
-        .input-group { display: flex; align-items: center; margin-bottom: 10px; }
-        .input-group label { margin-right: 10px; width: 200px; }
-        .input-group input, .input-group select { width: 50%; }
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <style>
+        .centerfor { 
+            text-align: left; 
+            width: 100%; 
+            margin: 0 auto; 
+            margin-top: 2%; 
+        }
+        .form-group { 
+            display: inline-block; 
+            vertical-align: top; 
+            margin-left: 80%; 
+            margin-top: -30%; 
+        }
+       
+        .container { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: flex-start; 
+            margin-top: 20px; 
+        }
+        .mejora { 
+            flex: 1; 
+            margin-right: 20px; 
+            margin-left: -13%; /* Modificado para mover más a la derecha */
+        }
+        
+        .input-group { 
+            display: flex; 
+            align-items: center; 
+            margin-bottom: 10px; 
+        }
+        .input-group label { 
+            margin-right: 10px; 
+            width: 200px; 
+        }
+        .input-group input, 
+        .input-group select { 
+            width: 60%; 
+        } 
+        .submit-btn-container {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin-bottom: 20px; /* Ajusta este margen según sea necesario */
+            margin-left: 20px; /* Ajusta este margen según sea necesario */
+            margin-top: 7%;
+            margin-right: 2%;
+           
+        }
+        .eliminar-reserva {
+            position: absolute;
+            top: 0;
+            right: left;
+            margin-bottom: 20px; /* Ajusta este margen según sea necesario */
+            margin-right: 20px; /* Ajusta este margen según sea necesario */
+            margin-top: 7%;
+            margin-left: 2%;
+           
+        }
 
             .h1rese{
                 font-family: 'Inter', sans-serif;
@@ -35,32 +91,56 @@
             .h1rese2{
                 font-family: 'Inter', sans-serif;
                 font-size: 50px;
-                text-align: center;
                 margin-top: -1%;
                 color: rgba(8, 86, 167, 1);
             }
+            .seat-selection-table{
+                width: 100%;
+                
+            }
+            .success-message {
+                background-color: #4CAF50; /* Color de fondo verde */
+                color: white; /* Texto blanco */
+                padding: 10px 20px; /* Espaciado interno */
+                border-radius: 5px; /* Bordes redondeados */
+                margin-bottom: 10px; /* Margen inferior */
+            }
+            
         
     </style>
 </head>
 <body style="color:black">
     <div style="background-color: #8FBCEA">
-        <img src="assets/logoavion.png" alt="Menu Icon" style="width:10%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
-    </div>
+        <img src="assets\logoavion.png" alt="Menu Icon" style="width:10%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
+        </div>
+        
+        <img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger">
+        <nav class="menu-navegacion">
+            <a href="reserva.php">Vuelos</a>
+            <a href="#">Check-In</a>
+            <a href="#">Premios Millas</a>
+            <a href="#">Perfil</a>
+            <a href="index.html">Cerrar Sesion</a>
+        </nav>
     
-    <button class="btn btn" style="position: absolute; left: 0; top:14%; color:rgba(8, 86, 167, 1);">
-        <a href="index.html">< Cancelar reserva</a>
-    </button>
-    <button id="eliminar-reserva-btn" class="btn btn" style="color: rgba(8, 86, 167, 1); background-color: rgba(255, 196, 79, 1); border-radius: 20px; margin-right: 2%; margin-top: 3%; width: 10%; font-size: 20px;">
-        Eliminar Reserva
-    </button>
+    
+    <div class="eliminar-reserva">
+    <button id="eliminar-reserva-btn" class="btn btn-primary" style=" border-radius: 40px;" >
+        < Cancelar reserva
+    </button></div>
     <h1 class="h1rese">Reservar </h1>
     <div style="color: black;text-align:left; margin-left:30%;font-size:150%" id="contenido"></div>
-
+<br>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="scripts/scriptre.js"></script>
+    <div> <span id="tipo-persona"></span></div>
+   
+    
+
     <form id="reservationForm">
         <div class="container">
             <div class="mejora">
+                <h2 class="h1rese2">Datos</h2>
                 <div class="input-group">
                     <label for="ci_persona">Cédula de Identidad:</label>
                     <input type="text" id="ci_persona" name="ci_persona" required>
@@ -87,12 +167,13 @@
                     </select>
                 </div>
                 <br><br><br><br><br><br><br>
-                <div class="form-group" >
-                    <button type="submit" style="bottom:0;margin-left:-27%;" class="btn btn-primary">Confirmar Reserva</button>
+                <div class="submit-btn-container">
+                    <button type="submit" class="btn btn-primary" style=" border-radius: 40px;">Confirmar Reserva ></button>
                 </div>
+                
             </div>
-            <div class="seat-selection">
-                <h3 style="margin-left: 30%;color:black;margin-top:-13%;font-size:150%;">Selección de Asiento</h3>
+            <div class="seat-selection" style="margin-right: 10%;">
+                <h2 class="h1rese2" >Selección de Asiento</h2>
                 <div id="seatSelectionContainer" class="seat-selection-table">
                     <!-- La tabla de selección de asientos se cargará aquí -->
                 </div>
@@ -100,7 +181,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
             </div>
         </div>
+        <br><br>
     </form>
+
+    <!-- El elemento que muestra el mensaje de reserva exitosa -->
+
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         
@@ -238,8 +324,26 @@
             });
         });
     
-    
+        $(document).ready(function() {
+            // Realizar una petición AJAX para obtener el tipo de persona
+            $.ajax({
+                url: 'http://localhost/SistemaWeb-Aerolinea/backend/process_form.php', // Ruta al archivo PHP
+                type: 'GET',
+                success: function(response) {
+                    // Actualizar el contenido del span con el tipo de persona
+                    $('#tipo-persona').text(response);
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+        
         
         </script>
+        
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+    <script src="scripts/script.js"></script>
 </body>
 </html>

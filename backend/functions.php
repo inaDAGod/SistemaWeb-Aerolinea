@@ -12,4 +12,25 @@ function obtener_cvuelo_del_asiento($conn, $casiento_seleccionado) {
         return false;
     }
 }
+
+// En functions.php
+
+// En functions.php
+
+function determinarTipoPersona(&$adum, &$adu, &$nin) {
+    if ($adum > 0) {
+        $tipo_persona = 'Adulto mayor';
+        $adum--; // Decrement adum here
+    } elseif ($adu > 0) {
+        $tipo_persona = 'Adulto';
+        $adu--; // Decrement adu here
+    } elseif ($nin > 0) {
+        $tipo_persona = 'Niño';
+        $nin--; // Decrement nin here
+    } else {
+        $tipo_persona = 'No especificado';
+    }
+    return $tipo_persona;
+}
+
 ?>
