@@ -14,7 +14,7 @@ if (!$conn) {
 }
 
 // Consulta para obtener los datos del usuario
-$email = 'example@example.com'; // El correo del usuario que quieres mostrar
+$email = 'danialee14@gmail.com'; // El correo del usuario que quieres mostrar
 $query_user = "SELECT nombres_usuario, apellidos_usuario, correo_usuario, millas FROM usuarios WHERE correo_usuario='$email'";
 $result_user = pg_query($conn, $query_user);
 
