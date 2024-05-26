@@ -22,29 +22,29 @@ function loginEncript() {
                         window.location.href = 'http://localhost/SistemaWeb-Aerolinea/public/index.html';
                     } else if (data.estado === 'contraseña_incorrecta') {
                         if (intentos === 3) {
-                            alert('Realizo muchos intentos. Por favor, inténtelo de nuevo más tarde.');
+                            Swal.fire('Error', 'Realizo muchos intentos. Por favor, inténtelo de nuevo más tarde.', 'error');
                             setTimeout(() => {
                                 intentos = 0; 
                             }, 300000); //5 minutos
                         } else {
-                            alert('La contraseña ingresada es incorrecta');
+                            Swal.fire('Error', 'La contraseña ingresada es incorrecta.', 'error');
                         }
                         intentos++;
                     } else if (data.estado === 'usuario_no_encontrado') {
-                        alert('No se encontró ningún usuario con ese correo electrónico');
+                        Swal.fire('Error', 'No se encontró ningún usuario con ese correo electrónico', 'error');
                     } else {
-                        alert('Ups algo salió mal. Inténtelo de nuevo más tarde.');
+                        Swal.fire('Error', 'Ups algo salió mal. Inténtelo de nuevo más tarde.', 'error');
                     }
                 })
                 .catch(error => {
                     console.error('Error durante la solicitud de inicio de sesión:', error);
-                    alert('Ocurrió un error durante la solicitud de inicio de sesión. Inténtelo de nuevo más tarde.');
+                    Swal.fire('Error', 'Ocurrió un error durante la solicitud de inicio de sesión. Inténtelo de nuevo más tarde.', 'error');
                 });
         } else {
-            alert('Realizo muchos intentos. Por favor, inténtelo de nuevo más tarde.');
+            Swal.fire('Error', 'Realizo muchos intentos. Por favor, inténtelo de nuevo más tarde.', 'error');
         }
     } else {
-        alert('Llena los campos');
+        Swal.fire('Error', 'Llena los campos', 'error');
     }
 }
 
@@ -70,12 +70,12 @@ function registrarUsuario() {
                 if (data.estado === "registro_exitoso") {
                     window.location.href= 'http://localhost/SistemaWeb-Aerolinea/public/index.html';
                 } else if (data.estado === "error_registro") {
-                    alert('Ya existe un usuario con ese correo electrónico');
+                    Swal.fire('Error', 'Ya existe un usuario con ese correo electrónico', 'error');
                 }
             })
             .catch(error => {
                 console.error('Error en la solicitud:', error);
-                alert('Estás seguro que no tienes una cuenta?');
+                Swal.fire('Error', 'Estás seguro que no tienes una cuenta?', 'error');
             });
 }
 
@@ -115,7 +115,7 @@ function verificar(){
         registrarUsuario();
     }
     else{
-        alert('Revisa el codigo no coincide con el que se mando a tu correo');
+        Swal.fire('Error', 'Revisa el codigo no coincide con el que se mando a tu correo', 'error');
     }
 }
 
@@ -145,16 +145,16 @@ function verificarCampos(){
                     mandarCorreoVerificacion();
                 }
             } else if (data.estado === "cuenta_existente") {
-                alert('Ya existe una cuenta con ese correo');
+                Swal.fire('Error', 'Ya existe una cuenta con ese correo', 'error');
             }
         })
         .catch(error => {
             console.error('Error en la solicitud:', error);
-            alert('Ya existe una cuenta con ese correo');
+            Swal.fire('Error', 'Ya existe una cuenta con ese correo', 'error');
         });
     }
     else{
-        alert('Completa todos los campos');
+        Swal.fire('Error', 'Completa todos los campos', 'error');
     }
 }
 function mandarCorreoRestauracion() {
@@ -195,11 +195,11 @@ function mandarCorreoRestauracion() {
         })
         .catch(error => {
             console.error('Error en la solicitud:', error);
-            alert('No hay una cuenta registrada a ese correo');
+            Swal.fire('Error', 'No hay una cuenta registrada a ese correo', 'error');
         });
     }
     else{
-        alert('Llena el correo');
+        Swal.fire('Error', 'Llena el correo', 'error');
     }
 }
 
@@ -213,7 +213,7 @@ function verificar2(){
 
     }
     else{
-        alert('Revisa el codigo no coincide con el que se mando a tu correo');
+        Swal.fire('Error', 'Revisa el codigo no coincide con el que se mando a tu correo', 'error');
     }
 }
 
@@ -240,20 +240,20 @@ function newContra(){
                     alert('Se restauro tu contraseña');
                     window.location.href= 'http://localhost/SistemaWeb-Aerolinea/public/registro.html';
                 } else if (data.estado === "error_actualizacion") {
-                    alert('Parece que hubo un error');
+                    Swal.fire('Error', 'Parece que hubo un error', 'error');
                 }
             })
             .catch(error => {
                 console.error('Error en la solicitud:', error);
-                alert('Parece que hubo un error');
+                Swal.fire('Error', 'Parece que hubo un error', 'error');
             });
         }
         else{
-            alert('Las contraseña no coinciden');
+            Swal.fire('Error', 'Las contraseña no coinciden', 'error');
         }
     }
     else{
-        alert('Llena los campos');
+        Swal.fire('Error', 'Llena los campos', 'error');
     }
 }
 
@@ -278,16 +278,16 @@ function registrarAdministrador() {
                 if (data.estado === "registro_exitoso") {
                     window.location.href= 'http://localhost/SistemaWeb-Aerolinea/public/index.html';
                 } else if (data.estado === "error_registro") {
-                    alert('Ya existe un usuario con ese correo electrónico');
+                    Swal.fire('Error', 'Ya existe un usuario con ese correo electrónico', 'error');
                 }
             })
             .catch(error => {
                 console.error('Error en la solicitud:', error);
-                alert('Estás seguro que no tienes una cuenta?');
+                Swal.fire('Error', 'Estás seguro que no tienes una cuenta?', 'error');
             });
         }
         else{
-            alert('Llene todos los campos');
+            Swal.fire('Error', 'Llene todos los campos', 'error');
         }
 }
 

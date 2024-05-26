@@ -21,7 +21,7 @@ $nin = 0;
 $totalg = $adum + $adu + $nin ;
 
 
-$correo_usuario = 'example@example.com';
+$correo_usuario = 'andrea.fernandez.l@ucb.edu.bo';
 $fecha_reserva = '2024-06-25'; // Puedes cambiar esta fecha según sea necesario
 $fecha_lmite  = '2024-06-27'; // Puedes cambiar esta fecha según sea necesario
 
@@ -55,7 +55,7 @@ try {
     // Insertar reserva con valores predefinidos
     $creservanum = generar_numero_reserva($conn, $correo_usuario, $fecha_reserva, $fecha_lmite );
 
-    $cvuelosnum = 2; // Por ejemplo, puedes cambiar este valor según tus necesidades
+    $cvuelosnum = 7; // Por ejemplo, puedes cambiar este valor según tus necesidades
 
     // Guarda $creserva en una variable de sesión
     $_SESSION['cvuelosnum'] = $cvuelosnum;

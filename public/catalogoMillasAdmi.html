@@ -2,9 +2,12 @@
 <html lang="en">
 
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aerolinea Web</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
     <link rel="stylesheet" href="styles/styleIndex.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -12,8 +15,9 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <script src="scripts/catalogoPremios.js"></script>
-  
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="scripts/catalogoPremiosAdmi.js"></script>
+
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
@@ -88,11 +92,73 @@
             <button  style="width: 100%;" class="btn btn-primary" id="restablecer"  >Restablecer</button>
         </div>
 
+    </div >
+    <div class="container">
+        <button type="button" class="btn btn-info" onclick="window.location.href='http://localhost/SistemaWeb-Aerolinea/public/addProducto.html';" style="margin: 0 auto;">Añadir Premio</button>
     </div>
+    
+
     <div class="container">
         <div class="row cards"></div>
     </div>
+    <div class="modal fade" id="editarPremioModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Editar Premio</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label for="edit_premio" class="label1">Premio:</label>
+                        <input type="text" id="edit_premio" class="form-control" placeholder="Premio nombre" required>
+                        <div class="invalid-feedback">Por favor ingresa un premio válido.</div>
+                    </div>
+                    <div class="input-group">
+                        <label for="edit_millas" class="label1">Millas:</label>
+                        <input type="number" id="edit_millas" class="form-control" placeholder="Precio en millas" required min="20">
+                        <div class="invalid-feedback">Por favor ingresa un número de millas válido (mínimo 20).</div>
+                    </div>
+                    <div class="input-group">
+                        <label for="edit_destacado" class="label1">Producto Destacado:</label>
+                        <div class="radio-group">
+                            <label for="edit_destacado">Destacado</label>
+                            <input type="radio" id="edit_destacado" name="edit_destacadosOption" value="destacado" required>
+                            <label for="edit_no-destacado">No Destacado</label>
+                            <input type="radio" id="edit_no-destacado" name="edit_destacadosOption" value="no-destacado">
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="edit_tipo" class="label1">Tipo Producto</label>
+                        <select id="edit_tipo" name="edit_tipo" class="form-control" required>
+                            <option value="" disabled selected>Seleccione un tipo...</option>
+                            <option value="Electrodomestico">Electrodomestico</option>
+                            <option value="Viaje">Viaje</option>
+                            <option value="Cuidado Personal">Cuidado Personal</option>
+                            <option value="Comida">Comida</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                        <div class="invalid-feedback">Por favor selecciona un tipo de producto.</div>
+                    </div>
+                    <img id="edit_img_preview" src="#" alt="Vista previa de la imagen" style="max-width: 100%; max-height: 200px;">
 
+                    <div class="input-group">
+                        
+                        <label for="edit_foto" class="label1">Subir foto</label>
+                        <input type="file" id="edit_foto" class="form-control">
+                        <div class="invalid-feedback">Por favor selecciona una foto.</div>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-between w-100">
+                    <button type="button" class="btn btn-danger" id="borrarPremio">Borrar</button>
+                    <button type="button" class="btn btn-primary" id="guardarEdicion">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script src="scripts/script.js"></script>
 </body>

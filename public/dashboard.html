@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrar Pasajeros</title>
+    <title>Gráfico de Pasajeros</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles/admin_pasajeros.css">
@@ -15,19 +15,19 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
+    <!-- Agrega la librería Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    
-<div style="background-color: #8FBCEA"></div>
+    <div style="background-color: #8FBCEA"></div>
 <img src="assets\logoavion.png" alt="Menu Icon" style="width:10%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
     </div>
-
     <header class="header" id="inicio">
         <img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger">
         <nav class="menu-navegacion">
             <a href="reserva.php">Vuelos</a>
             <a href="reservasAdmin.html">Reservas</a>
-            <a href="#">Dashboard</a>
+            <a href="dashboard.html">Dashboard</a>
             <a href="agregarVuelo.html">Agregar vuelo</a>
             <a href="addProducto.html">Agregar producto millas</a>
             <a href="registroAdmi.html">Registrar admin</a>
@@ -36,55 +36,17 @@
     
         </nav>
         <div class="contenedor head">
-            <h1 class="titulo">Administración de Pasajeros</h1>
+            <h1 class="titulo">Dashboard</h1>
         </div>
     </header>
+    <canvas id="myChart" width="300" height="300"></canvas>
 
-    <div class="container mt-4">
-        <h2 style="text-align: center; font-weight: bold;">Pasajeros</h2><br>
-        <div class="row mb-3">
-            <div class="col">
-                <input type="text" class="form-control" placeholder="Número de documento" id="numeroDocumento">
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" placeholder="Nombre" id="nombre">
-            </div>
-            <div class="col">
-                <input type="text" class="form-control" placeholder="Apellido" id="apellido">
-            </div>
-            <div class="col">
-                <button class="btn btn-primary" id="buscarBtn" type="button">
-                    <i class="fa fa-search"></i> Buscar
-                </button>
-            </div>
-            <div class="col">
-                <button class="btn btn-primary" id="mostrarTodosBtn" type="button">
-                    <i class="fa fa-users"></i> Mostrar Todos
-                </button>
-            </div>
-        </div>
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Tipo pasajero</th>
-                        <th>Asiento</th>
-                        <th>Tipo Asiento</th>
-                        <th>Nombres</th>
-                        <th>Apellidos</th>
-                        <th>Documento</th>
-                        <th>Estado Check-In</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-    </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="scripts/admin_pasajeros.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script src="scripts/script.js"></script>
+    <script src="scripts/dashboard.js"></script>
 </body>
 </html>

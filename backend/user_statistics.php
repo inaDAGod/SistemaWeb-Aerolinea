@@ -30,7 +30,7 @@ $row_total_cities_visited = pg_fetch_assoc($result_total_cities_visited);
 $total_cities_visited = $row_total_cities_visited['total_cities_visited'];
 
 // Retrieve total miles earned
-$email = 'example@example.com';
+$email = 'danialee14@gmail.com';
 $query_total_miles_earned = "SELECT millas FROM usuarios WHERE correo_usuario = '$email'";
 $result_total_miles_earned = pg_query($conn, $query_total_miles_earned);
 

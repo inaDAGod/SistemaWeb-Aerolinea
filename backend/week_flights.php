@@ -20,7 +20,7 @@ $current_date = date('Y-m-d');
 $end_of_week = date('Y-m-d', strtotime('next sunday'));
 
 // Consulta para obtener las reservas del usuario para vuelos de esta semana
-$email = 'example@example.com'; // El correo del usuario cuyas reservas quieres mostrar
+$email = 'danialee14@gmail.com'; // El correo del usuario cuyas reservas quieres mostrar
 $query_reservations = "SELECT r.fecha_reserva, r.fecha_lmite, r.creserva, rp.cvuelo, v.origen, v.destino, rp.estado_reserva,
                             SUM(
                                 CASE WHEN a.tipo_asiento = 'VIP' THEN v.costovip
