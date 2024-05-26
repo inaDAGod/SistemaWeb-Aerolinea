@@ -56,59 +56,81 @@ $(document).ready(function() {
 
     // Maneja el envío del formulario dentro del modal
     // Maneja el envío del formulario dentro del modal
-$("#emailForm").submit(function(event) {
-    event.preventDefault();
-    var email = $("#emailInput").val();
-    var carnet = $("#carnet").val();
-    var numeroVuelo = $("#inputNumeroVuelo").val();
-    var fechaVuelo = $("#fechaVuelo").val();
-
-    if (email && carnet && numeroVuelo && fechaVuelo) {
-        // Primero crea el check-in
-        $.ajax({
-            url: 'http://localhost/SistemaWeb-Aerolinea/backend/generarCheckin.php',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                carnet: carnet,
-                fechaVuelo: fechaVuelo,
-                email: email
-            },
-            success: function(responseCheckin) {
-                if (responseCheckin.success) {
-                    // Si el check-in se crea exitosamente, procede a crear el boleto
-                    $.ajax({
-                        url: 'http://localhost/SistemaWeb-Aerolinea/backend/generarBoleto.php',
-                        type: 'POST',
-                        dataType: 'json',
-                        data: {
-                            carnet: carnet,
-                            cvuelo: numeroVuelo,
-                            ccheck_in: responseCheckin.ccheck_in
-                        },
-                        success: function(responseBoleto) {
-                            if (responseBoleto.success) {
-                                $("#emailModal").modal('hide'); // Cierra el modal
-                                Swal.fire('Confirmado', 'El correo ha sido enviado, el check-in y los boletos han sido generados.', 'success');
-                            } else {
-                                Swal.fire('Error', responseBoleto.message, 'error');
+    $("#emailForm").submit(function(event) {
+        event.preventDefault();
+        var email = $("#emailInput").val();
+        var carnet = $("#carnet").val();
+        var numeroVuelo = $("#numeroVuelo").val();  // Asegúrate de tener un input con id="numeroVuelo" para obtener este valor
+        var fechaVuelo = $("#fechaVuelo").val();
+        var horaVuelo = $("#horaVuelo").val();
+        var origen = $("#origen").val();
+        var destino = $("#destino").val();
+    
+        if (email && carnet && numeroVuelo && fechaVuelo && horaVuelo && origen && destino) {
+            // Primero crea el check-in
+            $.ajax({
+                url: 'http://localhost/SistemaWeb-Aerolinea/backend/generarCheckin.php',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    carnet: carnet,
+                    fechaVuelo: fechaVuelo,
+                    email: email
+                },
+                success: function(responseCheckin) {
+                    if (responseCheckin.success) {
+                        // Si el check-in se crea exitosamente, procede a crear el boleto
+                        $.ajax({
+                            url: 'http://localhost/SistemaWeb-Aerolinea/backend/generarBoleto.php',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                carnet: carnet,
+                                cvuelo: numeroVuelo,
+                                ccheck_in: responseCheckin.ccheck_in
+                            },
+                            success: function(responseBoleto) {
+                                if (responseBoleto.success) {
+                                    // Enviar correo con los detalles de la reserva
+                                    enviarCorreo(email, $("#nombre").val(), $("#apellido").val(), carnet, numeroVuelo, 
+                                                fechaVuelo, horaVuelo, origen, destino);
+                                    $("#emailModal").modal('hide'); // Cierra el modal
+                                    Swal.fire('Confirmado', 'El correo ha sido enviado, el check-in y los boletos han sido generados.', 'success');
+                                } else {
+                                    Swal.fire('Error', responseBoleto.message, 'error');
+                                }
+                            },
+                            error: function() {
+                                Swal.fire('Error', 'Hubo un problema al generar el boleto.', 'error');
                             }
-                        },
-                        error: function() {
-                            Swal.fire('Error', 'Hubo un problema al generar el boleto.', 'error');
-                        }
-                    });
-                } else {
-                    Swal.fire('Error', responseCheckin.message, 'error');
+                        });
+                    } else {
+                        Swal.fire('Error', responseCheckin.message, 'error');
+                    }
+                },
+                error: function() {
+                    Swal.fire('Error', 'Hubo un problema al generar el check-in.', 'error');
                 }
-            },
-            error: function() {
-                Swal.fire('Error', 'Hubo un problema al generar el check-in.', 'error');
-            }
+            });
+        } else {
+            Swal.fire('Error', 'Por favor complete todos los campos y el correo electrónico antes de enviar.', 'error');
+        }
+    });
+    emailjs.init("zIi78GtT-tPurllpe"); // Reemplaza con tu User ID real
+function enviarCorreo(email, nombre, apellido, numeroDocumento, numeroVuelo, fechaVuelo, horaVuelo, origen, destino) {
+    var templateParams = {
+        to_email: email,
+        from_name: 'Aerolínea Info',
+        subject: 'Boleto',
+        message: `Nombre: ${nombre}\nApellido: ${apellido}\nNúmero de Documento: ${numeroDocumento}\nNúmero de Vuelo: ${numeroVuelo}\nFecha de Vuelo: ${fechaVuelo}\nHora del Vuelo: ${horaVuelo}\nOrigen: ${origen}\nDestino: ${destino}`
+    };
+
+    emailjs.send('service_pks7xqo', 'template_cbqy3ke', templateParams)
+        .then(function(response) {
+            console.log('Correo enviado exitosamente', response.status, response.text);
+        }, function(error) {
+            console.log('Fallo el envío de correo', error);
         });
-    } else {
-        Swal.fire('Error', 'Por favor complete todos los campos y el correo electrónico antes de enviar.', 'error');
-    }
-});
+}
 
 });
