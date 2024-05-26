@@ -15,8 +15,11 @@ if (!$carnet || !$numeroVuelo) {
     exit;
 }
 
-$carnet = pg_escape_string($conexion, $carnet);
+$carnet = pg_escape_string($conexion, trim($carnet));
 $numeroVuelo = intval($numeroVuelo);
+
+// Añadir log para depuración
+error_log("Carnet: " . $carnet . " - Número de Vuelo: " . $numeroVuelo);
 
 $query = "SELECT b.*, p.nombres, p.apellidos, v.fecha_vuelo, v.origen, v.destino 
           FROM boletos b
@@ -24,23 +27,25 @@ $query = "SELECT b.*, p.nombres, p.apellidos, v.fecha_vuelo, v.origen, v.destino
           JOIN vuelos v ON v.cvuelo = b.cvuelo
           WHERE b.ci_persona = $1 AND b.cvuelo = $2";
 $result = pg_prepare($conexion, "my_query", $query);
-$result = pg_execute($conexion, "my_query", array($carnet, $numeroVuelo));
-
-if ($result && pg_num_rows($result) > 0) {
-    $row = pg_fetch_assoc($result);
-    $response = [
-        'encontrado' => true,
-        'nombre' => $row['nombres'],
-        'apellido' => $row['apellidos'],
-        'fechaVuelo' => date('Y-m-d', strtotime($row['fecha_vuelo'])), // Formatea como 'YYYY-MM-DD'
-        'horaVuelo' => date('H:i', strtotime($row['fecha_vuelo'])),
-        'origen' => $row['origen'],
-        'destino' => $row['destino']
-    ];
-    echo json_encode($response);
+if ($result) {
+    $result = pg_execute($conexion, "my_query", array($carnet, $numeroVuelo));
+    if ($result && pg_num_rows($result) > 0) {
+        $row = pg_fetch_assoc($result);
+        $response = [
+            'encontrado' => true,
+            'nombre' => $row['nombres'],
+            'apellido' => $row['apellidos'],
+            'fechaVuelo' => date('Y-m-d', strtotime($row['fecha_vuelo'])), // Formatea como 'YYYY-MM-DD'
+            'horaVuelo' => date('H:i', strtotime($row['fecha_vuelo'])),
+            'origen' => $row['origen'],
+            'destino' => $row['destino']
+        ];
+        echo json_encode($response);
+    } else {
+        echo json_encode(['encontrado' => false, 'message' => 'No se encontró un boleto con esos datos.']);
+    }
 } else {
-    echo json_encode(['encontrado' => false, 'message' => 'No se encontró un boleto con esos datos.']);
+    echo json_encode(['error' => 'Error al preparar la consulta: ' . pg_last_error($conexion)]);
 }
-
 pg_close($conexion);
 ?>

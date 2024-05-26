@@ -13,7 +13,6 @@ $(document).ready(function() {
             data: { carnet: carnet, numeroVuelo: numeroVuelo },
             success: function(response) {
                 if (response.encontrado) {
-                    // Actualizar los campos con los datos encontrados
                     $("#nombre").val(response.nombre);
                     $("#apellido").val(response.apellido);
                     $("#numeroDocumento").val(carnet);
@@ -23,7 +22,7 @@ $(document).ready(function() {
                     $("#destino").val(response.destino);
                     Swal.fire('Encontrado', 'El boleto ha sido encontrado.', 'success');
                 } else {
-                    resetFields(); // Limpiar campos si no se encuentra el boleto
+                    resetFields();
                     Swal.fire('No encontrado', response.message, 'error');
                 }
             },
@@ -33,16 +32,13 @@ $(document).ready(function() {
         });
     });
 
-    // Función para limpiar los campos
     function resetFields() {
         $("#nombre, #apellido, #numeroDocumento, #fechaVuelo, #horaVuelo, #origen, #destino").val('');
         $("#equipajeMano, #maleta, #equipajeExtra").prop('checked', false);
     }
 
-    // Validar y abrir modal para confirmar correo electrónico
     $("#formCheckin").submit(function(event) {
-        event.preventDefault(); // Prevenir el envío normal del formulario
-        // Validar que todos los campos y al menos un checkbox estén completos
+        event.preventDefault();
         var isComplete = $("#nombre").val() && $("#apellido").val() && $("#numeroDocumento").val() &&
             $("#fechaVuelo").val() && $("#horaVuelo").val() && $("#origen").val() && $("#destino").val() &&
             ($("#equipajeMano").is(':checked') || $("#maleta").is(':checked') || $("#equipajeExtra").is(':checked'));
@@ -50,19 +46,16 @@ $(document).ready(function() {
         if (!isComplete) {
             Swal.fire('Error', 'Por favor complete todos los campos y seleccione al menos una opción de equipaje.', 'error');
         } else {
-            $("#emailModal").modal('show'); // Mostrar modal para confirmar correo electrónico
+            $("#emailModal").modal('show');
         }
     });
 
-    // Manejar la confirmación del correo electrónico y enviar datos de check-in
     $("#emailForm").submit(function(event) {
-        event.preventDefault(); // Prevenir el envío normal del formulario
+        event.preventDefault();
         var email = $("#emailInput").val();
         if (email) {
-            // Aquí se agregaría la lógica para realizar la llamada AJAX y actualizar la base de datos
-            // Ejemplo de llamada AJAX para actualizar el check-in
             $.ajax({
-                url: 'http://localhost/SistemaWeb-Aerolinea/backend/actualizarCheckin.php', // URL del PHP que maneja la actualización
+                url: 'http://localhost/SistemaWeb-Aerolinea/backend/actualizarCheckin.php',
                 type: 'POST',
                 data: {
                     email: email,
@@ -74,7 +67,9 @@ $(document).ready(function() {
                 },
                 success: function(response) {
                     if (response.success) {
+                        enviarCorreo(email, $("#nombre").val(), $("#apellido").val(), $("#numeroDocumento").val(), $("#fechaVuelo").val(), $("#horaVuelo").val(), $("#origen").val(), $("#destino").val());
                         Swal.fire('Check-in Confirmado', 'Su check-in ha sido realizado con éxito.', 'success');
+                        $("#emailModal").modal('hide');
                     } else {
                         Swal.fire('Error', response.message, 'error');
                     }
@@ -83,7 +78,24 @@ $(document).ready(function() {
                     Swal.fire('Error', 'Hubo un problema al realizar el check-in.', 'error');
                 }
             });
-            $("#emailModal").modal('hide'); // Ocultar modal después de la operación
         }
     });
+
+    emailjs.init("zIi78GtT-tPurllpe"); // Reemplaza con tu User ID real
+
+    function enviarCorreo(email, nombre, apellido, numeroDocumento, fechaVuelo, horaVuelo, origen, destino, numeroVuelo, cboleto) {
+        var templateParams = {
+            to_email: email,
+            from_name: 'Vuela Bo',
+            subject: 'Detalles del Check-in',
+            message: `Nombre: ${nombre}\nApellido: ${apellido}\nNúmero de Documento: ${numeroDocumento}\nNúmero de Vuelo: ${numeroVuelo}\nBoleto: ${cboleto}\nFecha de Vuelo: ${fechaVuelo}\nHora del Vuelo: ${horaVuelo}\nOrigen: ${origen}\nDestino: ${destino}`
+        };
+    
+        emailjs.send('service_pks7xqo', 'template_cbqy3ke', templateParams) // Asegúrate de que estos ID sean correctos
+            .then(function(response) {
+                console.log('Correo enviado exitosamente', response.status, response.text);
+            }, function(error) {
+                console.log('Fallo el envío de correo', error);
+            });
+    }
 });
