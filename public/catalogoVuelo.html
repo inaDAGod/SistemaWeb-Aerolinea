@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscar Vuelos</title>
+    <title>Filtrar Vuelos</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
@@ -49,84 +48,69 @@
 }
 
         .form-container {
-            max-width: 80%;
+            max-width: 80%; /* Cambiado a un porcentaje para que sea igual al ancho de la tabla */
             margin: 0 auto;
         }
-
         .form-row {
             display: flex;
             flex-wrap: wrap;
             margin-bottom: 10px;
         }
-
         .form-group {
             flex: 1;
             min-width: 200px;
-            margin-right: 20px;
+            margin-right: 20px; /* Aumentado el margen derecho para mayor separación */
         }
-
         .form-group:last-child {
-            margin-right: 0;
+            margin-right: 0; /* Elimina el margen derecho del último elemento de la fila */
         }
-
         .form-group label {
             display: block;
             margin-bottom: 5px;
         }
-
         .form-group input,
         .form-group select {
             width: 100%;
             padding: 8px;
             box-sizing: border-box;
         }
-
         .hidden {
             display: none;
         }
-
         #resultados {
             text-align: center;
             margin-top: 20px;
         }
-
         .table-responsive {
             width: 100%;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
-
         table {
             margin: 0 auto;
             border-collapse: collapse;
-            width: 100%;
+            width: 100%; /* Cambiado a 100% para que coincida con el contenedor */
         }
-
         th,
         td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
         }
-
         th {
             background-color: #f2f2f2;
         }
-
         h2 {
             color: rgb(5, 58, 112);
         }
-
         table thead th {
             color: rgb(5, 58, 112);
         }
-
         .form-button-row {
             display: flex;
             justify-content: center;
             margin-top: 20px;
         }
-
         @media screen and (max-width: 600px) {
             table,
             thead,
@@ -136,27 +120,22 @@
             tr {
                 display: block;
             }
-
             thead tr {
                 position: absolute;
                 top: -9999px;
                 left: -9999px;
             }
-
             tr {
                 margin: 0 0 1rem 0;
             }
-
             tr:nth-child(odd) {
                 background: #f2f2f2;
             }
-
             td {
                 border: none;
                 position: relative;
                 padding-left: 50%;
             }
-
             td:before {
                 position: absolute;
                 top: 0;
@@ -167,17 +146,15 @@
                 content: attr(data-label);
                 font-weight: bold;
             }
-
             .form-group {
                 flex: 1;
-                min-width: 100px;
-                margin-right: 2px;
-                margin-left: 2px;
+                min-width: 100px; /* Ancho mínimo de los campos */
+                margin-right: 2px; /* Margen entre los campos */
+                margin-left: 2px; /* Margen entre los campos */
             }
         }
     </style>
 </head>
-
 <body>
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #b8c9ff;">
         <div class="nav-item">
@@ -187,21 +164,28 @@
         </div>
         <img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger" style="z-index: 1000;">
         <nav class="menu-navegacion">
-            <a href="indexAdmi.html">Inicio</a>
-            <a href="infoVuelo.html">Vuelos</a>
-            <a href="verificarCheckinAdmi.html">Check-In</a>
-            <a href="generarBoleto.html">Generar Boleto</a>
-            <a href="catalogoMillasAdmi.html">Catalogo Premios millas</a>
-            <a href="agregarVuelo.html">Agregar vuelo</a>
-            <a href="registroAdmi.html">Registrar administrador</a>
-            <a href="dashboard.html">Dashboard</a>
+            <a href="indexCliente.html">Inicio</a>
+            <a href="catalogoVueloCliente.html">Vuelos</a>
+            <a href="verificarCheckinCliente.html">Check-In</a>
+            <a href="catalogoMillasCliente.html">Catalogo Premios Millas</a>
+            <a href="perfil.html">Perfil</a>
             <a href="index.html">Cerrar Sesion</a>
         </nav>
     </nav>
 
     <div class="container mt-4">
-        <h2 style="text-align: center; font-weight: bold;">Buscar Vuelos</h2>
+        <h2 style="text-align: center; font-weight: bold;">Filtrar Vuelos</h2>
         <form id="flightForm" class="form-container">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="ida-vuelta">Ida / Ida/Vuelta:</label>
+                    <select id="ida-vuelta" name="ida_vuelta" onchange="toggleRegresoField()">
+                        <option value="">Seleccionar</option>
+                        <option value="ida">Ida</option>
+                        <option value="ida_vuelta">Ida/Vuelta</option>
+                    </select>
+                </div>
+            </div>
             <div class="form-row">
                 <div class="form-group">
                     <label for="origen">Origen:</label>
@@ -230,12 +214,30 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="fecha_partida">Fecha:</label>
-                    <input type="date" id="fecha_partida" name="fecha_partida" required>
+                    <label for="partida">Partida:</label>
+                    <input type="date" id="partida" name="partida">
+                </div>
+                <div class="form-group hidden" id="regreso-group">
+                    <label for="regreso">Regreso:</label>
+                    <input type="date" id="regreso" name="regreso">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="adulto-mayor">Adulto Mayor:</label>
+                    <input type="number" id="adulto-mayor" name="adulto_mayor" value="0" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="adultos">Adultos:</label>
+                    <input type="number" id="adultos" name="adultos" value="1" min="1">
+                </div>
+                <div class="form-group">
+                    <label for="ninos">Niños:</label>
+                    <input type="number" id="ninos" name="ninos" value="0" min="0">
                 </div>
             </div>
             <div class="form-button-row">
-                <button class="btn btn-primary" type="submit">
+                <button class="btn btn-primary" id="filtrarBtn" type="submit">
                     <i class="fa fa-search"></i> Buscar
                 </button>
             </div>
@@ -274,43 +276,69 @@ var swiper = new Swiper(".mySwiper", {
     }
 });
 
+        function toggleRegresoField() {
+            const idaVueltaSelect = document.getElementById('ida-vuelta');
+            const regresoGroup = document.getElementById('regreso-group');
+            const regresoInput = document.getElementById('regreso');
+
+            if (idaVueltaSelect.value === 'ida') {
+                regresoGroup.classList.add('hidden');
+                regresoInput.removeAttribute('required');
+                regresoInput.value = '';
+            } else {
+                regresoGroup.classList.remove('hidden');
+                regresoInput.setAttribute('required', 'required');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', toggleRegresoField);
+
         document.getElementById('flightForm').addEventListener('submit', function(event) {
             event.preventDefault();
+            const idaVuelta = document.getElementById('ida-vuelta').value;
+            const origen = document.getElementById('origen').value;
+            const destino = document.getElementById('destino').value;
+            const partida = document.getElementById('partida').value;
+            const regreso = document.getElementById('regreso').value;
+            const clase = document.getElementById('clase').value;
+
+            if (!idaVuelta || !origen || !destino || !partida || (idaVuelta === 'ida_vuelta' && !regreso) || !clase) {
+                Swal.fire('Por favor, ingrese todos los criterios de búsqueda.');
+                return;
+            }
+
             const formData = new FormData(this);
             const queryString = new URLSearchParams(formData).toString();
 
-            fetch('infoVuelo.php?' + queryString)
-                .then(response => response.json())
-                .then(data => {
-                    const resultadosDiv = document.getElementById('resultados');
-                    resultadosDiv.innerHTML = '';
-                    if (data.length > 0) {
-                        let table = '<table class="table table-striped"><thead><tr><th>Vuelo</th><th>Origen</th><th>Destino</th><th>Duración (horas)</th><th>Costo Económico</th><th>Costo Normal</th><th>Costo VIP</th><th>Reservas</th><th>Pasajeros</th></tr></thead><tbody>';
-                        data.forEach(vuelo => {
-                            table += `<tr>
-                                <td data-label="Vuelo">${vuelo.vuelo}</td>
-                                <td data-label="Origen">${vuelo.origen}</td>
-                                <td data-label="Destino">${vuelo.destino}</td>
-                                <td data-label="Duración (horas)">${vuelo.duracion_horas}</td>
-                                <td data-label="Costo Económico">${vuelo.costo_economico} €</td>
-                                <td data-label="Costo Normal">${vuelo.costo_normal} €</td>
-                                <td data-label="Costo VIP">${vuelo.costo_vip} €</td>
-                                <td data-label="Reservas"><a href="reservasAdmin.html?vuelo=${vuelo.vuelo}" class="btn btn-primary">Reservas</a></td>
-                                <td data-label="Pasajeros"><a href="admin_pasajeros.html?vuelo=${vuelo.vuelo}" class="btn btn-primary">Pasajeros</a></td>
-                            </tr>`;
-                        });
-                        table += '</tbody></table>';
-                        resultadosDiv.innerHTML = table;
-                    } else {
-                        resultadosDiv.innerHTML = '<p>No se encontraron vuelos.</p>';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    Swal.fire('Error', 'Ocurrió un error al filtrar los vuelos.', 'error');
-                });
+            fetch('filtrar_vuelos.php?' + queryString)
+    .then(response => response.json())
+    .then(data => {
+        const resultadosDiv = document.getElementById('resultados');
+        resultadosDiv.innerHTML = '';
+        if (data.length > 0) {
+            let table = '<table class="table table-striped"><thead><tr><th>Vuelo</th><th>Origen</th><th>Destino</th><th>Duración</th><th>Económico</th><th>Normal</th><th>VIP</th></tr></thead><tbody>';
+            data.forEach(vuelo => {
+                table += `<tr>
+                            <td data-label="Vuelo">${vuelo.Vuelo}</td>
+                            <td data-label="Origen">${vuelo.Origen}</td>
+                            <td data-label="Destino">${vuelo.Destino}</td>
+                            <td data-label="Duración">${vuelo.Duración}</td>
+                            <td data-label="Económico">${vuelo.Económico}</td>
+                            <td data-label="Normal">${vuelo.Normal}</td>
+                            <td data-label="VIP">${vuelo.VIP}</td>
+                          </tr>`;
+            });
+            table += '</tbody></table>';
+            resultadosDiv.innerHTML = table;
+        } else {
+            resultadosDiv.innerHTML = '<p>No se encontraron vuelos.</p>';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Swal.fire('Error', 'Ocurrió un error al filtrar los vuelos.', 'error');
+    });
         });
     </script>
 </body>
-
 </html>
