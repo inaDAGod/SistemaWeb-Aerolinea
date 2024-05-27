@@ -18,8 +18,14 @@ function loginEncript() {
                 })
                 .then(data => {
                     if (data.estado === 'contraseña_correcta') {
-                        audi();
-                        window.location.href = 'http://localhost/SistemaWeb-Aerolinea/public/index.html';
+                        audi(correo);
+                        if(data.tipo_usuario === 'cliente'){
+                            window.location.href = 'http://localhost/SistemaWeb-Aerolinea/public/indexCliente.html';
+                        }
+                        else if(data.tipo_usuario === 'administrador'){
+                            window.location.href = 'http://localhost/SistemaWeb-Aerolinea/public/indexAdmi.html';
+                        }
+                       
                     } else if (data.estado === 'contraseña_incorrecta') {
                         if (intentos === 3) {
                             Swal.fire('Error', 'Realizo muchos intentos. Por favor, inténtelo de nuevo más tarde.', 'error');
@@ -293,11 +299,11 @@ function registrarAdministrador() {
 
 
 
-function audi(){
+function audi(correo){
     const ahora = new Date().toString();
     fetch("http://localhost/SistemaWeb-Aerolinea/backend/audi.php", {
                 method: "POST",
-                body: JSON.stringify({ correo: 'ayana.siegle@ucb.edu.bo', fecha:ahora}),
+                body: JSON.stringify({ correo: correo, fecha:ahora}),
             })
             .then(response => {
                 if (response.ok) {
