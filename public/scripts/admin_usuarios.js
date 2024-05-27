@@ -78,6 +78,7 @@ $(document).ready(function() {
     function updateTable(data) {
         var tbody = $('table tbody');
         tbody.empty(); // Limpia la tabla antes de agregar nuevos datos
+        data.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
         data.forEach(function(item) {
             var row = `<tr>
                 <td>${item.correo_usuario}</td>
