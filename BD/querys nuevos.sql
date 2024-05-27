@@ -99,3 +99,25 @@ add column estado_checkin varchar (20);
 --Agrego un boleto 
 INSERT INTO boletos (ci_persona,cvuelo,casiento,total) VALUES
 ('8002001','2','Asiento 39','500');
+
+--Aqui es para hacer las pruebas en checkin para verificar que si cambia a true, si quieren hacer prueba
+--este es la serie de querys
+
+select * from check_in
+
+UPDATE check_in
+SET estado_checkin = 'Pendiente'
+WHERE estado_checkin = 'Realizado';
+
+
+UPDATE check_in
+SET equipaje_mano = false
+WHERE equipaje_mano = true;
+
+UPDATE check_in
+SET maleta = false
+WHERE maleta = true;
+
+UPDATE check_in
+SET equipaje_extra = false
+WHERE equipaje_extra = true;
