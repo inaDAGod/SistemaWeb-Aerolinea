@@ -1,4 +1,5 @@
 <?php
+session_start();
 $host = 'localhost';
 $port = '5432';
 $dbname = 'aerolinea';
@@ -12,10 +13,14 @@ if (!$conn) {
     echo json_encode(["error" => "Error: No se pudo conectar a la base de datos."]);
     exit;
 }
+$correo_usuario = isset($_SESSION['correo_usuario']) ;
+echo($correo_usuario);
+
+
 
 // Consulta para obtener los datos del usuario
-$email = 'danialee14@gmail.com'; // El correo del usuario que quieres mostrar
-$query_user = "SELECT nombres_usuario, apellidos_usuario, correo_usuario, millas FROM usuarios WHERE correo_usuario='$email'";
+ // El correo del usuario que quieres mostrar
+$query_user = "SELECT nombres_usuario, apellidos_usuario, correo_usuario, millas FROM usuarios WHERE correo_usuario='$correo_usuario'";
 $result_user = pg_query($conn, $query_user);
 
 if (!$result_user) {
