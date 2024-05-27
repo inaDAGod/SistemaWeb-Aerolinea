@@ -81,7 +81,7 @@ $(document).ready(function() {
         }
     });
 
-    emailjs.init("zIi78GtT-tPurllpe"); // Reemplaza con tu User ID real
+    emailjs.init("XhWMaSqNfASzICac5"); // Reemplaza con tu User ID real
 
 function enviarCorreo(email, nombre, apellido, numeroDocumento, fechaVuelo, horaVuelo, origen, destino) {
     var templateParams = {
@@ -91,7 +91,7 @@ function enviarCorreo(email, nombre, apellido, numeroDocumento, fechaVuelo, hora
         message: `Nombre: ${nombre}\nApellido: ${apellido}\nNúmero de Documento: ${numeroDocumento}\nFecha de Vuelo: ${fechaVuelo}\nHora del Vuelo: ${horaVuelo}\nOrigen: ${origen}\nDestino: ${destino}`
     };
 
-    emailjs.send('service_pks7xqo', 'template_cbqy3ke', templateParams) // Asegúrate de que estos ID sean correctos
+    emailjs.send('service_0ems5rg', 'template_guvck1n', templateParams) // Asegúrate de que estos ID sean correctos
         .then(function(response) {
             console.log('Correo enviado exitosamente', response.status, response.text);
         }, function(error) {

@@ -116,7 +116,7 @@ $(document).ready(function() {
             Swal.fire('Error', 'Por favor complete todos los campos y el correo electrónico antes de enviar.', 'error');
         }
     });
-    emailjs.init("zIi78GtT-tPurllpe"); // Reemplaza con tu User ID real
+    emailjs.init("XhWMaSqNfASzICac5"); // Reemplaza con tu User ID real
 function enviarCorreo(email, nombre, apellido, numeroDocumento, numeroVuelo, fechaVuelo, horaVuelo, origen, destino) {
     var templateParams = {
         to_email: email,
@@ -125,7 +125,7 @@ function enviarCorreo(email, nombre, apellido, numeroDocumento, numeroVuelo, fec
         message: `Nombre: ${nombre}\nApellido: ${apellido}\nNúmero de Documento: ${numeroDocumento}\nNúmero de Vuelo: ${numeroVuelo}\nFecha de Vuelo: ${fechaVuelo}\nHora del Vuelo: ${horaVuelo}\nOrigen: ${origen}\nDestino: ${destino}`
     };
 
-    emailjs.send('service_pks7xqo', 'template_cbqy3ke', templateParams)
+    emailjs.send('service_0ems5rg', 'template_48zopgh', templateParams)
         .then(function(response) {
             console.log('Correo enviado exitosamente', response.status, response.text);
         }, function(error) {
