@@ -206,53 +206,44 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        document.getElementById('tipo_vuelo').addEventListener('change', function() {
-            const tipoVuelo = document.getElementById('tipo_vuelo').value;
-const fechaRegresoGroup = document.getElementById('fecha_regreso_group');
-if (tipoVuelo === 'ida_vuelta') {
-    fechaRegresoGroup.classList.remove('hidden');
-    document.getElementById('fecha_regreso').required = true;
-} else {
-    fechaRegresoGroup.classList.add('hidden');
-    document.getElementById('fecha_regreso').required = false;
-}
+       document.getElementById('flightForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const formData = new FormData(this);
+    const queryString = new URLSearchParams(formData).toString();
+
+    fetch('catVuelos.php?' + queryString)
+        .then(response => response.json())
+        .then(data => {
+            const resultadosDiv = document.getElementById('resultados');
+            resultadosDiv.innerHTML = '';
+            if (data.length > 0) {
+                let table = '<table class="table table-striped"><thead><tr><th>Vuelo</th><th>Origen</th><th>Destino</th><th>Duración</th><th>Costo Económico</th><th>Costo Normal</th><th>Costo VIP</th><th>Reservar</th></tr></thead><tbody>';
+                data.forEach(vuelo => {
+                    const reservarUrl = `reserva.php?cvuelo=${vuelo.Vuelo}&origen=${vuelo.Origen}&destino=${vuelo.Destino}&duracion=${vuelo.Duración}&economico=${vuelo.Económico}&normal=${vuelo.Normal}&vip=${vuelo.VIP}`;
+                    table += `<tr>
+                                <td data-label="Vuelo">${vuelo.Vuelo}</td>
+                                <td data-label="Origen">${vuelo.Origen}</td>
+                                <td data-label="Destino">${vuelo.Destino}</td>
+                                <td data-label="Duración">${vuelo.Duración}</td>
+                                <td data-label="Costo Económico">${vuelo.Económico} Bs</td>
+                                <td data-label="Costo Normal">${vuelo.Normal} Bs</td>
+                                <td data-label="Costo VIP">${vuelo.VIP} Bs</td>
+                                <td data-label="Reservar"><a href="${reservarUrl}" class="btn btn-primary"><i class="fa fa-ticket"></i> Reservar</a></td>
+                              </tr>`;
+                });
+                table += '</tbody></table>';
+                resultadosDiv.innerHTML = table;
+            } else {
+                resultadosDiv.innerHTML = '<p>No se encontraron vuelos.</p>';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire('Error', 'Ocurrió un error al filtrar los vuelos.', 'error');
+        });
 });
 
-document.getElementById('flightForm').addEventListener('submit', function(event) {
-event.preventDefault();
-const formData = new FormData(this);
-const queryString = new URLSearchParams(formData).toString();
-
-fetch('filtrar_vuelos.php?' + queryString)
-    .then(response => response.json())
-    .then(data => {
-        const resultadosDiv = document.getElementById('resultados');
-        resultadosDiv.innerHTML = '';
-        if (data.length > 0) {
-            let table = '<table class="table table-striped"><thead><tr><th>Vuelo</th><th>Origen</th><th>Destino</th><th>Duración (horas)</th><th>Costo Económico</th><th>Costo Normal</th><th>Costo VIP</th><th>Reservar</th></tr></thead><tbody>';
-            data.forEach(vuelo => {
-                table += `<tr>
-                            <td data-label="Vuelo">${vuelo.vuelo}</td>
-                            <td data-label="Origen">${vuelo.origen}</td>
-                            <td data-label="Destino">${vuelo.destino}</td>
-                            <td data-label="Duración (horas)">${vuelo.duracion_horas}</td>
-                            <td data-label="Costo Económico">${vuelo.costo_economico} €</td>
-                            <td data-label="Costo Normal">${vuelo.costo_normal} €</td>
-                            <td data-label="Costo VIP">${vuelo.costo_vip} €</td>
-                            <td data-label="Reservar"><a href="reserva.php?vuelo=${vuelo.vuelo}" class="btn btn-primary">Reservar</a></td>
-                          </tr>`;
-            });
-            table += '</tbody></table>';
-            resultadosDiv.innerHTML = table;
-        } else {
-            resultadosDiv.innerHTML = '<p>No se encontraron vuelos.</p>';
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        Swal.fire('Error', 'Ocurrió un error al filtrar los vuelos.', 'error');
-    });
-});
-</script>
+        </script>
+        
 </body>
 </html>
