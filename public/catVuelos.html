@@ -159,9 +159,36 @@
                     <label for="destino">Destino:</label>
                     <input type="text" id="destino" name="destino" required>
                 </div>
+            </div>
+            <div class="form-row">
                 <div class="form-group">
-                    <label for="fecha_partida">Fecha:</label>
+                    <label for="tipo_vuelo">Tipo de Vuelo:</label>
+                    <select id="tipo_vuelo" name="tipo_vuelo" required>
+                        <option value="ida">Ida</option>
+                        <option value="ida_vuelta">Ida/Vuelta</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fecha_partida">Fecha de Partida:</label>
                     <input type="date" id="fecha_partida" name="fecha_partida" required>
+                </div>
+                <div class="form-group hidden" id="fecha_regreso_group">
+                    <label for="fecha_regreso">Fecha de Regreso:</label>
+                    <input type="date" id="fecha_regreso" name="fecha_regreso">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="adulto_mayor">Adulto Mayor:</label>
+                    <input type="number" id="adulto_mayor" name="adulto_mayor" min="0" value="0">
+                </div>
+                <div class="form-group">
+                    <label for="adulto">Adulto:</label>
+                    <input type="number" id="adulto" name="adulto" min="0" value="1">
+                </div>
+                <div class="form-group">
+                    <label for="nino">Niño:</label>
+                    <input type="number" id="nino" name="nino" min="0" value="0">
                 </div>
             </div>
             <div class="form-button-row">
@@ -179,43 +206,44 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        document.getElementById('flightForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const formData = new FormData(this);
-            const queryString = new URLSearchParams(formData).toString();
+       document.getElementById('flightForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const formData = new FormData(this);
+    const queryString = new URLSearchParams(formData).toString();
 
-            fetch('infoVuelo.php?' + queryString)
-                .then(response => response.json())
-                .then(data => {
-                    const resultadosDiv = document.getElementById('resultados');
-                    resultadosDiv.innerHTML = '';
-                    if (data.length > 0) {
-                        let table = '<table class="table table-striped"><thead><tr><th>Vuelo</th><th>Origen</th><th>Destino</th><th>Duración (horas)</th><th>Costo Económico</th><th>Costo Normal</th><th>Costo VIP</th><th>Reservas</th><th>Pasajeros</th></tr></thead><tbody>';
-                        data.forEach(vuelo => {
-                            table += `<tr>
-                                <td data-label="Vuelo">${vuelo.vuelo}</td>
-                                <td data-label="Origen">${vuelo.origen}</td>
-                                <td data-label="Destino">${vuelo.destino}</td>
-                                <td data-label="Duración (horas)">${vuelo.duracion_horas}</td>
-                                <td data-label="Costo Económico">${vuelo.costo_economico} €</td>
-                                <td data-label="Costo Normal">${vuelo.costo_normal} €</td>
-                                <td data-label="Costo VIP">${vuelo.costo_vip} €</td>
-                                <td data-label="Reservas"><a href="reservasAdmin.html?vuelo=${vuelo.vuelo}" class="btn btn-primary">Reservas</a></td>
-                                <td data-label="Pasajeros"><a href="admin_pasajeros.html?vuelo=${vuelo.vuelo}" class="btn btn-primary">Pasajeros</a></td>
-                            </tr>`;
-                        });
-                        table += '</tbody></table>';
-                        resultadosDiv.innerHTML = table;
-                    } else {
-                        resultadosDiv.innerHTML = '<p>No se encontraron vuelos.</p>';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    Swal.fire('Error', 'Ocurrió un error al filtrar los vuelos.', 'error');
+    fetch('catVuelos.php?' + queryString)
+        .then(response => response.json())
+        .then(data => {
+            const resultadosDiv = document.getElementById('resultados');
+            resultadosDiv.innerHTML = '';
+            if (data.length > 0) {
+                let table = '<table class="table table-striped"><thead><tr><th>Vuelo</th><th>Origen</th><th>Destino</th><th>Duración</th><th>Costo Económico</th><th>Costo Normal</th><th>Costo VIP</th><th>Reservar</th></tr></thead><tbody>';
+                data.forEach(vuelo => {
+                    const reservarUrl = `reserva.php?cvuelo=${vuelo.Vuelo}&origen=${vuelo.Origen}&destino=${vuelo.Destino}&duracion=${vuelo.Duración}&economico=${vuelo.Económico}&normal=${vuelo.Normal}&vip=${vuelo.VIP}`;
+                    table += `<tr>
+                                <td data-label="Vuelo">${vuelo.Vuelo}</td>
+                                <td data-label="Origen">${vuelo.Origen}</td>
+                                <td data-label="Destino">${vuelo.Destino}</td>
+                                <td data-label="Duración">${vuelo.Duración}</td>
+                                <td data-label="Costo Económico">${vuelo.Económico} Bs</td>
+                                <td data-label="Costo Normal">${vuelo.Normal} Bs</td>
+                                <td data-label="Costo VIP">${vuelo.VIP} Bs</td>
+                                <td data-label="Reservar"><a href="${reservarUrl}" class="btn btn-primary"><i class="fa fa-ticket"></i> Reservar</a></td>
+                              </tr>`;
                 });
+                table += '</tbody></table>';
+                resultadosDiv.innerHTML = table;
+            } else {
+                resultadosDiv.innerHTML = '<p>No se encontraron vuelos.</p>';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire('Error', 'Ocurrió un error al filtrar los vuelos.', 'error');
         });
-    </script>
-</body>
+});
 
+        </script>
+        
+</body>
 </html>
