@@ -62,7 +62,7 @@ fetch('http://localhost/SistemaWeb-Aerolinea/backend/get_data.php?personasConMas
           label: 'Millas acumuladas',
           data: valores2,
           backgroundColor: 'rgba(255, 99, 132, 0.2)',
-          borderColor: 'rgba(255, 99, 132, 1)',
+          borderColor: 'rgba(255, 177, 21)',
           borderWidth: 1
         }]
       },
@@ -103,7 +103,7 @@ fetch('http://localhost/SistemaWeb-Aerolinea/backend/get_data.php?reservasPorEst
           label: 'Cantidad de Reservas',
           data: valores3,
           backgroundColor: 'rgba(75, 192, 192, 0.2)',
-          borderColor: 'rgba(75, 192, 192, 1)',
+          borderColor: 'rgba(32, 119, 209)',
           borderWidth: 1
         }]
       },
@@ -121,3 +121,35 @@ fetch('http://localhost/SistemaWeb-Aerolinea/backend/get_data.php?reservasPorEst
     // Aquí puedes manejar el error, como mostrar un mensaje al usuario
   });
 
+// Obtiene los datos de PHP para la distribución de personas por sexo
+fetch('http://localhost/SistemaWeb-Aerolinea/backend/get_data.php?distribucionPorSexo=true')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Error al obtener los datos del servidor');
+    }
+    return response.json();
+  })
+  .then(data => {
+    // Procesa los datos para la distribución de personas por sexo
+    const labels4 = data.distribucion_por_sexo.map(entry => entry.sexo);
+    const valores4 = data.distribucion_por_sexo.map(entry => entry.cantidad);
+
+    // Crea el gráfico de torta para la distribución de personas por sexo
+    const ctx4 = document.getElementById('distribucionPorSexoChart').getContext('2d');
+    const distribucionPorSexoChart = new Chart(ctx4, {
+      type: 'pie',
+      data: {
+        labels: labels4,
+        datasets: [{
+          label: 'Distribución por Sexo',
+          data: valores4,
+          backgroundColor: ['#2077D1', '#FFB115'], 
+          borderWidth: 1
+        }]
+      }
+    });
+  })
+  .catch(error => {
+    console.error('Error al obtener los datos de distribución de personas por sexo:', error.message);
+    // Aquí puedes manejar el error, como mostrar un mensaje al usuario
+  });

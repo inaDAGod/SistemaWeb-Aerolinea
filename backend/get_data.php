@@ -58,9 +58,26 @@ if (!$result3) {
 // Procesa los resultados de la tercera consulta y los agrega al array
 $data3 = pg_fetch_all($result3);
 
+// Consulta SQL para obtener la distribución de personas por sexo
+$query4 = "SELECT sexo, COUNT(*) AS cantidad FROM personas GROUP BY sexo";
+
+// Ejecuta la consulta
+$result4 = pg_query($conexion, $query4);
+
+if (!$result4) {
+    echo json_encode(['error' => 'Error en la ejecución de la consulta 4: ' . pg_last_error()]);
+    exit;
+}
+
+// Procesa los resultados y los agrega al array
+$data4 = pg_fetch_all($result4);
+//while ($row = pg_fetch_assoc($result)) {
+  //  $data[$row['sexo']] = $row['cantidad'];
+//}
+
 // Cierra la conexión con la base de datos
 pg_close($conexion);
 
 // Devuelve los datos en formato JSON
-echo json_encode(['vuelos_por_ciudad' => $data1, 'personas_con_mas_millas' => $data2, 'reservas_por_estado' => $data3]);
+echo json_encode(['vuelos_por_ciudad' => $data1, 'personas_con_mas_millas' => $data2, 'reservas_por_estado' => $data3, 'distribucion_por_sexo' => $data4]);
 ?>
