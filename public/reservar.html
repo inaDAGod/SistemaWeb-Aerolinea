@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto_NAV</title>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <link rel="stylesheet" href="styles/styleIndex.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+</head>
+
+<style>
+    .h1rese{
+        font-family: 'Inter', sans-serif;
+        font-size: 80px;
+        text-align: center;
+        margin-top: 1%;
+        color: white;
+    }
+    .h1rese2{
+        font-family: 'Inter', sans-serif;
+        font-size: 50px;
+        text-align: center;
+        margin-top: -1%;
+        color: rgba(8, 86, 167, 1);
+    }
+    .eliminar-reserva {
+        position: absolute;
+        top: 0;
+        right: left;
+        margin-bottom: 20px; /* Ajusta este margen según sea necesario */
+        margin-right: 20px; /* Ajusta este margen según sea necesario */
+        margin-top: 15%;
+        margin-left: 2%;
+       color: white;
+       background-color: rgba(5, 58, 112, 1);
+       border-radius: 40px;
+    }
+    .header{
+        height: 140%;
+    }
+</style>
+
+<body style="color:white">
+
+    <div style="background-color: #8FBCEA"></div>
+<img src="assets\logoavion.png" alt="Menu Icon" style="width:8%;height:8%;margin-left:10px;">
+    </div>
+
+    <header class="header" id="inicio">
+        <img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger">
+        <nav class="menu-navegacion">
+            <a href="indexCliente.html">Inicio</a>
+            <a href="catalogoVueloCliente.html">Vuelos</a>
+            <a href="verificarCheckinCliente.html">Check-In</a>
+            <a href="catalogoMillasCliente.html">Catalogo Premios Millas</a>
+            <a href="perfil.html">Perfil</a>
+            <a href="index.html">Cerrar Sesion</a>
+            
+        </nav>
+            <h1 class="h1rese">Reservar </h1>
+
+        
+    </header>
+
+
+
+<div class="eliminar-reserva">
+    <a href="index.html" class="btn btn" style="border-radius: 40px;color:white;">
+        &lt; Cancelar reserva
+    </a>
+</div>
+
+<div style="color: black;text-align:left; margin-left:30%;font-size:150%" id="contenido"></div>
+
+
+<div class="container-fluid">
+
+
+
+
+    <div class="row justify-content-center">
+        <div id="tablaSesion" class="table-responsive" style="margin-top: 2%;width:70%">
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Realiza una solicitud AJAX para obtener los datos de sesión
+        $.ajax({
+            url: 'http://localhost/SistemaWeb-Aerolinea/backend/obtener_datos_sesion.php',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                // Construye la tabla con los datos recibidos
+                var tabla = '<table class="table table-striped">' +
+                                '<thead>' +
+                                    '<tr>' +
+                                        '<th>Tipo Persona</th>' +
+                                        '<th>Cantidad</th>' +
+                                        '<th>Total</th>' +
+                                    '</tr>' +
+                                '</thead>' +
+                                '<tbody>' +
+                                    '<tr>' +
+                                        '<td>Adulto mayor</td>' +
+                                        '<td>' + data.adum + '</td>' +
+                                        '<td></td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<td>Adultos</td>' +
+                                        '<td>' + data.adu + '</td>' +
+                                        '<td></td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<td>Niños</td>' +
+                                        '<td>' + data.nin + '</td>' +
+                                        '<td></td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<td></td>' +
+                                        '<td></td>' +
+                                        '<td>' + data.total_people + '</td>' +
+                                    '</tr>' +
+                                '</tbody>' +
+                            '</table>';
+
+                // Agrega la tabla al contenedor
+                $('#tablaSesion').html(tabla);
+            },
+            error: function() {
+                // Maneja el caso de error
+                $('#tablaSesion').html('<p class="text-danger">Error al cargar los datos de sesión.</p>');
+            }
+        });
+    });
+</script>
+
+</div>
+<br>
+<form method="post" action="reservar2.html">
+    <input type="hidden" id="total_people_input" name="total_people" value="<?php echo $_SESSION['total_people']; ?>">
+    <button type="submit" class="btn btn"  style="background-color: rgba(5, 58, 112, 1);
+    color:white; border-radius: 40px; position: absolute; right: 0; margin-right: 2%; margin-top: -15px; width: 10%; font-size: 20px;">Siguiente ></button>
+</form>
+
+<!-- Link to the JavaScript file -->
+
+
+<script>
+    var menuRight = document.getElementById('cbp-spmenu-s2'),
+        showRight = document.getElementById('showRight'),
+        menuHeader = document.getElementById('menuHeader'),
+        body = document.body;
+
+    showRight.onclick = function() {
+        classie.toggle(this, 'active');
+        classie.toggle(menuRight, 'cbp-spmenu-open');
+        disableOther('showRight');
+    };
+
+    function disableOther(button) {
+        if (button !== 'showRight') {
+            classie.toggle(showRight, 'disabled');
+        }
+    }
+
+    menuHeader.addEventListener('click', function() {
+        classie.remove(menuRight, 'cbp-spmenu-open');
+        classie.remove(showRight, 'active');
+    });
+
+    document.addEventListener('click', function(event) {
+        var isClickInside = menuRight.contains(event.target) || showRight.contains(event.target);
+        if (!isClickInside) {
+            classie.remove(menuRight, 'cbp-spmenu-open');
+            classie.remove(showRight, 'active');
+        }
+    });
+
+
+    document.getElementById('eliminar-reserva-btn').addEventListener('click', function() {
+        fetch('http://localhost/SistemaWeb-Aerolinea/backend/eliminar_reserva.php', {
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert("Error: " + data.error);
+            } else {
+                alert(data.message);
+                window.location.href = 'index.html';
+            }
+        })
+        .catch(error => {
+            console.error('Error eliminando reserva:', error);
+        });
+    });
+
+
+</script>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+<script src="scripts/script.js"></script>
+
+<!-- Swiper JS -->
+<script src="scripts/script.js"></script>
+<script src="scripts/classie.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Your custom JavaScript -->
+<script src="scripts/scriptre.js"></script>
+</body>
+</html>

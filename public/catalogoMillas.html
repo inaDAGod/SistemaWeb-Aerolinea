@@ -13,6 +13,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="scripts/catalogoPremios.js"></script>
+  
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
@@ -27,11 +28,11 @@
     <header class="header" id="inicio">
         <img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger">
         <nav class="menu-navegacion">
-            <a href="reserva.php">Vuelos</a>
-            <a href="#">Check-In</a>
-            <a href="#">Premios Millas</a>
-            <a href="#">Perfil</a>
-            <a href="index.html">Cerrar Sesion</a>
+            <a href="index.html">Inicio</a>
+            <a href="catalogoVuelo.html">Vuelos</a>
+            <a href="verificarCheckin.html">Check-In</a>
+            <a href="catalogoMillas.html">Catalogo Premios millas</a>
+            <a href="registro.html">Iniciar Sesion</a>
         </nav>
         <div class="contenedor head">
             <h1 class="titulo">Catalogo Premios</h1>
@@ -73,6 +74,8 @@
                         <option value="Viaje">Viaje</option>
                         <option value="Cuidado Personal">Cuidado Personal</option>
                         <option value="Comida">Comida</option>
+                        <option value="Producto">Producto</option>
+                        <option value="Experiencia">Experiencia</option>
                         <option value="Otro">Otro</option>
                     </select>
                 </div>
@@ -82,7 +85,6 @@
         </div>
         <div class="col2">
             <button  style="width: 100%;" class="btn btn-primary" id="buscar"   >Buscar</button>
-            <button  style="width: 100%;" class="btn btn-primary" id="filtrar"  >Filtrar</button>
             <button  style="width: 100%;" class="btn btn-primary" id="restablecer"  >Restablecer</button>
         </div>
 
@@ -92,7 +94,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-   
+    <script src="scripts/script.js"></script>
 </body>
 
 </html>
