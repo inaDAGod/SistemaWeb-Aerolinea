@@ -39,8 +39,22 @@
             <h1 class="titulo">Dashboard</h1>
         </div>
     </header>
-    <canvas id="myChart" width="300" height="300"></canvas>
+    <div>
+        <br>
+        <h2 style="text-align: center; font-weight: bold;">Cantidad de vuelos por ciudad</h2><br>
+        <canvas id="vuelosPorCiudadChart" width="90" height="35"></canvas>        <br>
+    </div>
+    <!-- Contenedor para el gráfico de millas por usuario -->
+    <div>        <br>
+        <h2 style="text-align: center; font-weight: bold;">Cantidad de millas por usuario</h2><br>        <br>
+        <canvas id="personasConMasMillasChart" width="80" height="30"></canvas>        <br>
+    </div>
 
+    <!-- Contenedor para el gráfico de reservas por estado -->
+    <div>        <br>
+        <h2 style="text-align: center; font-weight: bold;">Reservas por estado</h2><br>        <br>
+        <canvas id="reservasPorEstadoChart" width="90" height="35"></canvas>        <br>
+    </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
