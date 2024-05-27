@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Proyecto_NAV</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-   
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
 <link rel="stylesheet" href="styles/styleIndex.css">
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -14,13 +12,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-
-<link
-    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
-    rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
 </head>
 <style>
     .h1rese{
@@ -51,7 +44,6 @@
     .header{
         height: 140%;
     }
-
 </style>
 <body style="color:white">
 
@@ -70,20 +62,18 @@
                 
             </nav>
                 <h1 class="h1rese">Reservar </h1>
-            
         </header>
-
 
 <div class="eliminar-reserva">
     <button id="eliminar-reserva-btn" class="btn btn" style="color:white; border-radius: 40px;" >
         < Cancelar reserva
-    </button></div>
-
+    </button>
+</div>
 
 <div style="color: black;text-align:left; margin-left:30%;font-size:150%" id="contenido"></div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="scripts/scriptre.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="scripts/scriptre.js"></script>
 
 <div class="centerre">
     <table class="table table-striped" id="reservas-table" style="width:80%;margin-left:10%;margin-top:2%;" >
@@ -101,8 +91,8 @@
     </table>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-
 </div>
+
 <center>
     <form method="post" action="http://localhost/SistemaWeb-Aerolinea/backend/confirmar_reserva.php" id="confirmar-reserva-form">
         <button type="submit" class="btn btn" style=" background-color: rgba(5, 58, 112, 1);
@@ -110,10 +100,7 @@
     </form>
 </center>
 
-<script src="scripts\menu.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-<script src="scripts/script.js"></script>
-<script src="scripts/classie.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Agregado para usar Swal.fire -->
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -142,90 +129,107 @@
                         const tr = document.createElement('tr');
                         tr.classList.add('trre');
                         tr.innerHTML = `
-                            <td class='tdre' style='padding: 8px;'>${row.tipo_persona}</td>
-                            <td class='tdre' style='padding: 8px;'>${row.nombre}</td>
-                            <td class='tdre' style='padding: 8px;'>${row.apellido}</td>
-                            <td class='tdre' style='padding: 8px;'>${row.ci_persona}</td>  <!-- Asegúrate de que esto corresponda con el nombre del campo en el JSON -->
-                            <td class='tdre' style='padding: 8px;'>${row.fecha_nacimiento}</td>
-                            <td class='tdre' style='padding: 8px;'>${row.asiento}</td>
-                        `;
-                        tableBody.appendChild(tr);
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching reserva data:', error);
-            });
-
-        document.getElementById('confirmar-reserva-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-            fetch('http://localhost/SistemaWeb-Aerolinea/backend/confirmar_reserva.php', {
-                method: 'POST'
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    alert("Error: " + data.error);
-                } else {
-                    alert(data.message);
-                    window.location.href = 'index.html';
-                }
-            })
-            .catch(error => {
-                console.error('Error confirming reserva:', error);
-            });
-        });
-    });
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Obtener el correo del usuario
-        fetch('http://localhost/SistemaWeb-Aerolinea/backend/get_correo_usuario.php')
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    console.error('Error obteniendo correo del usuario:', data.error);
-                } else {
-                    // Si se obtiene el correo del usuario, llamar a la función programaMillas() con el correo como argumento
-                    programaMillas(data.correo_usuario);
-                }
-            })
-            .catch(error => {
-                console.error('Error obteniendo correo del usuario:', error);
-            });
-    });
-
-    function programaMillas(correoUsuario){
-        fetch("http://localhost/SistemaWeb-Aerolinea/backend/programaMillas.php", {
-            method: "POST",
-            body: JSON.stringify({ correo: correoUsuario }),
-        })
-        .catch(error => {
-            console.error('Error en la solicitud:', error);
-        });
-    }
-    document.getElementById('eliminar-reserva-btn').addEventListener('click', function() {
-        fetch('http://localhost/SistemaWeb-Aerolinea/backend/eliminar_reserva2.php', {
-            method: 'POST'
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                alert("Error: " + data.error);
-            } else {
-                alert(data.message);
-                window.location.href = 'index.html';
-            }
-        })
-        .catch(error => {
-            console.error('Error eliminando reserva:', error);
-        });
-    });
-
-
-
-</script>
-<script src="scripts/programaMillas.js"></script>
-
-</body>
-</html>
+                            <td class='tdre' style='padding: 8px;'>${row.tipo_persona}</td
+                                <td class='tdre' style='padding: 8px;'>${row.nombre}</td>
+                                <td class='tdre' style='padding: 8px;'>${row.apellido}</td>
+                                <td class='tdre' style='padding: 8px;'>${row.ci_persona}</td>  
+                                <td class='tdre' style='padding: 8px;'>${row.fecha_nacimiento}</td>
+                                <td class='tdre' style='padding: 8px;'>${row.asiento}</td>
+                                `;
+                                tableBody.appendChild(tr);
+                                });
+                                }
+                                })
+                                .catch(error => {
+                                console.error('Error fetching reserva data:', error);
+                                });
+                                
+                                document.getElementById('confirmar-reserva-form').addEventListener('submit', function(event) {
+                                event.preventDefault();
+                                fetch('http://localhost/SistemaWeb-Aerolinea/backend/confirmar_reserva.php', {
+                                method: 'POST'
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                if (data.error) {
+                                alert("Error: " + data.error);
+                                } else {
+                                Swal.fire({ // Utilizar Swal.fire para mostrar una alerta bonita
+                                title: '¡Reserva confirmada!',
+                                text: data.message,
+                                icon: 'success',
+                                showCancelButton: false,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'OK'
+                                }).then((result) => {
+                                if (result.isConfirmed) {
+                                window.location.href = 'index.html';
+                                }
+                                });
+                                }
+                                })
+                                .catch(error => {
+                                console.error('Error confirming reserva:', error);
+                                });
+                                });
+                                });
+                                </script>
+                                <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                fetch('http://localhost/SistemaWeb-Aerolinea/backend/get_correo_usuario.php')
+                                .then(response => response.json())
+                                .then(data => {
+                                if (data.error) {
+                                console.error('Error obteniendo correo del usuario:', data.error);
+                                } else {
+                                programaMillas(data.correo_usuario);
+                                }
+                                })
+                                .catch(error => {
+                                console.error('Error obteniendo correo del usuario:', error);
+                                });
+                                });
+                                
+                                function programaMillas(correoUsuario){
+                                fetch("http://localhost/SistemaWeb-Aerolinea/backend/programaMillas.php", {
+                                method: "POST",
+                                body: JSON.stringify({ correo: correoUsuario }),
+                                })
+                                .catch(error => {
+                                console.error('Error en la solicitud:', error);
+                                });
+                                }
+                                document.getElementById('eliminar-reserva-btn').addEventListener('click', function() {
+                                fetch('http://localhost/SistemaWeb-Aerolinea/backend/eliminar_reserva2.php', {
+                                method: 'POST'
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                if (data.error) {
+                                alert("Error: " + data.error);
+                                } else {
+                                Swal.fire({ // Utilizar Swal.fire para mostrar una alerta bonita
+                                title: '¡Reserva eliminada!',
+                                text: data.message,
+                                icon: 'success',
+                                showCancelButton: false,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'OK'
+                                }).then((result) => {
+                                if (result.isConfirmed) {
+                                window.location.href = 'index.html';
+                                }
+                                });
+                                }
+                                })
+                                .catch(error => {
+                                console.error('Error eliminando reserva:', error);
+                                });
+                                });
+                                </script>
+                                <script src="scripts/programaMillas.js"></script>
+                                </body>
+                                </html>
+                                

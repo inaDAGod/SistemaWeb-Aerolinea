@@ -53,7 +53,11 @@ function eliminarReservas() {
         // Confirmar la transacción
         $conn->commit();
 
-        echo json_encode(["message" => "Reserva y registros relacionados eliminados exitosamente."]);
+        // Preparar el mensaje de notificación
+        $notificationMessage = "Reserva y registros relacionados eliminados exitosamente.";
+
+        // Devolver una respuesta con el mensaje de notificación
+        echo json_encode(["message" => $notificationMessage]);
     } catch (Exception $e) {
         // En caso de error, revertir la transacción
         $conn->rollBack();

@@ -14,7 +14,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <link rel="stylesheet" href="styles/styleIndex.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="styles/agregarVuelo.css">
 
 
     <link
@@ -205,7 +216,6 @@
     <script>
         
         
-
         $(document).ready(function () {
             function loadSeatsTable() {
                 $('#seatSelectionContainer').load('http://localhost/SistemaWeb-Aerolinea/backend/load_seats.php');
@@ -213,7 +223,7 @@
         
             // Cargar la tabla de asientos al cargar la página
             loadSeatsTable();
-
+        
             $('#reservationForm').submit(function (event) {
                 event.preventDefault();
                 $.ajax({
@@ -221,27 +231,44 @@
                     type: 'POST',
                     data: $(this).serialize(),
                     success: function (response) {
-                        alert(response);
                         if (response.includes("REDIRECT")) {
                             // Si la respuesta indica que se debe redirigir
-                            alert("Reserva exitosa. Redirigiendo...");
-                            // Redireccionar a reservamu.php después de un breve retraso
-                            setTimeout(function () {
-                                window.location.href = 'reservafinal.html';
-                            }, 500); // Redirigir después de 2 segundos (2000 milisegundos)
-                        }
-                        // Redireccionar si es necesario
-                        else if (response.includes("¡Reserva exitosa!")) {
-                            loadSeatsTable();
-                            $('#reservationForm')[0].reset();
+                            Swal.fire({
+                                title: 'Reserva exitosa',
+                                text: 'Redirigiendo...',
+                                icon: 'success',
+                                timer: 2000, // 2 segundos
+                                timerProgressBar: true,
+                                didOpen: () => {
+                                    Swal.showLoading();
+                                },
+                                willClose: () => {
+                                    window.location.href = 'reservafinal.html';
+                                }
+                            });
+                        } else if (response.includes("¡Reserva exitosa!")) {
+                            // Si la respuesta indica que la reserva fue exitosa
+                            Swal.fire({
+                                title: 'Reserva exitosa',
+                                text: 'Tu reserva ha sido registrada exitosamente.',
+                                icon: 'success'
+                            }).then(function () {
+                                loadSeatsTable();
+                                $('#reservationForm')[0].reset();
+                            });
                         }
                     },
                     error: function () {
-                        alert('Error al procesar la solicitud.');
+                        Swal.fire({
+                            title: 'Error',
+                            text: 'Error al procesar la solicitud.',
+                            icon: 'error'
+                        });
                     }
                 });
             });
         });
+        
         
         
 
@@ -322,21 +349,32 @@
 
         document.getElementById('eliminar-reserva-btn').addEventListener('click', function() {
             fetch('http://localhost/SistemaWeb-Aerolinea/backend/eliminar_reserva.php', {
-                method: 'POST'
+            method: 'POST'
             })
             .then(response => response.json())
             .then(data => {
-                if (data.error) {
-                    alert("Error: " + data.error);
-                } else {
-                    alert(data.message);
-                    window.location.href = 'index.html';
-                }
+            if (data.error) {
+            alert("Error: " + data.error);
+            } else {
+            Swal.fire({ // Utilizar Swal.fire para mostrar una alerta bonita
+            title: '¡Reserva eliminada!',
+            text: data.message,
+            icon: 'success',
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'OK'
+            }).then((result) => {
+            if (result.isConfirmed) {
+            window.location.href = 'index.html';
+            }
+            });
+            }
             })
             .catch(error => {
-                console.error('Error eliminando reserva:', error);
+            console.error('Error eliminando reserva:', error);
             });
-        });
+            });
     
         $(document).ready(function() {
             // Realizar una petición AJAX para obtener el tipo de persona
@@ -357,7 +395,9 @@
         </script>
         
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="scripts/script.js"></script>
 </body>
 </html>
