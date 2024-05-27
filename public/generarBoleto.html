@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Check-in Aerolínea</title>
+    <title>Generar Boletos</title>
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -26,18 +26,22 @@
         <header class="header" id="inicio">
             <img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger">
             <nav class="menu-navegacion">
-                <a href="index.html">Inicio</a>
-                <a href="catalogoVuelo.html">Vuelos</a>
-                <a href="verificarCheckin.html">Check-In</a>
-                <a href="catalogoMillas.html">Catalogo Premios millas</a>
-                <a href="registro.html">Iniciar Sesion</a>
+                <a href="indexAdmi.html">Inicio</a>
+                <a href="infoVuelo.html">Vuelos</a>
+                <a href="verificarCheckinAdmi.html">Check-In</a>
+                <a href="generarBoleto.html">Generar Boleto</a>
+                <a href="catalogoMillasAdmi.html">Catalogo Premios millas</a>
+                <a href="agregarVuelo.html">Agregar vuelo</a>
+                <a href="registroAdmi.html">Registrar administrador</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="index.html">Cerrar Sesion</a>
             </nav>
             <div class="contenedor head">
-                <h1 class="titulo">Check-in</h1>
+                <h1 class="titulo">Generar Boletos</h1>
             </div>
         </header>
     <div class="container">
-        <h2 class="mt-4 mb-3" style="text-align: center; color: #0856A7;">Check-in</h2>
+        <h2 class="mt-4 mb-3" style="text-align: center; color: #0856A7;">Generar Boletos</h2>
         <form id="formCheckin">
             <div class="form-row">
                 <div class="col-md-4">
@@ -45,11 +49,11 @@
                     <input type="text" class="form-control" id="carnet" placeholder="Ingrese su carnet">
                 </div>
                 <div class="col-md-4">
-                    <label for="numeroVuelo">Número de vuelo</label>
-                    <input type="text" class="form-control" id="numeroVuelo" placeholder="Número de vuelo">
+                    <label for="inputNumeroVuelo">Número de vuelo</label>
+                    <input type="text" class="form-control" id="inputNumeroVuelo" placeholder="Número de vuelo">
                 </div>
                 <div class="col-md-4">
-                    <button type="button" id="buscarBoletoBtn" class="btn btn-primary mt-4">Buscar boleto</button>
+                    <button type="button" id="buscarReservaBtn" class="btn btn-primary mt-4">Buscar reserva</button>
                 </div>
             </div>
             <div class="row mb-3">
@@ -64,6 +68,10 @@
                 <div class="col-md-3">
                     <label for="numeroDocumento" class="form-label">Número de documento</label>
                     <input type="text" class="form-control" id="numeroDocumento" readonly>
+                </div>
+                <div class="col-md-3">
+                    <label for="numeroVuelo" class="form-label">Número de vuelo</label>
+                    <input type="text" class="form-control" id="numeroVuelo" readonly>
                 </div>
             </div>
             <div class="row mb-3">
@@ -85,57 +93,20 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-4">
-                    <h4 class="mb-3">Equipaje</h4>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="equipajeMano">
-                        <label class="form-check-label" for="equipajeMano">
-                            Equipaje de mano
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="maleta">
-                        <label class="form-check-label" for="maleta">
-                            Maleta
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="equipajeExtra">
-                        <label class="form-check-label" for="equipajeExtra">
-                            Equipaje extra
-                        </label>
-                    </div>
-                </div>
+                
                 
             </div>
             <div class="form-group col-md-8">
-                <button type="submit" class="btn btn-success">Check-in</button>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <strong>90 minutos</strong><br>
-                    Deja tus maletas<br>
-                    Si factura maletas, déjelas en los mostradores de facturación a más tardar 90 minutos antes de su vuelo.
-                </div>
-                <div class="form-group col-md-4">
-                    <strong>60 minutos</strong><br>
-                    Control de seguridad<br>
-                    Pase por seguridad a más tardar 60 minutos antes de la salida.
-                </div>
-                <div class="form-group col-md-4">
-                    <strong>45 minutos</strong><br>
-                    Embarque<br>
-                    El embarque comienza 45 minutos antes de su vuelo y las puertas cierran 20 minutos antes de la salida.
-                </div>
+                <button type="submit" class="btn btn-success">Generar Boletos</button>
             </div>
         </form>
     </div>
-    <!-- Modal para ingresar correo electrónico -->
-    <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="emailModalLabel" aria-hidden="true">
+     <!-- Modal para ingresar correo electrónico -->
+     <div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="emailModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="emailModalLabel">Confirmar Check-in</h5>
+                    <h5 class="modal-title" id="emailModalLabel">Confirmar Boletos</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -156,7 +127,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="scripts/verificarCheckin.js"></script>
+    <script src="scripts/verificarReserva.js"></script>
     <script src="https://cdn.emailjs.com/dist/emailjs.min.js"></script>
 </body>
 </html>

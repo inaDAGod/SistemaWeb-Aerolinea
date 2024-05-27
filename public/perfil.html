@@ -90,7 +90,7 @@
         }
         .esta-user th {
             vertical-align: top;
-            font-size: 1.2em;
+            font-size: 1em;
             padding-left: 1.5%;
             padding-right: 1.5%;
             padding-top: 0.5%;
@@ -102,6 +102,7 @@
             background-color: rgba(143, 188, 234, 1);
             border-radius: 40px;
             width: 63%;
+            padding-bottom: 0.01px;
         }
         .section-button {
             display: inline-block;
@@ -134,9 +135,10 @@
     <header class="header" id="inicio">
         <img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger">
         <nav class="menu-navegacion">
-            <a href="reserva.php">Vuelos</a>
-            <a href="#">Check-In</a>
-            <a href="#">Premios Millas</a>
+            <a href="indexCliente.html">Inicio</a>
+            <a href="catalogoVueloCliente.html">Vuelos</a>
+            <a href="verificarCheckinCliente.html">Check-In</a>
+            <a href="catalogoMillasCliente.html">Catalogo Premios Millas</a>
             <a href="perfil.html">Perfil</a>
             <a href="index.html">Cerrar Sesion</a>
         </nav>
@@ -144,7 +146,7 @@
         <table class="table-user">
             <tr>
                 <th >
-                    <img src="assets/perfil.png" style="width:120%;height:120%;margin-left:-10%">
+                    <img src="assets/avion.png" style="width:120%;height:120%;margin-left:-10%">
                     <div class="millas-info">
                         <span>Millas:</span> <span id="user-millas"></span>
                     </div>
