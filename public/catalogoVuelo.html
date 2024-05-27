@@ -1,76 +1,92 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filtrar Vuelos</title>
+    <title>Buscar Vuelos</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         .form-container {
-            max-width: 80%; /* Cambiado a un porcentaje para que sea igual al ancho de la tabla */
+            max-width: 80%;
             margin: 0 auto;
         }
+
         .form-row {
             display: flex;
             flex-wrap: wrap;
             margin-bottom: 10px;
         }
+
         .form-group {
             flex: 1;
             min-width: 200px;
-            margin-right: 20px; /* Aumentado el margen derecho para mayor separación */
+            margin-right: 20px;
         }
+
         .form-group:last-child {
-            margin-right: 0; /* Elimina el margen derecho del último elemento de la fila */
+            margin-right: 0;
         }
+
         .form-group label {
             display: block;
             margin-bottom: 5px;
         }
+
         .form-group input,
         .form-group select {
             width: 100%;
             padding: 8px;
             box-sizing: border-box;
         }
+
         .hidden {
             display: none;
         }
+
         #resultados {
             text-align: center;
             margin-top: 20px;
         }
+
         .table-responsive {
             width: 100%;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
+
         table {
             margin: 0 auto;
             border-collapse: collapse;
-            width: 100%; /* Cambiado a 100% para que coincida con el contenedor */
+            width: 100%;
         }
+
         th,
         td {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
         }
+
         th {
             background-color: #f2f2f2;
         }
+
         h2 {
             color: rgb(5, 58, 112);
         }
+
         table thead th {
             color: rgb(5, 58, 112);
         }
+
         .form-button-row {
             display: flex;
             justify-content: center;
             margin-top: 20px;
         }
+
         @media screen and (max-width: 600px) {
             table,
             thead,
@@ -80,22 +96,27 @@
             tr {
                 display: block;
             }
+
             thead tr {
                 position: absolute;
                 top: -9999px;
                 left: -9999px;
             }
+
             tr {
                 margin: 0 0 1rem 0;
             }
+
             tr:nth-child(odd) {
                 background: #f2f2f2;
             }
+
             td {
                 border: none;
                 position: relative;
                 padding-left: 50%;
             }
+
             td:before {
                 position: absolute;
                 top: 0;
@@ -106,15 +127,17 @@
                 content: attr(data-label);
                 font-weight: bold;
             }
+
             .form-group {
                 flex: 1;
-                min-width: 100px; /* Ancho mínimo de los campos */
-                margin-right: 2px; /* Margen entre los campos */
-                margin-left: 2px; /* Margen entre los campos */
+                min-width: 100px;
+                margin-right: 2px;
+                margin-left: 2px;
             }
         }
     </style>
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #b8c9ff;">
         <div class="nav-item">
@@ -125,75 +148,51 @@
     </nav>
 
     <div class="container mt-4">
-        <h2 style="text-align: center; font-weight: bold;">Filtrar Vuelos</h2>
+        <h2 style="text-align: center; font-weight: bold;">Buscar Vuelos</h2>
         <form id="flightForm" class="form-container">
             <div class="form-row">
                 <div class="form-group">
-                    <label for="ida-vuelta">Ida / Ida/Vuelta:</label>
-                    <select id="ida-vuelta" name="ida_vuelta" onchange="toggleRegresoField()">
-                        <option value="">Seleccionar</option>
+                    <label for="origen">Origen:</label>
+                    <input type="text" id="origen" name="origen" required>
+                </div>
+                <div class="form-group">
+                    <label for="destino">Destino:</label>
+                    <input type="text" id="destino" name="destino" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="tipo_vuelo">Tipo de Vuelo:</label>
+                    <select id="tipo_vuelo" name="tipo_vuelo" required>
                         <option value="ida">Ida</option>
                         <option value="ida_vuelta">Ida/Vuelta</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="clase">Clase:</label>
-                    <select id="clase" name="clase">
-                        <option value="">Seleccionar Clase</option>
-                        <option value="economico">Económico</option>
-                        <option value="normal">Normal</option>
-                        <option value="vip">Vip</option>
-                    </select>
+                    <label for="fecha_partida">Fecha de Partida:</label>
+                    <input type="date" id="fecha_partida" name="fecha_partida" required>
+                </div>
+                <div class="form-group hidden" id="fecha_regreso_group">
+                    <label for="fecha_regreso">Fecha de Regreso:</label>
+                    <input type="date" id="fecha_regreso" name="fecha_regreso">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="origen">Origen:</label>
-                    <select id="origen" name="origen">
-                        <option value="">Seleccionar Origen</option>
-                        <option value="Santa Cruz">Santa Cruz (SCZ)</option>
-                        <option value="Cochabamba">Cochabamba (CBBA)</option>
-                        <option value="La Paz">La Paz (LPZ)</option>
-                        <option value="Tarija">Tarija (TJA)</option>
-                        <option value="Sucre">Sucre (SRE)</option>
-                    </select>
+                    <label for="adulto_mayor">Adulto Mayor:</label>
+                    <input type="number" id="adulto_mayor" name="adulto_mayor" min="0" value="0">
                 </div>
                 <div class="form-group">
-                    <label for="destino">Destino:</label>
-                    <select id="destino" name="destino">
-                        <option value="">Seleccionar Destino</option>
-                        <option value="Santa Cruz">Santa Cruz (SCZ)</option>
-                        <option value="Cochabamba">Cochabamba (CBBA)</option>
-                        <option value="La Paz">La Paz (LPZ)</option>
-                        <option value="Tarija">Tarija (TJA)</option>
-                        <option value="Sucre">Sucre (SRE)</option>
-                    </select>
+                    <label for="adulto">Adulto:</label>
+                    <input type="number" id="adulto" name="adulto" min="0" value="1">
                 </div>
                 <div class="form-group">
-                    <label for="partida">Partida:</label>
-                    <input type="date" id="partida" name="partida">
-                </div>
-                <div class="form-group hidden" id="regreso-group">
-                    <label for="regreso">Regreso:</label>
-                    <input type="date" id="regreso" name="regreso">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="adulto-mayor">Adulto Mayor:</label>
-                    <input type="number" id="adulto-mayor" name="adulto_mayor" value="0" min="0">
-                </div>
-                <div class="form-group">
-                    <label for="adultos">Adultos:</label>
-                    <input type="number" id="adultos" name="adultos" value="1" min="1">
-                </div>
-                <div class="form-group">
-                    <label for="ninos">Niños:</label>
-                    <input type="number" id="ninos" name="ninos" value="0" min="0">
+                    <label for="nino">Niño:</label>
+                    <input type="number" id="nino" name="nino" min="0" value="0">
                 </div>
             </div>
             <div class="form-button-row">
-                <button class="btn btn-primary" id="filtrarBtn" type="submit">
+                <button class="btn btn-primary" type="submit">
                     <i class="fa fa-search"></i> Buscar
                 </button>
             </div>
@@ -207,69 +206,53 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        function toggleRegresoField() {
-            const idaVueltaSelect = document.getElementById('ida-vuelta');
-            const regresoGroup = document.getElementById('regreso-group');
-            const regresoInput = document.getElementById('regreso');
+        document.getElementById('tipo_vuelo').addEventListener('change', function() {
+            const tipoVuelo = document.getElementById('tipo_vuelo').value;
+const fechaRegresoGroup = document.getElementById('fecha_regreso_group');
+if (tipoVuelo === 'ida_vuelta') {
+    fechaRegresoGroup.classList.remove('hidden');
+    document.getElementById('fecha_regreso').required = true;
+} else {
+    fechaRegresoGroup.classList.add('hidden');
+    document.getElementById('fecha_regreso').required = false;
+}
+});
 
-            if (idaVueltaSelect.value === 'ida') {
-                regresoGroup.classList.add('hidden');
-                regresoInput.removeAttribute('required');
-                regresoInput.value = '';
-            } else {
-                regresoGroup.classList.remove('hidden');
-                regresoInput.setAttribute('required', 'required');
-            }
+document.getElementById('flightForm').addEventListener('submit', function(event) {
+event.preventDefault();
+const formData = new FormData(this);
+const queryString = new URLSearchParams(formData).toString();
+
+fetch('filtrar_vuelos.php?' + queryString)
+    .then(response => response.json())
+    .then(data => {
+        const resultadosDiv = document.getElementById('resultados');
+        resultadosDiv.innerHTML = '';
+        if (data.length > 0) {
+            let table = '<table class="table table-striped"><thead><tr><th>Vuelo</th><th>Origen</th><th>Destino</th><th>Duración (horas)</th><th>Costo Económico</th><th>Costo Normal</th><th>Costo VIP</th><th>Reservar</th></tr></thead><tbody>';
+            data.forEach(vuelo => {
+                table += `<tr>
+                            <td data-label="Vuelo">${vuelo.vuelo}</td>
+                            <td data-label="Origen">${vuelo.origen}</td>
+                            <td data-label="Destino">${vuelo.destino}</td>
+                            <td data-label="Duración (horas)">${vuelo.duracion_horas}</td>
+                            <td data-label="Costo Económico">${vuelo.costo_economico} €</td>
+                            <td data-label="Costo Normal">${vuelo.costo_normal} €</td>
+                            <td data-label="Costo VIP">${vuelo.costo_vip} €</td>
+                            <td data-label="Reservar"><a href="reserva.php?vuelo=${vuelo.vuelo}" class="btn btn-primary">Reservar</a></td>
+                          </tr>`;
+            });
+            table += '</tbody></table>';
+            resultadosDiv.innerHTML = table;
+        } else {
+            resultadosDiv.innerHTML = '<p>No se encontraron vuelos.</p>';
         }
-
-        document.addEventListener('DOMContentLoaded', toggleRegresoField);
-
-        document.getElementById('flightForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const idaVuelta = document.getElementById('ida-vuelta').value;
-            const origen = document.getElementById('origen').value;
-            const destino = document.getElementById('destino').value;
-            const partida = document.getElementById('partida').value;
-            const regreso = document.getElementById('regreso').value;
-            const clase = document.getElementById('clase').value;
-
-            if (!idaVuelta || !origen || !destino || !partida || (idaVuelta === 'ida_vuelta' && !regreso) || !clase) {
-                Swal.fire('Por favor, ingrese todos los criterios de búsqueda.');
-                return;
-            }
-
-            const formData = new FormData(this);
-            const queryString = new URLSearchParams(formData).toString();
-
-            fetch('filtrar_vuelos.php?' + queryString)
-                .then(response => response.json())
-                .then(data => {
-                    const resultadosDiv = document.getElementById('resultados');
-                    resultadosDiv.innerHTML = '';
-                    if (data.length > 0) {
-                        let table = '<table class="table table-striped"><thead><tr><th>Código de Vuelo</th><th>Origen</th><th>Destino</th><th>Fecha de Partida</th><th>Fecha de Llegada</th><th>Precio</th><th>Reservar</th></tr></thead><tbody>';
-                        data.forEach(vuelo => {
-                            table += `<tr>
-                                        <td data-label="Código de Vuelo">${vuelo.codigo_vuelo}</td>
-                                        <td data-label="Origen">${vuelo.origen}</td>
-                                        <td data-label="Destino">${vuelo.destino}</td>
-                                        <td data-label="Fecha de Partida">${vuelo.fecha_partida}</td>
-                                        <td data-label="Fecha de Llegada">${vuelo.fecha_llegada}</td>
-                                        <td data-label="Precio">${vuelo.precio}</td>
-                                        <td data-label="Reservar"><a href="reserva.php?codigo_vuelo=${vuelo.codigo_vuelo}&origen=${vuelo.origen}&destino=${vuelo.destino}&fecha_partida=${vuelo.fecha_partida}&fecha_llegada=${vuelo.fecha_llegada}&precio=${vuelo.precio}" class="btn btn-primary">Reservar</a></td>
-                                      </tr>`;
-                        });
-                        table += '</tbody></table>';
-                        resultadosDiv.innerHTML = table;
-                    } else {
-                        resultadosDiv.innerHTML = '<p>No se encontraron vuelos.</p>';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    Swal.fire('Error', 'Ocurrió un error al filtrar los vuelos.', 'error');
-                });
-        });
-    </script>
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Swal.fire('Error', 'Ocurrió un error al filtrar los vuelos.', 'error');
+    });
+});
+</script>
 </body>
 </html>

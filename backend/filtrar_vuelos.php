@@ -1,97 +1,87 @@
 <?php
-if (isset($_GET['origen']) || isset($_GET['destino']) || isset($_GET['partida'])) {
-    $origen = $_GET['origen'] ?? '';
-    $destino = $_GET['destino'] ?? '';
-    $partida = $_GET['partida'] ?? '';
-    $regreso = $_GET['regreso'] ?? '';
-    $ida_vuelta = $_GET['ida_vuelta'] ?? '';
-    $adulto_mayor = $_GET['adulto_mayor'] ?? 0;
-    $adultos = $_GET['adultos'] ?? 1;
-    $ninos = $_GET['ninos'] ?? 0;
-    $clase = $_GET['clase'] ?? '';
+    header('Content-Type: application/json');
 
-    // Ajustar los valores para que coincidan con los de la base de datos
-    $origen = preg_replace('/ \(.+\)/', '', $origen);
-    $destino = preg_replace('/ \(.+\)/', '', $destino);
-
-    // Configuración de la conexión a la base de datos
-    $host = 'localhost';
-    $dbname = 'aerolinea';
-    $user = 'postgres';
-    $password = 'admin';
-
-    try {
-        // Conexión a la base de datos
-        $dsn = "pgsql:host=$host;dbname=$dbname";
-        $pdo = new PDO($dsn, $user, $password, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-
-        // Filtrado de vuelos según los criterios especificados
-        $sql = "SELECT DISTINCT codigo_vuelo, origen, destino, fecha_partida, fecha_llegada, precio_economico, precio_normal, precio_vip FROM Vuelos WHERE 1=1";
-
-        if (!empty($origen)) {
-            $sql .= " AND origen = :origen";
-        }
-        if (!empty($destino)) {
-            $sql .= " AND destino = :destino";
-        }
-        if (!empty($partida)) {
-            $sql .= " AND DATE(fecha_partida) = :partida";
-        }
-        if ($ida_vuelta === 'ida_vuelta' && !empty($regreso)) {
-            $sql .= " AND DATE(fecha_llegada) = :regreso";
-        }
-        if (!empty($ida_vuelta)) {
-            $sql .= " AND tipo_vuelo = :ida_vuelta";
-        }
-
-        $sql .= " ORDER BY fecha_partida ASC";
-
-        $stmt = $pdo->prepare($sql);
-        $params = [];
-
-        if (!empty($origen)) {
-            $params['origen'] = $origen;
-        }
-        if (!empty($destino)) {
-            $params['destino'] = $destino;
-        }
-        if (!empty($partida)) {
-            $params['partida'] = $partida;
-        }
-        if ($ida_vuelta === 'ida_vuelta' && !empty($regreso)) {
-            $params['regreso'] = $regreso;
-        }
-        if (!empty($ida_vuelta)) {
-            $params['ida_vuelta'] = $ida_vuelta;
-        }
-
-        $stmt->execute($params);
-
-        $vuelos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        // Transformar los resultados según la clase seleccionada
-        foreach ($vuelos as &$vuelo) {
-            if ($clase == 'economico') {
-                $vuelo['precio'] = $vuelo['precio_economico'];
-            } elseif ($clase == 'normal') {
-                $vuelo['precio'] = $vuelo['precio_normal'];
-            } elseif ($clase == 'vip') {
-                $vuelo['precio'] = $vuelo['precio_vip'];
-            } else {
-                $vuelo['precio'] = '';
-            }
-            unset($vuelo['precio_economico']);
-            unset($vuelo['precio_normal']);
-            unset($vuelo['precio_vip']);
-        }
-
-        // Devolver los resultados como JSON
-        header('Content-Type: application/json');
-        echo json_encode($vuelos);
-
-    } catch (PDOException $e) {
-        // Manejo de errores de la conexión
-        echo json_encode(['error' => 'Error en la conexión: ' . $e->getMessage()]);
+    // Conexión a la base de datos
+    $conn = pg_connect("host=localhost dbname=aerolinea user=postgres password=admin");
+    if (!$conn) {
+        echo json_encode(["error" => "Error en la conexión con la base de datos"]);
+        exit;
     }
-}
-?>
+
+    // Obtener los datos del formulario
+    $origen = $_GET['origen'];
+    $destino = $_GET['destino'];
+    $fecha_partida = $_GET['fecha_partida'];
+    $tipo_vuelo = $_GET['tipo_vuelo'];
+    $fecha_regreso = isset($_GET['fecha_regreso']) ? $_GET['fecha_regreso'] : null;
+    $adulto_mayor = intval($_GET['adulto_mayor']);
+    $adulto = intval($_GET['adulto']);
+    $nino = intval($_GET['nino']);
+
+    // Crear la consulta SQL para vuelo de ida
+    $query_ida = "
+        SELECT
+            v.cvuelo AS vuelo,
+            v.origen AS origen,
+            v.destino AS destino,
+            EXTRACT(EPOCH FROM (v.fecha_vuelo + interval '1 hour' * (SELECT COUNT(*) FROM asientos_vuelo av WHERE av.cvuelo = v.cvuelo))) / 3600 AS duracion_horas,
+            v.costo AS costo_economico,
+            v.costo * 1.8 AS costo_normal,
+            v.costo * 3 AS costo_vip
+        FROM
+            vuelos v
+        WHERE
+            v.origen = $1 AND
+            v.destino = $2 AND
+            v.fecha_vuelo::date = $3
+    ";
+
+    // Ejecutar la consulta para vuelo de ida
+    $result_ida = pg_query_params($conn, $query_ida, array($origen, $destino, $fecha_partida));
+    if (!$result_ida) {
+        echo json_encode(["error" => "Error en la ejecución de la consulta de ida"]);
+        exit;
+    }
+
+    // Recoger los resultados en un array
+    $flights = [];
+    while ($row = pg_fetch_assoc($result_ida)) {
+        $flights[] = $row;
+    }
+
+    // Si es ida/vuelta, crear y ejecutar la consulta para vuelo de vuelta
+    if ($tipo_vuelo === 'ida_vuelta' && $fecha_regreso) {
+        $query_vuelta = "
+            SELECT
+                v.cvuelo AS vuelo,
+                v.origen AS origen,
+                v.destino AS destino,
+                EXTRACT(EPOCH FROM (v.fecha_vuelo + interval '1 hour' * (SELECT COUNT(*) FROM asientos_vuelo av WHERE av.cvuelo = v.cvuelo))) / 3600 AS duracion_horas,
+                v.costo AS costo_economico,
+                v.costo * 1.8 AS costo_normal,
+                v.costo * 3 AS costo_vip
+            FROM
+                vuelos v
+            WHERE
+                v.origen = $2 AND
+                v.destino = $1 AND
+                v.fecha_vuelo::date = $4
+        ";
+
+        $result_vuelta = pg_query_params($conn, $query_vuelta, array($origen, $destino, $fecha_partida, $fecha_regreso));
+        if (!$result_vuelta) {
+            echo json_encode(["error" => "Error en la ejecución de la consulta de vuelta"]);
+            exit;
+        }
+
+        while ($row = pg_fetch_assoc($result_vuelta)) {
+            $flights[] = $row;
+        }
+    }
+
+    // Devolver los resultados como JSON
+    echo json_encode($flights);
+
+    // Cerrar la conexión
+    pg_close($conn);
+    ?>
