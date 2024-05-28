@@ -1,7 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Fetch and display vuelo info
     fetch('http://localhost/SistemaWeb-Aerolinea/backend/get_vuelo.php')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
             const vueloInfo = document.getElementById('vuelo-info');
             if (data.error) {
@@ -16,7 +21,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Fetch and display reservas info
     fetch('http://localhost/SistemaWeb-Aerolinea/backend/get_reserva.php')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
             const tableBody = document.querySelector('#reservas-table tbody');
             if (data.error) {
@@ -45,48 +55,36 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('confirmar-reserva-form').addEventListener('submit', function(event) {
         event.preventDefault();
         
-        // Fetch and use user email for programaMillas
-        fetch('http://localhost/SistemaWeb-Aerolinea/backend/get_correo_usuario.php')
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    console.error('Error obteniendo correo del usuario:', data.error);
-                } else {
-                    console(data.correo_usuario)
-                    programaMillas(data.correo_usuario);
+        // Confirm the reservation and get the user email in one request
+        fetch('http://localhost/SistemaWeb-Aerolinea/backend/confirmar_reserva.php', {
+            method: 'POST'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                console.error('Error confirming reserva:', data.error);
+            } else {
+                console.log(data.correo_usuario); // Log the user's email
+                programaMillas(data.correo_usuario);
 
-                    // Now confirm the reservation
-                    fetch('http://localhost/SistemaWeb-Aerolinea/backend/confirmar_reserva.php', {
-                        method: 'POST'
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.error) {
-                            alert("Error: " + data.error);
-                        } else {
-                            Swal.fire({
-                                title: '¡Reserva confirmada!',
-                                text: data.message,
-                                icon: 'success',
-                                showCancelButton: false,
-                                confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
-                                confirmButtonText: 'OK'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    window.location.href = 'index.html';
-                                }
-                            });
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error confirming reserva:', error);
-                    });
-                }
-            })
-            .catch(error => {
-                console.error('Error obteniendo correo del usuario:', error);
-            });
+                Swal.fire({
+                    title: '¡Reserva confirmada!',
+                    text: data.message,
+                    icon: 'success',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'indexCliente.html';
+                    }
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error confirming reserva:', error);
+        });
     });
 
     // Delete reservation
@@ -119,4 +117,3 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-

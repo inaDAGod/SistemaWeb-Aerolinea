@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-// Inicializa las variables de sesión si no están establecidas
-include 'sesion.php';
 
 // Crea un array asociativo con los datos de sesión
 $data = array(
