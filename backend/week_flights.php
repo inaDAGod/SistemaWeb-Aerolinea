@@ -17,10 +17,10 @@ if (!$conn) {
 // Obtener la fecha actual
 $current_date = date('Y-m-d');
 
-// Obtener la fecha de finalización de la semana
-$end_of_week = date('Y-m-d', strtotime('next sunday'));
+// Obtener la fecha de finalización de los próximos 30 días
+$end_of_month = date('Y-m-d', strtotime($current_date . ' + 30 days'));
 
-// Consulta para obtener las reservas del usuario para vuelos de esta semana
+// Consulta para obtener las reservas del usuario para vuelos de los próximos 30 días
 $email = isset($_SESSION['correo_usuario']) ? $_SESSION['correo_usuario'] : '';
 $query_reservations = "SELECT r.fecha_reserva, r.fecha_lmite, r.creserva, rp.cvuelo, v.origen, v.destino, rp.estado_reserva,
                             SUM(
@@ -34,7 +34,7 @@ $query_reservations = "SELECT r.fecha_reserva, r.fecha_lmite, r.creserva, rp.cvu
                        JOIN vuelos v ON rp.cvuelo = v.cvuelo
                        JOIN asientos_vuelo av ON rp.cvuelo = av.cvuelo AND rp.casiento = av.casiento
                        JOIN asientos a ON av.casiento = a.casiento
-                       WHERE r.correo_usuario='$email' AND r.fecha_reserva BETWEEN '$current_date' AND '$end_of_week'
+                       WHERE r.correo_usuario='$email' AND r.fecha_reserva BETWEEN '$current_date' AND '$end_of_month'
                        GROUP BY r.fecha_reserva, r.fecha_lmite, r.creserva, rp.cvuelo, v.origen, v.destino, rp.estado_reserva";
 $result_reservations = pg_query($conn, $query_reservations);
 
