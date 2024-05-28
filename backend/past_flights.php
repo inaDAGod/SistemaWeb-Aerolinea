@@ -1,4 +1,5 @@
 <?php
+session_start();
 $host = 'localhost';
 $port = '5432';
 $dbname = 'aerolinea';
@@ -14,7 +15,7 @@ if (!$conn) {
 }
 
 // Consulta para obtener los vuelos pasados del usuario
-$email = 'danialee14@gmail.com'; // El correo del usuario que quieres mostrar
+$email = isset($_SESSION['correo_usuario']) ? $_SESSION['correo_usuario'] : '';
 $current_date = date('Y-m-d');
 $query_past_flights = "SELECT v.* FROM vuelos v 
                        JOIN boletos b ON v.cvuelo = b.cvuelo 

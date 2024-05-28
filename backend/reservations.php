@@ -1,4 +1,5 @@
 <?php
+session_start();
 $host = 'localhost';
 $port = '5432';
 $dbname = 'aerolinea';
@@ -16,7 +17,7 @@ if (!$conn) {
 
 
 // Consulta para obtener las reservas del usuario para vuelos de esta semana
-$email = 'danialee14@gmail.com'; // El correo del usuario cuyas reservas quieres mostrar
+$email = isset($_SESSION['correo_usuario']) ? $_SESSION['correo_usuario'] : '';
 $query_reservations = "SELECT r.fecha_reserva, r.fecha_lmite, r.creserva, rp.cvuelo, v.origen, v.destino, rp.estado_reserva,
                             SUM(
                                 CASE WHEN a.tipo_asiento = 'VIP' THEN v.costovip

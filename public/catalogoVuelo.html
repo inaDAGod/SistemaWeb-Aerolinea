@@ -7,6 +7,46 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
+
+        /* Estilos del menú de navegación */
+.hamburger {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    background: #ffffff;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow: 0 0 6px rgb(0, 0, 0, .5);
+}
+
+.menu-navegacion {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 30vw;
+    height: 100%;
+    background-image: linear-gradient(135deg, #5094db 0%, #ffc44f 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    transition: transform .3s ease-in-out;
+    transform: translate(110%);
+    box-shadow: 0 0 6px rgba(0, 0, 0, .5);
+    z-index: 1000; /* Ajusta el z-index según sea necesario */
+}
+
+.spread {
+    transform: translate(0);
+}
+
+.menu-navegacion a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
         .form-container {
             max-width: 80%; /* Cambiado a un porcentaje para que sea igual al ancho de la tabla */
             margin: 0 auto;
@@ -122,6 +162,15 @@
                 <img src="assets/logoavion.png" alt="Menu Icon" style="width:25%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
             </div>
         </div>
+        <img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger" style="z-index: 1000;">
+        <nav class="menu-navegacion">
+            <a href="indexCliente.html">Inicio</a>
+            <a href="catalogoVueloCliente.html">Vuelos</a>
+            <a href="verificarCheckinCliente.html">Check-In</a>
+            <a href="catalogoMillasCliente.html">Catalogo Premios Millas</a>
+            <a href="perfil.html">Perfil</a>
+            <a href="index.html">Cerrar Sesion</a>
+        </nav>
     </nav>
 
     <div class="container mt-4">
@@ -136,37 +185,32 @@
                         <option value="ida_vuelta">Ida/Vuelta</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="clase">Clase:</label>
-                    <select id="clase" name="clase">
-                        <option value="">Seleccionar Clase</option>
-                        <option value="economico">Económico</option>
-                        <option value="normal">Normal</option>
-                        <option value="vip">Vip</option>
-                    </select>
-                </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label for="origen">Origen:</label>
                     <select id="origen" name="origen">
                         <option value="">Seleccionar Origen</option>
-                        <option value="Santa Cruz">Santa Cruz (SCZ)</option>
-                        <option value="Cochabamba">Cochabamba (CBBA)</option>
-                        <option value="La Paz">La Paz (LPZ)</option>
-                        <option value="Tarija">Tarija (TJA)</option>
-                        <option value="Sucre">Sucre (SRE)</option>
+                        <option value="Santa Cruz">Santa Cruz</option>
+                        <option value="Cochabamba">Cochabamba</option>
+                        <option value="La Paz">La Paz</option>
+                        <option value="Tarija">Tarija</option>
+                        <option value="Sucre">Sucre</option>
+                        <option value="Potosi">Potosi</option>
+                        <option value="Oruro">Oruro</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="destino">Destino:</label>
                     <select id="destino" name="destino">
                         <option value="">Seleccionar Destino</option>
-                        <option value="Santa Cruz">Santa Cruz (SCZ)</option>
-                        <option value="Cochabamba">Cochabamba (CBBA)</option>
-                        <option value="La Paz">La Paz (LPZ)</option>
-                        <option value="Tarija">Tarija (TJA)</option>
-                        <option value="Sucre">Sucre (SRE)</option>
+                        <option value="Santa Cruz">Santa Cruz</option>
+                        <option value="Cochabamba">Cochabamba</option>
+                        <option value="La Paz">La Paz</option>
+                        <option value="Tarija">Tarija</option>
+                        <option value="Sucre">Sucre</option>
+                        <option value="Potosi">Potosi</option>
+                        <option value="Oruro">Oruro</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -207,6 +251,31 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        const hamburger = document.querySelector('.hamburger');
+const menu = document.querySelector('.menu-navegacion');
+
+hamburger.addEventListener('click', () => {
+    menu.classList.toggle("spread");
+});
+
+window.addEventListener('click', e => {
+    if (menu.classList.contains('spread') && e.target != menu && e.target != hamburger) {
+        menu.classList.toggle("spread");
+    }
+});
+
+var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 1,
+    spaceBetween: 80,
+    grabCursor: true,
+    loop: true,
+    breakpoints: {
+        991: {
+            slidesPerView: 3
+        }
+    }
+});
+
         function toggleRegresoField() {
             const idaVueltaSelect = document.getElementById('ida-vuelta');
             const regresoGroup = document.getElementById('regreso-group');
@@ -242,33 +311,33 @@
             const queryString = new URLSearchParams(formData).toString();
 
             fetch('filtrar_vuelos.php?' + queryString)
-                .then(response => response.json())
-                .then(data => {
-                    const resultadosDiv = document.getElementById('resultados');
-                    resultadosDiv.innerHTML = '';
-                    if (data.length > 0) {
-                        let table = '<table class="table table-striped"><thead><tr><th>Código de Vuelo</th><th>Origen</th><th>Destino</th><th>Fecha de Partida</th><th>Fecha de Llegada</th><th>Precio</th><th>Reservar</th></tr></thead><tbody>';
-                        data.forEach(vuelo => {
-                            table += `<tr>
-                                        <td data-label="Código de Vuelo">${vuelo.codigo_vuelo}</td>
-                                        <td data-label="Origen">${vuelo.origen}</td>
-                                        <td data-label="Destino">${vuelo.destino}</td>
-                                        <td data-label="Fecha de Partida">${vuelo.fecha_partida}</td>
-                                        <td data-label="Fecha de Llegada">${vuelo.fecha_llegada}</td>
-                                        <td data-label="Precio">${vuelo.precio}</td>
-                                        <td data-label="Reservar"><a href="reserva.php?codigo_vuelo=${vuelo.codigo_vuelo}&origen=${vuelo.origen}&destino=${vuelo.destino}&fecha_partida=${vuelo.fecha_partida}&fecha_llegada=${vuelo.fecha_llegada}&precio=${vuelo.precio}" class="btn btn-primary">Reservar</a></td>
-                                      </tr>`;
-                        });
-                        table += '</tbody></table>';
-                        resultadosDiv.innerHTML = table;
-                    } else {
-                        resultadosDiv.innerHTML = '<p>No se encontraron vuelos.</p>';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    Swal.fire('Error', 'Ocurrió un error al filtrar los vuelos.', 'error');
-                });
+    .then(response => response.json())
+    .then(data => {
+        const resultadosDiv = document.getElementById('resultados');
+        resultadosDiv.innerHTML = '';
+        if (data.length > 0) {
+            let table = '<table class="table table-striped"><thead><tr><th>Vuelo</th><th>Origen</th><th>Destino</th><th>Duración</th><th>Económico</th><th>Normal</th><th>VIP</th></tr></thead><tbody>';
+            data.forEach(vuelo => {
+                table += `<tr>
+                            <td data-label="Vuelo">${vuelo.Vuelo}</td>
+                            <td data-label="Origen">${vuelo.Origen}</td>
+                            <td data-label="Destino">${vuelo.Destino}</td>
+                            <td data-label="Duración">${vuelo.Duración}</td>
+                            <td data-label="Económico">${vuelo.Económico}</td>
+                            <td data-label="Normal">${vuelo.Normal}</td>
+                            <td data-label="VIP">${vuelo.VIP}</td>
+                          </tr>`;
+            });
+            table += '</tbody></table>';
+            resultadosDiv.innerHTML = table;
+        } else {
+            resultadosDiv.innerHTML = '<p>No se encontraron vuelos.</p>';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        Swal.fire('Error', 'Ocurrió un error al filtrar los vuelos.', 'error');
+    });
         });
     </script>
 </body>

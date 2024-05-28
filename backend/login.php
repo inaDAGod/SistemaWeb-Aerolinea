@@ -1,4 +1,8 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
     $json = file_get_contents('php://input');
     $data = json_decode($json);
     $username = $data->username;
@@ -11,7 +15,7 @@
     }
     
     // Consulta SQL para obtener la contraseña y el tipo de usuario del usuario
-    $sql = "SELECT contraseña, tipo_usuario FROM usuarios WHERE correo_usuario = '$username'";
+    $sql = "SELECT contraseña, tipo_usuario,nombres_usuario,apellidos_usuario,millas FROM usuarios WHERE correo_usuario = '$username'";
     $resultado = pg_query($conexion, $sql);
     
     if ($resultado) {
@@ -21,11 +25,19 @@
             $fila = pg_fetch_assoc($resultado);
             $contraseñaBD = $fila['contraseña'];
             $tipoUsuario = $fila['tipo_usuario'];
+            $nombres_usuario = $fila['nombres_usuario'];
+            $apellidos_usuario = $fila['apellidos_usuario'];
+            $millas = $fila['millas'];
             
             // Verificar si la contraseña coincide
             if ($password === $contraseñaBD) {
                 // La contraseña coincide, enviar el estado y el tipo de usuario
                 echo json_encode(["estado" => "contraseña_correcta", "tipo_usuario" => $tipoUsuario]);
+                $_SESSION['correo_usuario'] =$username;
+                $_SESSION['tipo_usuario'] = $tipoUsuario;
+                $_SESSION['nombres_usuario'] =$nombres_usuario;
+                $_SESSION['apellidos_usuario'] = $apellidos_usuario;
+                $_SESSION['millas'] =$millas;
             } else {
                 // La contraseña no coincide
                 echo json_encode(["estado" => "contraseña_incorrecta"]);
