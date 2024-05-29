@@ -1,43 +1,91 @@
 <?php
-header('Content-Type: application/json');
+if (isset($_GET['origen']) || isset($_GET['destino']) || isset($_GET['fecha_vuelo'])) {
+    $origen = $_GET['origen'] ?? '';
+    $destino = $_GET['destino'] ?? '';
+    $fecha_vuelo = $_GET['fecha_vuelo'] ?? '';
 
-$host = 'localhost';
-$db = 'aerolinea';
-$user = 'postgres';
-$pass = 'admin'; 
+    // Configuración de la conexión a la base de datos
+    $host = 'localhost';
+    $dbname = 'aerolinea';
+    $user = 'postgres';
+    $password = 'admin';
 
-$origen = $_GET['origen'];
-$destino = $_GET['destino'];
-$fecha = $_GET['fecha_partida'];
+    try {
+        // Conexión a la base de datos
+        $dsn = "pgsql:host=$host;dbname=$dbname";
+        $pdo = new PDO($dsn, $user, $password, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
 
-try {
-    $pdo = new PDO("pgsql:host=$host;dbname=$db", $user, $pass);
+        // Filtrado de vuelos según los criterios especificados
+        $sql = "SELECT cvuelo, fecha_vuelo, origen, destino, costovip, costobusiness, costoeco FROM vuelos WHERE 1=1";
 
-    $stmt = $pdo->prepare("
-        SELECT
-            v.cvuelo AS vuelo,
-            v.origen AS origen,
-            v.destino AS destino,
-            EXTRACT(EPOCH FROM (v.fecha_vuelo + interval '1 hour' * (SELECT COUNT(*) FROM asientos_vuelo av WHERE av.cvuelo = v.cvuelo))) / 3600 AS duracion_horas,
-            v.costo::numeric::float8 AS costo_economico,
-            (v.costo * 1.8)::numeric::float8 AS costo_normal,
-            (v.costo * 3)::numeric::float8 AS costo_vip
-        FROM
-            vuelos v
-            JOIN asientos_vuelo av ON v.cvuelo = av.cvuelo
-        WHERE
-            v.origen = :origen AND
-            v.destino = :destino AND
-            DATE(v.fecha_vuelo) = :fecha
-        GROUP BY
-            v.cvuelo, v.origen, v.destino, v.fecha_vuelo, v.costo
-    ");
-    $stmt->execute(['origen' => $origen, 'destino' => $destino, 'fecha' => $fecha]);
+        if (!empty($origen)) {
+            $sql .= " AND origen = :origen";
+        }
+        if (!empty($destino)) {
+            $sql .= " AND destino = :destino";
+        }
+        if (!empty($fecha_vuelo)) {
+            $sql .= " AND DATE(fecha_vuelo) = :fecha_vuelo";
+        }
 
-    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $sql .= " ORDER BY fecha_vuelo ASC";
 
-    echo json_encode($resultados);
-} catch (PDOException $e) {
-    echo json_encode(['error' => $e->getMessage()]);
+        $stmt = $pdo->prepare($sql);
+        $params = [];
+
+        if (!empty($origen)) {
+            $params['origen'] = $origen;
+        }
+        if (!empty($destino)) {
+            $params['destino'] = $destino;
+        }
+        if (!empty($fecha_vuelo)) {
+            $params['fecha_vuelo'] = $fecha_vuelo;
+        }
+
+        $stmt->execute($params);
+
+        $vuelos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if ($vuelos) {
+            echo "<table class='table table-striped'>
+                    <thead>
+                        <tr>
+                            <th>Vuelo</th>
+                            <th>Fecha</th>
+                            <th>Origen</th>
+                            <th>Destino</th>
+                            <th>VIP</th>
+                            <th>Business</th>
+                            <th>Económica</th>
+                            <th>Reservas</th>
+                            <th>Pasajeros</th>
+                        </tr>
+                    </thead>
+                    <tbody>";
+            foreach ($vuelos as $vuelo) {
+                echo "<tr>
+                        <td>{$vuelo['cvuelo']}</td>
+                        <td>{$vuelo['fecha_vuelo']}</td>
+                        <td>{$vuelo['origen']}</td>
+                        <td>{$vuelo['destino']}</td>
+                        <td>{$vuelo['costovip']}</td>
+                        <td>{$vuelo['costobusiness']}</td>
+                        <td>{$vuelo['costoeco']}</td>
+                        <td><a href='reservasAdmin.html?codigo_vuelo={$vuelo['cvuelo']}'>Reservar</a></td>
+                        <td><a href='admin_pasajeros.html?codigo_vuelo={$vuelo['cvuelo']}'>Reservar</a></td>
+                    </tr>";
+            }
+            echo "</tbody></table>";
+        } else {
+            echo "No se encontraron vuelos.";
+        }
+
+    } catch (PDOException $e) {
+        // Manejo de errores de la conexión
+        echo 'Error: ' . $e->getMessage();
+    }
+} else {
+    echo "Por favor complete todos los campos del formulario.";
 }
 ?>

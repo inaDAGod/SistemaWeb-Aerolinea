@@ -1,50 +1,88 @@
 <?php
-    header('Content-Type: application/json');
+if (isset($_GET['origen']) || isset($_GET['destino']) || isset($_GET['fecha_vuelo'])) {
+    $origen = $_GET['origen'] ?? '';
+    $destino = $_GET['destino'] ?? '';
+    $fecha_vuelo = $_GET['fecha_vuelo'] ?? '';
 
-    // Conexión a la base de datos
-    $conn = pg_connect("host=localhost dbname=aerolinea user=postgres password=admin");
-    if (!$conn) {
-        echo json_encode(["error" => "Error en la conexión con la base de datos"]);
-        exit;
+    // Configuración de la conexión a la base de datos
+    $host = 'localhost';
+    $dbname = 'aerolinea';
+    $user = 'postgres';
+    $password = 'admin';
+
+    try {
+        // Conexión a la base de datos
+        $dsn = "pgsql:host=$host;dbname=$dbname";
+        $pdo = new PDO($dsn, $user, $password, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+
+        // Filtrado de vuelos según los criterios especificados
+        $sql = "SELECT cvuelo, fecha_vuelo, origen, destino, costovip, costobusiness, costoeco FROM vuelos WHERE 1=1";
+
+        if (!empty($origen)) {
+            $sql .= " AND origen = :origen";
+        }
+        if (!empty($destino)) {
+            $sql .= " AND destino = :destino";
+        }
+        if (!empty($fecha_vuelo)) {
+            $sql .= " AND DATE(fecha_vuelo) = :fecha_vuelo";
+        }
+
+        $sql .= " ORDER BY fecha_vuelo ASC";
+
+        $stmt = $pdo->prepare($sql);
+        $params = [];
+
+        if (!empty($origen)) {
+            $params['origen'] = $origen;
+        }
+        if (!empty($destino)) {
+            $params['destino'] = $destino;
+        }
+        if (!empty($fecha_vuelo)) {
+            $params['fecha_vuelo'] = $fecha_vuelo;
+        }
+
+        $stmt->execute($params);
+
+        $vuelos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if ($vuelos) {
+            echo "<table border='1'>
+                    <tr>
+                        <th>Vuelo</th>
+                        <th>Fecha</th>
+                        <th>Origen</th>
+                        <th>Destino</th>
+                        <th>VIP</th>
+                        <th>Business</th>
+                        <th>Económica</th>
+                        <th>Reservar</th>
+                    </tr>";
+            foreach ($vuelos as $vuelo) {
+                echo "<tr>
+                        <td>{$vuelo['cvuelo']}</td>
+                        <td>{$vuelo['fecha_vuelo']}</td>
+                        <td>{$vuelo['origen']}</td>
+                        <td>{$vuelo['destino']}</td>
+                        <td>{$vuelo['costovip']}</td>
+                        <td>{$vuelo['costobusiness']}</td>
+                        <td>{$vuelo['costoeco']}</td>
+                        <td><a href='reserva.php?codigo_vuelo={$vuelo['cvuelo']}'>Reservar</a></td>
+
+
+                    </tr>";
+            }
+            echo "</table>";
+        } else {
+            echo "No se encontraron vuelos.";
+        }
+
+    } catch (PDOException $e) {
+        // Manejo de errores de la conexión
+        echo 'Error: ' . $e->getMessage();
     }
-
-    // Obtener los datos del formulario
-    $origen = $_GET['origen'];
-    $destino = $_GET['destino'];
-
-    // Crear la consulta SQL utilizando la vista vuelos_filtrados
-    $query = "
-        SELECT
-            \"Vuelo\",
-            \"Origen\",
-            \"Destino\",
-            \"Duración\",
-            \"Económico\",
-            \"Normal\",
-            \"VIP\"
-        FROM
-            vuelos_filtrados
-        WHERE
-            \"Origen\" = $1 AND
-            \"Destino\" = $2
-    ";
-
-    // Ejecutar la consulta
-    $result = pg_query_params($conn, $query, array($origen, $destino));
-    if (!$result) {
-        echo json_encode(["error" => "Error en la ejecución de la consulta"]);
-        exit;
-    }
-
-    // Recoger los resultados en un array
-    $flights = [];
-    while ($row = pg_fetch_assoc($result)) {
-        $flights[] = $row;
-    }
-
-    // Devolver los resultados como JSON
-    echo json_encode($flights);
-
-    // Cerrar la conexión
-    pg_close($conn);
+} else {
+    echo "Por favor complete todos los campos del formulario.";
+}
 ?>
