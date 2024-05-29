@@ -12,13 +12,12 @@ $totalg = isset($_SESSION['total_people']) ? $_SESSION['total_people'] : 0;
 $reservation_counter = isset($_SESSION['reservation_counter']) ? $_SESSION['reservation_counter'] : 0;
 $cvuelosnum = isset($_SESSION['cvuelosnum']) ? $_SESSION['cvuelosnum'] : 0;
 $creservanum = isset($_SESSION['creservanum']) ? $_SESSION['creservanum'] : 0;
-
+echo "Valor de cvuelosnum: $cvuelosnum";
 
 // Procesar datos del formulario si se ha enviado
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Resto del código...
 
-    
     // Obtener datos del formulario
     $ci_persona = isset($_POST['ci_persona']) ? $_POST['ci_persona'] : null;
     $nombres = isset($_POST['nombres']) ? $_POST['nombres'] : null;
@@ -30,15 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Debugging: Registrar datos de entrada
     error_log("CI: $ci_persona, Nombres: $nombres, Apellidos: $apellidos, Fecha de Nacimiento: $fecha_nacimiento, Sexo: $sexo, Asiento: $casiento_seleccionado");
 
-    // Obtener el cvuelo solo si se ha seleccionado un asiento
-    $cvuelo = $casiento_seleccionado ? obtener_cvuelo_del_asiento($conn, $casiento_seleccionado) : null;
-    if (!$cvuelo) {
-        echo "Error: No se pudo obtener el cvuelo del asiento seleccionado.";
-        exit;
-    }
-    
-
-
+    // Establecer cvuelo igual a cvuelosnum de la sesión
+    $cvuelo = $cvuelosnum;
+    echo "Valor de cvuelo: $cvuelo";
 
     $stmt_check_person = $conn->prepare("SELECT COUNT(*) AS count FROM personas WHERE ci_persona = :ci_persona");
     $stmt_check_person->bindParam(':ci_persona', $ci_persona);
@@ -46,28 +39,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $person_exists = $stmt_check_person->fetch(PDO::FETCH_ASSOC)['count'] > 0;
 
     if (!$person_exists) {
-        // If the person does not exist, insert them into the personas table
+        // Si la persona no existe, insertarla en la tabla personas
         if (!empty($ci_persona)) {
             try {
-                // Insert data into the personas table
+                // Insertar datos en la tabla personas
                 $stmt = $conn->prepare("INSERT INTO personas (ci_persona, nombres, apellidos, fecha_nacimiento, sexo, tipo_persona) 
                     VALUES (:ci_persona, :nombres, :apellidos, :fecha_nacimiento, :sexo, :tipo_persona)");
 
-                // Determine the tipo_persona based on the number of each type of person
+                // Determinar el tipo_persona basado en el número de cada tipo de persona
                 if ($adum > 0) {
                     $tipo_persona = 'Adulto mayor';
-                    $adum--; // Decrement the count of Adulto mayor after assigning it
+                    $adum--; // Decrementar el conteo de Adulto mayor después de asignarlo
                 } elseif ($adu > 0) {
                     $tipo_persona = 'Adulto';
-                    $adu--; // Decrement the count of Adulto after assigning it
+                    $adu--; // Decrementar el conteo de Adulto después de asignarlo
                 } elseif ($nin > 0) {
                     $tipo_persona = 'Niño';
-                    $nin--; // Decrement the count of Niño after assigning it
+                    $nin--; // Decrementar el conteo de Niño después de asignarlo
                 } else {
                     $tipo_persona = 'No especificado';
                 }
 
-                // Bind parameters and execute the statement
+                // Vincular parámetros y ejecutar la declaración
                 $stmt->bindParam(':ci_persona', $ci_persona);
                 $stmt->bindParam(':nombres', $nombres);
                 $stmt->bindParam(':apellidos', $apellidos);
@@ -78,12 +71,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             } catch(PDOException $e) {
                 echo "Error: " . $e->getMessage();
-                // Handle the error as needed
+                // Manejar el error según sea necesario
             }
         }
     }
-
-
 
     // Debugging: Mostrar los datos a insertar en la tabla reservas_personas
     
@@ -99,14 +90,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->execute();
         $_SESSION['reservation_counter']++;
 
-       
-        $_SESSION['adum'] = $adum; // Update adum session variable
-        $_SESSION['adu'] = $adu; // Update adu session variable
-        $_SESSION['nin'] = $nin; // Update nin session variable
-        
+        $_SESSION['adum'] = $adum; // Actualizar la variable de sesión adum
+        $_SESSION['adu'] = $adu; // Actualizar la variable de sesión adu
+        $_SESSION['nin'] = $nin; // Actualizar la variable de sesión nin
 
         echo '<div class="success-message">¡Reserva exitosa!</div>';
-
 
         // Redireccionar si se han completado todas las reservas
         if ($_SESSION['reservation_counter'] >= $totalg) {
@@ -114,13 +102,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit; // Asegurar que el script termine después de la respuesta
         } else {
             echo "SUCCESS";
-            
             // Otros mensajes o acciones si es necesario
         }
-        
     }
 }
-
-
 
 ?>
