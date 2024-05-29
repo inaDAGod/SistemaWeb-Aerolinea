@@ -8,7 +8,7 @@ $(document).ready(function() {
         var apellido = $("#apellido").val(); // Nuevo: obtener el valor del campo de apellido
 
         if (!documento && !nombre && !apellido) {
-            Swal.fire('Por favor ingrese un criterio de búsqueda.', 'error');
+            Swal.fire('Por favor ingrese un criterio de búsqueda.', 'error', 'error');
             return;
         }
 
@@ -22,7 +22,7 @@ $(document).ready(function() {
                 if (response.error) {
                     Swal.fire('Por favor ingrese un criterio de búsqueda.', response.error, 'error');
                 } else if (response.length === 0) {
-                    Swal.fire('No se encontraron pasajeros con los criterios de búsqueda proporcionados.', 'error');
+                    Swal.fire('No se encontraron pasajeros con los criterios de búsqueda proporcionados.', 'error', 'error');
                 } else {
                     updateTable(response);
                 }
@@ -81,7 +81,7 @@ $(document).ready(function() {
     
             // Verificar si el estado actual es "Realizado" y el nuevo estado es "Pendiente"
             if (estadoActual === "Realizado" && newStatus === "Pendiente") {
-                Swal.fire('No se puede cambiar el estado a Pendiente porque ya está Realizado', 'error');
+                Swal.fire('No se puede cambiar el estado a Pendiente porque ya está Realizado', '', 'error');
                 // Revertir el cambio en el dropdown
                 $(this).val(estadoActual);
                 return; // Evitar enviar la solicitud AJAX
@@ -105,7 +105,7 @@ $(document).ready(function() {
                     // Actualizar el estado actual en el dropdown
                     var dropdown = $(`select[data-documento="${documento}"]`);
                     dropdown.data('estado-actual', newStatus);
-                    Swal.fire('Estado de Check-In actualizado correctamente', 'success');
+                    Swal.fire('Estado de Check-In actualizado correctamente', '', 'success');
                 }
             },
             error: function(xhr, status, error) {
