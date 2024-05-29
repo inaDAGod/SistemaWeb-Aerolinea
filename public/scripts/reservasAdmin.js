@@ -3,28 +3,29 @@ $(document).ready(function() {
 
     $("#buscarBtn").click(function() {
         var documento = $("#numeroDocumento").val();
-        if (!documento) {
-            alert('Por favor ingrese un número de documento.');
+        var nombre = $("#nombre").val(); // Nuevo: obtener el valor del campo de nombre
+        var apellido = $("#apellido").val(); // Nuevo: obtener el valor del campo de apellido
+        if (!documento && !nombre && !apellido) {
+            Swal.fire('Por favor ingrese un criterio de búsqueda.', 'error');
             return;
         }
   
         $.ajax({
             url: 'http://localhost/SistemaWeb-Aerolinea/backend/reservasAdmin.php',
             type: 'POST',
-            contentType: 'application/json',
+            data: { documento: documento, nombre: nombre, apellido: apellido }, // Nuevo: enviar nombre y apellido
             dataType: 'json',
-            data: JSON.stringify({ documento: documento }),
             success: function(response) {
                 if (response.error) {
-                    alert(response.error);
+                    Swal.fire('Por favor ingrese un criterio de búsqueda.', response.error, 'error');
                 } else if (response.length === 0) {
-                    alert("No hay reservas con el documento introducido");
+                    Swal.fire('No se encontraron pasajeros con los criterios de búsqueda proporcionados.', 'error');
                 } else {
                     updateTable(response);
                 }
             },
             error: function(xhr, status, error) {
-                alert("Error en AJAX: " + error);
+                Swal.fire('Error en ajax', xhr.responseText, 'error');
             }
         });
     });
@@ -33,15 +34,16 @@ $(document).ready(function() {
         $.ajax({
             url: 'http://localhost/SistemaWeb-Aerolinea/backend/reservasAdmin.php',
             type: 'POST',
+            dataType: 'json',
             success: function(response) {
                 if (response.error) {
-                    alert(response.error);
+                    Swal.fire('No se pudo cargar la lista de pasjeros correctamente', response.error, 'error');
                 } else {
                     updateTable(response);
                 }
             },
             error: function(xhr, status, error) {
-                alert("Error en AJAX: " + error);
+                Swal.fire('Error en ajax', xhr.responseText, 'error');
             }
         });
     }
@@ -80,9 +82,10 @@ $(document).ready(function() {
             url: 'http://localhost/SistemaWeb-Aerolinea/backend/estado_reserva.php',
             type: 'POST',
             data: { documento: documento, estado: nuevoEstado },
+            dataType: 'json',
             success: function(response) {
                 if (response.error) {
-                    alert(response.error);
+                    Swal.fire('No se puede cambiar el estado', response.error, 'error');
                 } else {
                     alert('Estado de reserva actualizado correctamente');
                 }
@@ -92,4 +95,14 @@ $(document).ready(function() {
             }
         });
     }
+    $("#mostrarTodosBtn").click(function() {
+        // Limpiar los campos de búsqueda
+        $("#numeroDocumento").val('');
+        $("#nombre").val('');
+        $("#apellido").val('');
+    
+        // Cargar todos los pasajeros
+        loadAllPassengers();
+    });
+    
 });
