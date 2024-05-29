@@ -1,15 +1,16 @@
+
+
 <?php
 session_start();
 
-
-// Crea un array asociativo con los datos de sesión
-$data = array(
-    'adum' => $_SESSION['adum'],
-    'adu' => $_SESSION['adu'],
-    'nin' => $_SESSION['nin'],
-    'total_people' => $_SESSION['total_people']
+// Retrieve session variables
+$response = array(
+    'adum' => isset($_SESSION['adum']) ? $_SESSION['adum'] : 0,
+    'adu' => isset($_SESSION['adu']) ? $_SESSION['adu'] : 0,
+    'nin' => isset($_SESSION['nin']) ? $_SESSION['nin'] : 0,
+    'total_people' => isset($_SESSION['total_people']) ? $_SESSION['total_people'] : 0,
 );
 
-// Devuelve los datos en formato JSON
-echo json_encode($data);
+// Return response as JSON
+echo json_encode($response);
 ?>

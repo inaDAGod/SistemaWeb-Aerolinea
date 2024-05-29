@@ -51,41 +51,41 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error fetching reserva data:', error);
         });
 
-    // Confirm reservation and fetch user email
-    document.getElementById('confirmar-reserva-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        // Confirm the reservation and get the user email in one request
-        fetch('http://localhost/SistemaWeb-Aerolinea/backend/confirmar_reserva.php', {
-            method: 'POST'
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                console.error('Error confirming reserva:', data.error);
-            } else {
-                console.log(data.correo_usuario); // Log the user's email
-                programaMillas(data.correo_usuario);
-
-                Swal.fire({
-                    title: '¡Reserva confirmada!',
-                    text: data.message,
-                    icon: 'success',
-                    showCancelButton: false,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'OK'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = 'indexCliente.html';
-                    }
-                });
-            }
-        })
-        .catch(error => {
-            console.error('Error confirming reserva:', error);
-        });
+    // Confirm reservation
+   // Confirm reservation
+document.getElementById('confirmar-reserva-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    fetch('http://localhost/SistemaWeb-Aerolinea/backend/confirmar_reserva.php', {
+        method: 'POST'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            console.error('Error confirming reserva:', data.error);
+        } else {
+            Swal.fire({
+                title: '¡Reserva confirmada!',
+                text: `Reserva confirmada exitosamente. Código de reserva: ${data.creserva}`, // Displaying the creserva value
+                icon: 'success',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    programaMillas(data.correo_usuario);
+                    window.location.href = 'indexCliente.html';
+                    
+                }
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error confirming reserva:', error);
     });
+});
+
 
     // Delete reservation
     document.getElementById('eliminar-reserva-btn').addEventListener('click', function() {
