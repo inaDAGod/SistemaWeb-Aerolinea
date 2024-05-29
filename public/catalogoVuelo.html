@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,6 +7,8 @@
     <title>Buscar Vuelos</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
     <link rel="stylesheet" href="styles/styleIndex.css">
+    <link rel="stylesheet" href="styles/catalogoVuelos.css">
+    <link rel="stylesheet" href="styles/catalogoPremios.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,106 +17,12 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-    
-        .form-container {
-            max-width: 80%;
-            margin: 0 auto;
-        }
-    
-        .form-row {
-            display: flex;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
-        }
-    
-        .form-group {
-            flex: 1;
-            min-width: 200px;
-            margin-right: 20px;
-        }
-    
-        .form-group:last-child {
-            margin-right: 0;
-        }
-    
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-    
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-    
-        .table-responsive {
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-    
-        table {
-            margin: 0 auto;
-            border-collapse: collapse;
-            width: 100%;
-        }
-    
-        th,
-        td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-    
-        th {
-            background-color: #f2f2f2;
-        }
-    
-        h1 {
-            text-align: center;
-        }
-    
-        table thead th {
-            color: rgb(5, 58, 112);
-        }
-    
-        @media screen and (max-width: 600px) {
-            /* Estilos para pantallas pequeñas */
-        }
-    </style>
-    <script>
-        function buscarVuelos(event) {
-            event.preventDefault(); // Evitar el envío del formulario por defecto
+    <script src="scripts/vuelos.js"></script>
 
-            const origen = document.getElementById('origen').value;
-            const destino = document.getElementById('destino').value;
-            const fecha_vuelo = document.getElementById('fecha_vuelo').value;
-            const adulto_mayor = document.getElementById('adulto_mayor').value;
-            const adultos = document.getElementById('adultos').value;
-            const ninos = document.getElementById('ninos').value;
-
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', `filtrar_vuelos.php?origen=${origen}&destino=${destino}&fecha_vuelo=${fecha_vuelo}&adulto_mayor=${adulto_mayor}&adultos=${adultos}&ninos=${ninos}`, true);
-            xhr.onload = function() {
-                if (this.status === 200) {
-                    document.getElementById('resultados').innerHTML = this.responseText;
-                } else {
-                    console.error('Error al buscar vuelos');
-                }
-            };
-            xhr.send();
-        }
-    </script>
 </head>
 <body>
     <div style="background-color: #8FBCEA"></div>
-        <img src="assets\logoavion.png" alt="Menu Icon" style="width:7%;height:7%;margin-left:10px;">
+        <img src="assets/logoavion.png" alt="Menu Icon" style="width:7%;height:7%;margin-left:10px;">
     </div>
 
     <header class="header" id="inicio">
@@ -124,68 +33,86 @@
             <a href="verificarCheckin.html">Check-In</a>
             <a href="catalogoMillas.html">Catalogo Premios millas</a>
             <a href="registro.html">Iniciar Sesion</a>
-            
         </nav>
         <div class="contenedor head">
             <h1 class="titulo">Vuelos</h1>
         </div>
     </header>
-
-    <div class="container mt-4">
-        <h1 style=" color: rgb(5, 58, 112);">Vuelos</h1>
-        <form id="flightForm" class="form-container" onsubmit="buscarVuelos(event)">
+    <h1 style=" color: rgb(5, 58, 112);">Vuelos</h1>
+    <div class="container">
+        <div class="col1">
             <div class="form-row">
                 <div class="form-group">
                     <label for="origen">Origen:</label>
-                    <select name="origen" id="origen" required>
+                    <select name="origen" id="origen">
                         <option value="">Seleccionar Origen</option>
                         <option value="La Paz">La Paz</option>
                         <option value="Santa Cruz">Santa Cruz</option>
                         <option value="Cochabamba">Cochabamba</option>
+                        <option value="Oruro">Oruro</option>
+                        <option value="Potosi">Potosi</option>
+                        <option value="Pando">Pando</option>
+                        <option value="Tarija">Tarija</option>
+                        <option value="Beni">Beni</option>
                         <option value="Sucre">Sucre</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="destino">Destino:</label>
-                    <select name="destino" id="destino" required>
+                    <select name="destino" id="destino">
                         <option value="">Seleccionar Destino</option>
-                        <option value="Santa Cruz">Santa Cruz</option>
                         <option value="La Paz">La Paz</option>
-                        <option value="Sucre">Sucre</option>
+                        <option value="Santa Cruz">Santa Cruz</option>
                         <option value="Cochabamba">Cochabamba</option>
+                        <option value="Oruro">Oruro</option>
+                        <option value="Potosi">Potosi</option>
+                        <option value="Pando">Pando</option>
+                        <option value="Tarija">Tarija</option>
+                        <option value="Beni">Beni</option>
+                        <option value="Sucre">Sucre</option>
                     </select>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="fecha_vuelo">Fecha del Vuelo:</label>
-                    <input type="date" name="fecha_vuelo" id="fecha_vuelo" required>
+                    <label for="tipoVuelo">Tipo de vuelo:</label>
+                    <select name="tipoVuelo" id="tipoVuelo">
+                        <option value="">Seleccionar tipo vuelo</option>
+                        <option value="Ida">Ida</option>
+                        <option value="Ida y Vuelta">Ida y Vuelta</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fechaVueloIda">Fecha del Vuelo Ida:</label>
+                    <input type="date" name="fechaVueloIda" id="fechaVueloIda">
+                </div>
+                <div class="form-group" id="fechaVueltaGroup" style="display: none;">
+                    <label for="fechaVueloVuelta">Fecha del Vuelo Vuelta:</label>
+                    <input type="date" name="fechaVueloVuelta" id="fechaVueloVuelta">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="adulto_mayor">Adulto Mayor:</label>
-                    <input type="number" name="adulto_mayor" id="adulto_mayor" min="0" value="0" required>
+                    <label for="adultoMayor">Adulto Mayor:</label>
+                    <input type="number" name="adultoMayor" id="adultoMayor" min="0" value="0">
                 </div>
                 <div class="form-group">
                     <label for="adultos">Adultos:</label>
-                    <input type="number" name="adultos" id="adultos" min="1" value="1" required>
+                    <input type="number" name="adultos" id="adultos" min="0" value="1">
                 </div>
                 <div class="form-group">
                     <label for="ninos">Niños:</label>
-                    <input type="number" name="ninos" id="ninos" min="0" value="0" required>
+                    <input type="number" name="ninos" id="ninos" min="0" value="0">
                 </div>
             </div>
-            <div class="form-button-row">
-                <button class="btn btn-primary" id="filtrarBtn" type="submit">
-                    <i class="fa fa-search"></i> Buscar
-                </button>
-            </div>
-        </form>
-        <div id="resultados" class="table-responsive">
-            <!-- Los resultados se mostrarán aquí -->
         </div>
+        <div class="col2">
+            <button style="width: 100%;" class="btn btn-primary" id="buscar">Buscar</button>
+            <button style="width: 100%;" class="btn btn-primary" id="restablecer">Restablecer</button>
+        </div>
+        <div id="resultados" class="table-responsive"></div>
     </div>
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="scripts/script.js"></script>
