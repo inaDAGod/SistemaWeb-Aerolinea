@@ -14,7 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="styles/reservas.css">
 
 
     <link
@@ -23,37 +23,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
 </head>
 
-<style>
-    .h1rese{
-        font-family: 'Inter', sans-serif;
-        font-size: 80px;
-        text-align: center;
-        margin-top: 1%;
-        color: white;
-    }
-    .h1rese2{
-        font-family: 'Inter', sans-serif;
-        font-size: 50px;
-        text-align: center;
-        margin-top: -1%;
-        color: rgba(8, 86, 167, 1);
-    }
-    .eliminar-reserva {
-        position: absolute;
-        top: 0;
-        right: left;
-        margin-bottom: 20px; /* Ajusta este margen según sea necesario */
-        margin-right: 20px; /* Ajusta este margen según sea necesario */
-        margin-top: 15%;
-        margin-left: 2%;
-       color: white;
-       background-color: rgba(5, 58, 112, 1);
-       border-radius: 40px;
-    }
-    .header{
-        height: 140%;
-    }
-</style>
+
 
 <body style="color:white">
 
@@ -164,65 +134,6 @@
 
 <!-- Link to the JavaScript file -->
 
-
-<script>
-    var menuRight = document.getElementById('cbp-spmenu-s2'),
-        showRight = document.getElementById('showRight'),
-        menuHeader = document.getElementById('menuHeader'),
-        body = document.body;
-
-    showRight.onclick = function() {
-        classie.toggle(this, 'active');
-        classie.toggle(menuRight, 'cbp-spmenu-open');
-        disableOther('showRight');
-    };
-
-    function disableOther(button) {
-        if (button !== 'showRight') {
-            classie.toggle(showRight, 'disabled');
-        }
-    }
-
-    menuHeader.addEventListener('click', function() {
-        classie.remove(menuRight, 'cbp-spmenu-open');
-        classie.remove(showRight, 'active');
-    });
-
-    document.addEventListener('click', function(event) {
-        var isClickInside = menuRight.contains(event.target) || showRight.contains(event.target);
-        if (!isClickInside) {
-            classie.remove(menuRight, 'cbp-spmenu-open');
-            classie.remove(showRight, 'active');
-        }
-    });
-
-
-    document.getElementById('eliminar-reserva-btn').addEventListener('click', function() {
-        fetch('http://localhost/SistemaWeb-Aerolinea/backend/eliminar_reserva.php', {
-            method: 'POST'
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                alert("Error: " + data.error);
-            } else {
-                alert(data.message);
-                window.location.href = 'indexCliente.html';
-            }
-        })
-        .catch(error => {
-            console.error('Error eliminando reserva:', error);
-        });
-    });
-
-
-</script>
-
-
-
-
-
-
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
 
@@ -233,5 +144,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Your custom JavaScript -->
 <script src="scripts/scriptre.js"></script>
+<script src="scripts/scriptres1.js"></script>
 </body>
 </html>
