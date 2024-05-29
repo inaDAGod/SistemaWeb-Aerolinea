@@ -14,16 +14,6 @@ $cvuelosnum = isset($_SESSION['cvuelosnum']) ? $_SESSION['cvuelosnum'] : 0;
 $creservanum = isset($_SESSION['creservanum']) ? $_SESSION['creservanum'] : 0;
 
 
-
-
-$_SESSION['cvuelosnum'] = $cvuelosnum;
-$_SESSION['creservanum'] = $creservanum;
-$_SESSION['adum'] = $adum;
-$_SESSION['adu'] = $adu;
-$_SESSION['nin'] = $nin;
-$_SESSION['total_people'] = $totalg;
-$_SESSION['reservation_counter'] = $reservation_counter;
-
 // Procesar datos del formulario si se ha enviado
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Resto del código...

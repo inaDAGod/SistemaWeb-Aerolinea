@@ -4,15 +4,15 @@ include 'conexion.php';
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-$adum = 0;
+$adum = 1;
 $adu = 1;
 $nin = 0;
 $totalg = $adum + $adu + $nin;
 
-$cvuelosnum = 2;
+$cvuelosnum = 4;
 $correo_usuario = isset($_SESSION['correo_usuario']) ? $_SESSION['correo_usuario'] : '';
-$fecha_reserva = '2024-05-25';
-$fecha_lmite = '2024-05-30';
+$fecha_reserva = '2024-05-31';
+$fecha_lmite = '2024-06-02';
 
 function generar_numero_reserva($conn, $correo_usuario, $fecha_reserva, $fecha_lmite) {
     $query = "INSERT INTO reservas (correo_usuario, fecha_reserva, fecha_lmite) VALUES (:correo_usuario, :fecha_reserva, :fecha_lmite)";
