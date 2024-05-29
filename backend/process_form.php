@@ -12,7 +12,6 @@ $totalg = isset($_SESSION['total_people']) ? $_SESSION['total_people'] : 0;
 $reservation_counter = isset($_SESSION['reservation_counter']) ? $_SESSION['reservation_counter'] : 0;
 $cvuelosnum = isset($_SESSION['cvuelosnum']) ? $_SESSION['cvuelosnum'] : 0;
 $creservanum = isset($_SESSION['creservanum']) ? $_SESSION['creservanum'] : 0;
-echo "Valor de cvuelosnum: $cvuelosnum";
 
 // Procesar datos del formulario si se ha enviado
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
