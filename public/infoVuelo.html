@@ -1,207 +1,92 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscar Vuelos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <link rel="stylesheet" href="styles/styleIndex.css">
+    <link rel="stylesheet" href="styles/catalogoVuelos.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        .form-container {
-            max-width: 80%;
-            margin: 0 auto;
-        }
+    <script src="scripts/vuelosAdmi.js"></script>
 
-        .form-row {
-            display: flex;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
-        }
-
-        .form-group {
-            flex: 1;
-            min-width: 200px;
-            margin-right: 20px;
-        }
-
-        .form-group:last-child {
-            margin-right: 0;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-
-        .table-responsive {
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        table {
-            margin: 0 auto;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        th,
-        td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f2f2f2;
-        }
-
-        h1 {
-            color: rgb(5, 58, 112);
-            text-align: center;
-            font-weight: bold;
-        }
-
-        table thead th {
-            color: rgb(5, 58, 112);
-        }
-
-        .form-button-row {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        @media screen and (max-width: 600px) {
-            table,
-            thead,
-            tbody,
-            th,
-            td,
-            tr {
-                display: block;
-            }
-
-            thead tr {
-                position: absolute;
-                top: -9999px;
-                left: -9999px;
-            }
-
-            tr {
-                margin: 0 0 1rem 0;
-            }
-
-            tr:nth-child(odd) {
-                background: #f2f2f2;
-            }
-
-            td {
-                border: none;
-                position: relative;
-                padding-left: 50%;
-            }
-
-            td:before {
-                position: absolute;
-                top: 0;
-                left: 6px;
-                width: 45%;
-                padding-right: 10px;
-                white-space: nowrap;
-                content: attr(data-label);
-                font-weight: bold;
-            }
-
-            .form-group {
-                flex: 1;
-                min-width: 100px;
-                margin-right: 2px;
-                margin-left: 2px;
-            }
-        }
-    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #b8c9ff;">
-        <div class="nav-item">
-            <div style="display: flex; align-items: center; margin-right: 10px;">
-                <img src="assets/logoavion.png" alt="Menu Icon" style="width:25%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
-            </div>
-        </div>
-    </nav>
+    <div style="background-color: #8FBCEA"></div>
+        <img src="assets/logoavion.png" alt="Menu Icon" style="width:7%;height:7%;margin-left:10px;">
+    </div>
 
-    <div class="container mt-4">
-        <h1>Buscar Vuelos</h1>
-        <form id="flightForm" class="form-container" onsubmit="buscarVuelos(event)">
+    <header class="header" id="inicio">
+        <img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger">
+        <nav class="menu-navegacion">
+            <a href="index.html">Inicio</a>
+            <a href="catalogoVuelo.html">Vuelos</a>
+            <a href="verificarCheckin.html">Check-In</a>
+            <a href="catalogoMillas.html">Catalogo Premios millas</a>
+            <a href="registro.html">Iniciar Sesion</a>
+        </nav>
+        <div class="contenedor head">
+            <h1 class="titulo">Vuelos</h1>
+        </div>
+    </header>
+    <h1 style=" color: rgb(5, 58, 112);">Vuelos</h1>
+    <div class="container">
+        <div class="col1">
             <div class="form-row">
                 <div class="form-group">
                     <label for="origen">Origen:</label>
-                    <select name="origen" id="origen" required>
+                    <select name="origen" id="origen">
                         <option value="">Seleccionar Origen</option>
                         <option value="La Paz">La Paz</option>
                         <option value="Santa Cruz">Santa Cruz</option>
                         <option value="Cochabamba">Cochabamba</option>
+                        <option value="Oruro">Oruro</option>
+                        <option value="Potosi">Potosi</option>
+                        <option value="Pando">Pando</option>
+                        <option value="Tarija">Tarija</option>
+                        <option value="Beni">Beni</option>
                         <option value="Sucre">Sucre</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="destino">Destino:</label>
-                    <select name="destino" id="destino" required>
+                    <select name="destino" id="destino">
                         <option value="">Seleccionar Destino</option>
-                        <option value="Santa Cruz">Santa Cruz</option>
                         <option value="La Paz">La Paz</option>
-                        <option value="Sucre">Sucre</option>
+                        <option value="Santa Cruz">Santa Cruz</option>
                         <option value="Cochabamba">Cochabamba</option>
+                        <option value="Oruro">Oruro</option>
+                        <option value="Potosi">Potosi</option>
+                        <option value="Pando">Pando</option>
+                        <option value="Tarija">Tarija</option>
+                        <option value="Beni">Beni</option>
+                        <option value="Sucre">Sucre</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="fecha_vuelo">Fecha del Vuelo:</label>
-                    <input type="date" name="fecha_vuelo" id="fecha_vuelo" required>
+                    <label for="fechaVueloIda">Fecha del Vuelo:</label>
+                    <input type="date" name="fechaVueloIda" id="fechaVueloIda">
                 </div>
             </div>
-            <div class="form-button-row">
-                <button class="btn btn-primary" id="filtrarBtn" type="submit">
-                    <i class="fa fa-search"></i> Buscar
-                </button>
-            </div>
-        </form>
-        <div id="resultados" class="table-responsive">
-            <!-- Los resultados se mostrarán aquí -->
         </div>
+        <div class="col2" align="center">
+            <button style="width: 20%;" class="btn btn-primary" id="buscar">Buscar</button>
+            <button style="width: 20%;" class="btn btn-primary" id="restablecer">Restablecer</button>
+        </div>
+        <div id="resultados" class="table-responsive"></div>
     </div>
 
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="scripts/script.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        function buscarVuelos(event) {
-            event.preventDefault(); // Evitar el envío del formulario por defecto
-
-            const origen = document.getElementById('origen').value;
-            const destino = document.getElementById('destino').value;
-            const fecha_vuelo = document.getElementById('fecha_vuelo').value;
-
-            const xhr = new XMLHttpRequest();
-            xhr.open('GET', `infoVuelo.php?origen=${origen}&destino=${destino}&fecha_vuelo=${fecha_vuelo}`, true);
-            xhr.onload = function() {
-                if (this.status === 200) {
-                    document.getElementById('resultados').innerHTML = this.responseText;
-                } else {
-                    console.error('Error al buscar vuelos');
-                }
-            };
-            xhr.send();
-        }
-
-        document.getElementById('flightForm').addEventListener('submit', buscarVuelos);
-    </script>
 </body>
-</html>
+</html> 
