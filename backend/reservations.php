@@ -24,7 +24,7 @@ $query_reservations = "SELECT r.fecha_reserva, r.fecha_lmite, r.creserva, rp.cvu
                                      WHEN a.tipo_asiento = 'Business' THEN v.costobusiness
                                      WHEN a.tipo_asiento = 'Económico' THEN v.costoeco
                                 END
-                            ) AS total_cost
+                            )/ 2 AS total_cost
                        FROM reservas r
                        JOIN reservas_personas rp ON r.creserva = rp.creserva
                        JOIN vuelos v ON rp.cvuelo = v.cvuelo

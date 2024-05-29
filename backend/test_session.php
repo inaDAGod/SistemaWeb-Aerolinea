@@ -11,8 +11,8 @@ $totalg = $adum + $adu + $nin;
 
 $cvuelosnum = 2;
 $correo_usuario = isset($_SESSION['correo_usuario']) ? $_SESSION['correo_usuario'] : '';
-$fecha_reserva = '2024-06-25';
-$fecha_lmite = '2024-06-27';
+$fecha_reserva = '2024-05-25';
+$fecha_lmite = '2024-05-30';
 
 function generar_numero_reserva($conn, $correo_usuario, $fecha_reserva, $fecha_lmite) {
     $query = "INSERT INTO reservas (correo_usuario, fecha_reserva, fecha_lmite) VALUES (:correo_usuario, :fecha_reserva, :fecha_lmite)";
