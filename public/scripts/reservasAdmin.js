@@ -60,22 +60,34 @@ $(document).ready(function() {
                 <td>${item.apellidos}</td>
                 <td>${item.documento}</td>
                 <td>
-                    <select class="btn btn-secondary dropdown-toggle" data-documento="${item.documento}">
-                        <option class="dropdown-item" value="Pendiente" ${item.estado_reserva === "Pendiente" ? "selected" : ""}>Pendiente</option>
-                        <option class="dropdown-item" value="Pagado" ${item.estado_reserva === "Pagado" ? "selected" : ""}>Pagado</option>
-                        <option class="dropdown-item" value="Cancelado" ${item.estado_reserva === "Cancelado" ? "selected" : ""}>Cancelado</option>
+                    <select class="btn btn-secondary dropdown-toggle estado-reserva-dropdown" data-documento="${item.documento}" data-estado-actual="${item.estado_reserva}">
+                        <option value="Pendiente" ${item.estado_reserva === "Pendiente" ? "selected" : ""}>Pendiente</option>
+                        <option value="Pagado" ${item.estado_reserva === "Pagado" ? "selected" : ""}>Pagado</option>
+                        <option value="Cancelado" ${item.estado_reserva === "Cancelado" ? "selected" : ""}>Cancelado</option>
                     </select>
                 </td>
             </tr>`;
             tbody.append(row);
         });
-
-        $('.estado-reserva-dropdown').change(function() {
+    
+        // Asignar evento change correctamente a los elementos dinámicos
+        $('table').on('change', '.estado-reserva-dropdown', function() {
             var documento = $(this).data('documento');
             var nuevoEstado = $(this).val();
+            var estadoActual = $(this).data('estado-actual');
+    
+            // Verificar si el estado actual es "Pagado" y se intenta cambiar
+            if (estadoActual === "Pagado" && nuevoEstado !== "Pagado") {
+                Swal.fire('No se puede cambiar el estado porque ya está Pagado', 'error');
+                $(this).val(estadoActual); // Revertir al estado anterior en el combobox
+                return; // Evitar enviar la solicitud AJAX
+            }
+    
             updateReservaStatus(documento, nuevoEstado);
         });
     }
+    
+    
 
     function updateReservaStatus(documento, nuevoEstado) {
         $.ajax({
@@ -87,7 +99,7 @@ $(document).ready(function() {
                 if (response.error) {
                     Swal.fire('No se puede cambiar el estado', response.error, 'error');
                 } else {
-                    alert('Estado de reserva actualizado correctamente');
+                    Swal.fire('Estado de Reserva actualizado correctamente', 'success');
                 }
             },
             error: function(xhr, status, error) {
