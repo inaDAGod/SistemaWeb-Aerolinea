@@ -3,14 +3,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const adultos = localStorage.getItem('adultos');
     const adultoMayor = localStorage.getItem('adultoMayor');
     const ninos = localStorage.getItem('ninos');
-    
-    console.log(localStorage);
+    const origen = localStorage.getItem('origen');
+    const destino = localStorage.getItem('destino');
 
-    // Aquí puedes usar estos datos para mostrar la información en la página o para completar el formulario
+    console.log(localStorage);
+    // Set the values of the elements
     document.getElementById('vueloSeleccionado').innerText = cvuelo;
     document.getElementById('adultosSeleccionados').innerText = adultos;
     document.getElementById('adultoMayorSeleccionados').innerText = adultoMayor;
     document.getElementById('ninosSeleccionados').innerText = ninos;
+
+    // Set the origen and destino values
+    document.getElementById('origenSeleccionado').innerText = origen;
+    document.getElementById('destinoSeleccionado').innerText = destino;
+
+
 
 
  // Create the table using the retrieved data
