@@ -22,7 +22,7 @@ if (isset($_GET['check_asientos'])) {
     // obtine el avión asignado al vuelo y su capacidad
     $sql_avion = "SELECT a.capacidad
                   FROM vuelos v
-                  JOIN aviones a ON v.cavion = a.cavion
+                  JOIN aviones a ON a.cavion = a.cavion
                   WHERE v.cvuelo = $1";
     $result_avion = pg_query_params($conn, $sql_avion, array($cvuelo));
 
