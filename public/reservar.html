@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proyecto_NAV</title>
+    <title>Aerolinea Vuela Bo</title>
 
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,12 +15,14 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="styles/reservas.css">
+    
 
 
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+        <script src="scripts/reservas.js"></script>
 </head>
 
 
@@ -50,7 +52,7 @@
 
 
 <div class="eliminar-reserva">
-    <a href="index.html" class="btn btn" style="border-radius: 40px;color:white;">
+    <a href="catalogoMillasCliente.html" class="btn btn" style="border-radius: 40px;color:white;">
         &lt; Cancelar reserva
     </a>
 </div>
@@ -59,7 +61,7 @@
 
 
 <div class="container-fluid">
-
+    
 
 
 
@@ -67,6 +69,14 @@
         <div id="tablaSesion" class="table-responsive" style="margin-top: 2%;width:70%">
         </div>
     </div>
+</div>
+<div style="color: black;">
+        <!--le paso los valores de la ventana de catalogo -->
+    <p>Vuelo Seleccionado: <span id="vueloSeleccionado"></span></p>
+    <p>Adultos: <span id="adultosSeleccionados"></span></p>
+    <p>Adultos Mayores: <span id="adultoMayorSeleccionados"></span></p>
+    <p>Niños: <span id="ninosSeleccionados"></span></p>
+     <!--le paso los valores de la ventana de catalogo -->
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -145,5 +155,6 @@
 <!-- Your custom JavaScript -->
 <script src="scripts/scriptre.js"></script>
 <script src="scripts/scriptres1.js"></script>
+<script src="scripts/reservas.js"></script>
 </body>
 </html>

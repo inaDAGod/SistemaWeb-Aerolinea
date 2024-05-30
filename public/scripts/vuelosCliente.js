@@ -112,7 +112,7 @@ function renderVuelos(vuelos) {
             <td>${vuelo.costovip}</td>
             <td>${vuelo.costoeco}</td>
             <td>${vuelo.costobusiness}</td>
-            <td><button class="btn btn-primary" onclick="window.location.href = 'reservar.html';">Reservar</button></td>
+            <td><button class="btn btn-primary" onclick="reservarVuelo(${vuelo.cvuelo})">Reservar</button></td>
         `;
         tbody.appendChild(row);
     });
@@ -131,4 +131,17 @@ function resetFilters() {
     document.getElementById('adultos').value = '1';
     document.getElementById('ninos').value = '0';
     fetchVuelos();
+}
+
+function reservarVuelo(cvuelo) {
+    const adultos = document.getElementById('adultos').value;
+    const adultoMayor = document.getElementById('adultoMayor').value;
+    const ninos = document.getElementById('ninos').value;
+
+    localStorage.setItem('cvuelo', cvuelo);
+    localStorage.setItem('adultos', adultos);
+    localStorage.setItem('adultoMayor', adultoMayor);
+    localStorage.setItem('ninos', ninos);
+    //console.log(localStorage);
+    window.location.href = 'reservar.html';
 }
