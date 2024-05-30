@@ -142,7 +142,6 @@ function resetFilters() {
     fetchVuelos();
 }
 
-///////////////////para la disponibilidad de asientosa/////////////////////////////////////////////////////
 
 function checkAvailability(cvuelo) {
     const adultoMayor = parseInt(document.getElementById('adultoMayor').value, 10);
