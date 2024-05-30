@@ -155,7 +155,12 @@ function checkAvailability(cvuelo) {
             if (data.suficientes) {
                 window.location.href = 'registro.html';
             } else {
-                alert('No hay suficientes asientos disponibles para este vuelo.');
+                // Mostrar una alerta personalizada con SweetAlert2
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...Lo sentimos',
+                    text: 'No hay suficientes asientos disponibles para este vuelo.',
+                });
             }
         })
         .catch(error => console.error('Error:', error));
