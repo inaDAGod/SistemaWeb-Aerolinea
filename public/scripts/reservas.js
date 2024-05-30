@@ -12,6 +12,43 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('adultoMayorSeleccionados').innerText = adultoMayor;
     document.getElementById('ninosSeleccionados').innerText = ninos;
 
+
+ // Create the table using the retrieved data
+ var tabla = '<table class="table table-striped">' +
+ '<thead>' +
+     '<tr>' +
+         '<th>Tipo Persona</th>' +
+         '<th>Cantidad</th>' +
+         '<th>Total</th>' +
+     '</tr>' +
+ '</thead>' +
+ '<tbody>' +
+     '<tr>' +
+         '<td>Adulto mayor</td>' +
+         '<td>' + adultoMayor + '</td>' +
+         '<td></td>' +
+     '</tr>' +
+     '<tr>' +
+         '<td>Adultos</td>' +
+         '<td>' + adultos + '</td>' +
+         '<td></td>' +
+     '</tr>' +
+     '<tr>' +
+         '<td>Niños</td>' +
+         '<td>' + ninos + '</td>' +
+         '<td></td>' +
+     '</tr>' +
+     '<tr>' +
+         '<td></td>' +
+         '<td></td>' +
+         '<td>' + (parseInt(adultos) + parseInt(adultoMayor) + parseInt(ninos)) + '</td>' +
+     '</tr>' +
+ '</tbody>' +
+'</table>';
+
+// Insert the table into the HTML
+document.getElementById('resumenVuelo').innerHTML = tabla;
+
     // Enviar datos a PHP
     const data = {
         cvuelo: cvuelo,
@@ -35,3 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Error:', error);
     });
 });
+
+
+
