@@ -6,7 +6,7 @@ $(document).ready(function() {
         var nombre = $("#nombre").val(); // Nuevo: obtener el valor del campo de nombre
         var apellido = $("#apellido").val(); // Nuevo: obtener el valor del campo de apellido
         if (!documento && !nombre && !apellido) {
-            Swal.fire('Por favor ingrese un criterio de búsqueda.', 'error');
+            Swal.fire('Por favor ingrese un criterio de búsqueda.', 'error', 'error');
             return;
         }
   
@@ -19,7 +19,7 @@ $(document).ready(function() {
                 if (response.error) {
                     Swal.fire('Por favor ingrese un criterio de búsqueda.', response.error, 'error');
                 } else if (response.length === 0) {
-                    Swal.fire('No se encontraron pasajeros con los criterios de búsqueda proporcionados.', 'error');
+                    Swal.fire('No se encontraron pasajeros con los criterios de búsqueda proporcionados.', 'error', 'error');
                 } else {
                     updateTable(response);
                 }
@@ -77,8 +77,8 @@ $(document).ready(function() {
             var estadoActual = $(this).data('estado-actual');
     
             // Verificar si el estado actual es "Pagado" y se intenta cambiar
-            if (estadoActual === "Pagado" && nuevoEstado !== "Pagado") {
-                Swal.fire('No se puede cambiar el estado porque ya está Pagado', 'error');
+            if (estadoActual === "Pagado" && (nuevoEstado == "Cancelado" || nuevoEstado == "Pendiente")) {
+                Swal.fire('No se puede cambiar el estado porque ya está Pagado', '', 'error');
                 $(this).val(estadoActual); // Revertir al estado anterior en el combobox
                 return; // Evitar enviar la solicitud AJAX
             }
@@ -99,7 +99,7 @@ $(document).ready(function() {
                 if (response.error) {
                     Swal.fire('No se puede cambiar el estado', response.error, 'error');
                 } else {
-                    Swal.fire('Estado de Reserva actualizado correctamente', 'success');
+                    Swal.fire('Estado de Reserva actualizado correctamente', '', 'success');
                 }
             },
             error: function(xhr, status, error) {
