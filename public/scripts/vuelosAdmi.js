@@ -93,3 +93,27 @@ function resetFilters() {
 
     fetchVuelos();
 }
+
+///////////////////para la disponibilidad de asientosa/////////////////////////////////////////////////////
+
+function checkAvailability(cvuelo) {
+    const adultoMayor = parseInt(document.getElementById('adultoMayor').value, 10);
+    const adultos = parseInt(document.getElementById('adultos').value, 10);
+    const ninos = parseInt(document.getElementById('ninos').value, 10);
+
+    fetch(`http://localhost/SistemaWeb-Aerolinea/backend/fetch_vuelos.php?cvuelo=${cvuelo}&adultoMayor=${adultoMayor}&adultos=${adultos}&ninos=${ninos}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.suficientes) {
+                window.location.href = 'registro.html';
+            } else {
+                // Mostrar una alerta personalizada con SweetAlert2
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...Lo sentimos',
+                    text: 'No hay suficientes asientos disponibles para este vuelo.',
+                });
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
