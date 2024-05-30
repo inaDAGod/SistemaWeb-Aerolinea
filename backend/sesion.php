@@ -1,5 +1,4 @@
 <?php
-include 'test_session.php';
 //include 'registrores.php';
 //include 'generar_reserva.php';
 //include 'login.php';

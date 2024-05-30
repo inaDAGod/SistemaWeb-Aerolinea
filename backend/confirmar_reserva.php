@@ -2,7 +2,7 @@
 session_start();
 
 // Retrieve the creservanum from the session and subtract 1
-$creservanum = isset($_SESSION['creservanum']) ? $_SESSION['creservanum'] - 1 : 0;
+$creservanum = isset($_SESSION['creservanum']) ? $_SESSION['creservanum'] : 0;
 
 $correo_usuario = isset($_SESSION['correo_usuario']) ? $_SESSION['correo_usuario'] : '';
 
