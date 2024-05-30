@@ -121,7 +121,7 @@ function renderVuelos(vuelos) {
             <td>${vuelo.costovip}</td>
             <td>${vuelo.costoeco}</td>
             <td>${vuelo.costobusiness}</td>
-            <td><button class="btn btn-primary" onclick="window.location.href = 'registro.html';">Reservar</button></td>
+            <td><button class="btn btn-primary" onclick="checkAvailability(${vuelo.cvuelo})">Reservar</button></td>
         `;
         tbody.appendChild(row);
     });
