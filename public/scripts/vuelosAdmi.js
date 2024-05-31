@@ -65,7 +65,6 @@ function renderVuelos(vuelos) {
             <th>Costo VIP</th>
             <th>Costo Económico</th>
             <th>Costo Business</th>
-            <th>Acciones</th>
         </tr>
     `;
     table.appendChild(thead);
@@ -81,13 +80,6 @@ function renderVuelos(vuelos) {
             <td>${vuelo.costovip}</td>
             <td>${vuelo.costoeco}</td>
             <td>${vuelo.costobusiness}</td>
-            <td>
-                <div class="btn-group" role="group">
-                    <button class="btn btn-primary" onclick="window.location.href = 'admin_pasajeros.html';">Pasajeros</button>
-
-                    <button class="btn btn-info" onclick="window.location.href = 'reservasAdmin.html';">Reservas</button>
-                </div>
-             </td>
         `;
         tbody.appendChild(row);
     });
