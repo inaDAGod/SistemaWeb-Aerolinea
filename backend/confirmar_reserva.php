@@ -2,7 +2,7 @@
 session_start();
 
 // Retrieve the creservanum from the session and subtract 1
-$creservanum = isset($_SESSION['creservanum']) ? $_SESSION['creservanum'] - 1 : 0;
+$creservanum = isset($_SESSION['creservanum']) ? $_SESSION['creservanum'] : 0;
 
 $correo_usuario = isset($_SESSION['correo_usuario']) ? $_SESSION['correo_usuario'] : '';
 
@@ -33,7 +33,7 @@ try {
     }
 
     // Update the estado_reserva to 'Pagado' in reservas_personas
-    $sqlUpdate = "UPDATE reservas_personas SET estado_reserva = 'Pagado' WHERE creserva = :creserva";
+    $sqlUpdate = "UPDATE reservas_personas SET estado_reserva = 'Pendiente' WHERE creserva = :creserva";
     $stmtUpdate = $conn->prepare($sqlUpdate);
     $stmtUpdate->bindParam(':creserva', $creservanum, PDO::PARAM_INT);
     $stmtUpdate->execute();

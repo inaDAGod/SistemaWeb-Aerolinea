@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetchVuelos(); // Mostrar todos los vuelos al cargar la página
+    fetchVuelos(); // Show all 
     document.getElementById('buscar').addEventListener('click', fetchVuelos);
     document.getElementById('restablecer').addEventListener('click', resetFilters);
     const tipoVuelo = document.getElementById('tipoVuelo');
@@ -11,15 +11,27 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             fechaVueltaGroup.style.display = 'none';
         }
-        fetchVuelos(); // Mostrar vuelos actualizados al cambiar el tipo de vuelo
+        fetchVuelos(); 
     });
 });
+
 function fetchVuelos() {
     const origen = document.getElementById('origen').value.trim();
     const destino = document.getElementById('destino').value.trim();
     const tipoVuelo = document.getElementById('tipoVuelo').value.trim();
     const fechaVueloIda = document.getElementById('fechaVueloIda').value.trim();
     const fechaVueloVuelta = document.getElementById('fechaVueloVuelta').value.trim();
+
+    // validation 
+    if (origen === destino && origen !== "") {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'El origen y el destino no pueden ser iguales. Por favor, seleccione un destino diferente.',
+            confirmButtonText: 'Aceptar'
+        });
+        return; 
+    }
 
     fetch('http://localhost/SistemaWeb-Aerolinea/backend/fetch_vuelos.php')
         .then(response => response.json())
@@ -76,12 +88,9 @@ function fetchVuelos() {
         .catch(error => console.error('Error:', error));
 }
 
-
-
-
 function renderVuelos(vuelos) {
     const tableContainer = document.getElementById('resultados');
-    tableContainer.innerHTML = ''; // Limpiar cualquier contenido previo
+    tableContainer.innerHTML = ''; // Limpiar
 
     const table = document.createElement('table');
     table.className = 'table table-striped';
@@ -132,3 +141,5 @@ function resetFilters() {
     document.getElementById('ninos').value = '0';
     fetchVuelos();
 }
+
+

@@ -20,6 +20,16 @@ function fetchVuelos() {
     const tipoVuelo = document.getElementById('tipoVuelo').value.trim();
     const fechaVueloIda = document.getElementById('fechaVueloIda').value.trim();
     const fechaVueloVuelta = document.getElementById('fechaVueloVuelta').value.trim();
+    // validation 
+    if (origen === destino && origen !== "") {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'El origen y el destino no pueden ser iguales. Por favor, seleccione un destino diferente.',
+            confirmButtonText: 'Aceptar'
+        });
+        return; 
+    }
 
     fetch('http://localhost/SistemaWeb-Aerolinea/backend/fetch_vuelos.php')
         .then(response => response.json())
@@ -112,7 +122,9 @@ function renderVuelos(vuelos) {
             <td>${vuelo.costovip}</td>
             <td>${vuelo.costoeco}</td>
             <td>${vuelo.costobusiness}</td>
-            <td><button class="btn btn-primary" onclick="window.location.href = 'reservar.html';">Reservar</button></td>
+            
+            <td><button class="btn btn-primary" onclick="reservarVuelo(${vuelo.cvuelo}, '${vuelo.origen}', '${vuelo.destino}')">Reservar</button>
+            </td>
         `;
         tbody.appendChild(row);
     });
@@ -131,4 +143,19 @@ function resetFilters() {
     document.getElementById('adultos').value = '1';
     document.getElementById('ninos').value = '0';
     fetchVuelos();
+}
+
+function reservarVuelo(cvuelo, origen, destino) {
+    const adultos = document.getElementById('adultos').value;
+    const adultoMayor = document.getElementById('adultoMayor').value;
+    const ninos = document.getElementById('ninos').value;
+
+    localStorage.setItem('cvuelo', cvuelo);
+    localStorage.setItem('origen', origen);
+    localStorage.setItem('destino', destino);
+    localStorage.setItem('adultos', adultos);
+    localStorage.setItem('adultoMayor', adultoMayor);
+    localStorage.setItem('ninos', ninos);
+
+    window.location.href = 'reservar.html';
 }
