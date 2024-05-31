@@ -1,4 +1,7 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 // Obtener los datos enviados desde JavaScript
 $json = file_get_contents('php://input');
 $data = json_decode($json);
@@ -19,6 +22,11 @@ $resultado = pg_query($conexion, $sql);
 
 if ($resultado) {
     $response = array('estado' => 'registro_exitoso');
+    $_SESSION['correo_usuario'] =$username;
+    $_SESSION['tipo_usuario'] = 'cliente';
+    $_SESSION['nombres_usuario'] =$nombres;
+    $_SESSION['apellidos_usuario'] = $apellidos;
+    $_SESSION['millas'] =0;
     echo json_encode($response);
 } else {
     $response = array('estado' => 'error_registro');
