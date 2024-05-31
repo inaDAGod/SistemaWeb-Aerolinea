@@ -56,7 +56,6 @@ th, td {
         padding-right: 10px;
         white-space: nowrap;
         content: attr(data-label);
-        font-weight: bold;
     }
 }
 h2 {
