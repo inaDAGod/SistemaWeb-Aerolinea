@@ -74,7 +74,7 @@ function registrarUsuario() {
             })
             .then(data => {
                 if (data.estado === "registro_exitoso") {
-                    window.location.href= 'http://localhost/SistemaWeb-Aerolinea/public/index.html';
+                    window.location.href= 'http://localhost/SistemaWeb-Aerolinea/public/indexCliente.html';
                 } else if (data.estado === "error_registro") {
                     Swal.fire('Error', 'Ya existe un usuario con ese correo electrónico', 'error');
                 }
