@@ -406,3 +406,9 @@ footer{
     }
 
 }
+h2 {
+    color: #053A70;
+    font-size: 200%;
+    text-align: center;
+    padding: 1%;
+}
