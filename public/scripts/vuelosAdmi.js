@@ -8,6 +8,16 @@ function fetchVuelos() {
     const origen = document.getElementById('origen').value.trim();
     const destino = document.getElementById('destino').value.trim();
     const fechaVueloIda = document.getElementById('fechaVueloIda').value.trim();
+     // validation 
+     if (origen === destino && origen !== "") {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'El origen y el destino no pueden ser iguales. Por favor, seleccione un destino diferente.',
+            confirmButtonText: 'Aceptar'
+        });
+        return; 
+    }
 
     fetch('http://localhost/SistemaWeb-Aerolinea/backend/fetch_vuelos.php')
         .then(response => response.json())
@@ -93,3 +103,5 @@ function resetFilters() {
 
     fetchVuelos();
 }
+
+

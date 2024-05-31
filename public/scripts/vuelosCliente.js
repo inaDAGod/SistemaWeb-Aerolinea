@@ -20,6 +20,16 @@ function fetchVuelos() {
     const tipoVuelo = document.getElementById('tipoVuelo').value.trim();
     const fechaVueloIda = document.getElementById('fechaVueloIda').value.trim();
     const fechaVueloVuelta = document.getElementById('fechaVueloVuelta').value.trim();
+    // validation 
+    if (origen === destino && origen !== "") {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'El origen y el destino no pueden ser iguales. Por favor, seleccione un destino diferente.',
+            confirmButtonText: 'Aceptar'
+        });
+        return; 
+    }
 
     fetch('http://localhost/SistemaWeb-Aerolinea/backend/fetch_vuelos.php')
         .then(response => response.json())
@@ -133,6 +143,7 @@ function resetFilters() {
     fetchVuelos();
 }
 
+
 function reservarVuelo(cvuelo) {
     const adultos = document.getElementById('adultos').value;
     const adultoMayor = document.getElementById('adultoMayor').value;
@@ -143,5 +154,7 @@ function reservarVuelo(cvuelo) {
     localStorage.setItem('adultoMayor', adultoMayor);
     localStorage.setItem('ninos', ninos);
     //console.log(localStorage);
+    
     window.location.href = 'reservar.html';
 }
+
