@@ -9,7 +9,7 @@ function eliminarReservas() {
     }
 
     // Restar 1 al número de reserva
-    $_SESSION['creservanum']--;
+    $_SESSION['creservanum'];
 
     // Obtener el número de reserva actualizado
     $creservanum = $_SESSION['creservanum'];

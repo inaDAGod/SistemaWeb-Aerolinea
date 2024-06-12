@@ -157,7 +157,7 @@ INSERT INTO check_in (correo_usuario, fecha_check_in, numero_documento, tipodoc,
 ('danialee14@gmail.com', '2024-06-14', '3456789', 'Carnet de Identidad', false, true, false),
 ('daniela.gen.b@ucb.edu.bo', '2024-06-17', '4567890', 'DNI', true, false, false),
 ('danielaegwkjghwkzman.b@ucb.edu.bo', '2024-06-19', '5678901', 'Pasaporte', true, true, true);
-
+--use esto para el filtrado
 INSERT INTO vuelos (fecha_vuelo, costoVip,costobusiness,costoeco, origen, destino) VALUES
 ('2024-06-10 08:00:00', 500.00,400,300, 'La Paz', 'Santa Cruz'),
 ('2024-06-12 10:30:00', 400.00, 400,300,'Cochabamba', 'Sucre'),

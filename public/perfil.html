@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
     <link rel="stylesheet" href="styles/styleIndex.css">
+    <link rel="stylesheet" href="styles/perfil.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,125 +14,13 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
+        
     <title>Detalles de Usuario y Vuelos</title>
-    <style>
-        .container {
-            margin-top: 20px;
-        }
-        .header{
-            height: 100%;
-        }
-        .section-content h2 {
-            text-align: center;
-        }
-        #user-info h2 {
-            margin-bottom: 20px;
-            font-size: 5.2em;
-            text-align: center;
-            color: white;
-        }
-        .section-content {
-            display: none;
-        }
-        .section-content.active {
-            display: block;
-        }
-        .section {
-            margin-bottom: 20px;
-        }
-        #user-info {
-            padding: 20px;
-        }
-        .user-details {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .user-details div {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .user-details div span {
-            font-weight: bold;
-        }
-        .user-info-header {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-        .millas-info {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: white;
-            border-radius: 5px;
-            text-align: left;
-        }
-        .table-user {
-            margin: 0 auto;
-            text-align: center;
-            border-spacing: 100px; /* Add space between th elements */
-        }
-        .table-user th {
-            vertical-align: top;
-        }
-
-        .esta-user {
-            margin: 0 auto;
-            text-align: center;
-            background-color: rgba(143, 188, 234, 1);
-            border-radius: 40px;
-            padding: 0.5%;
-            margin-top:2% ;
-        }
-        .esta-user tr {
-            vertical-align: top;
-            width: 80%;
-        }
-        .esta-user th {
-            vertical-align: top;
-            font-size: 1em;
-            padding-left: 1.5%;
-            padding-right: 1.5%;
-            padding-top: 0.5%;
-            padding-bottom: 0.5%;
-            color: white;
-            
-        }
-        .section{
-            background-color: rgba(143, 188, 234, 1);
-            border-radius: 40px;
-            width: 63%;
-            padding-bottom: 0.01px;
-        }
-        .section-button {
-            display: inline-block;
-            margin-right: 10px;
-        }
-        
-        .section-button input[type="radio"] {
-            display: none;
-        }
-        
-        .section-button span {
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 40px;
-            cursor: pointer;
-            font-size: 1.5em;
-        }
-        
-        .section-button input[type="radio"]:checked + span {
-            background-color: rgba(8, 86, 167, 1);
-            color: #fff;
-        }
-        
-
-    </style>
+    
 </head>
 <body>
     <div style="background-color: #8FBCEA"></div>
-    <img src="assets/logoavion.png" alt="Menu Icon" style="width:10%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
+    <img src="assets/logoavion.png" alt="Menu Icon" style="width:7%;height:7%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
     <header class="header" id="inicio">
         <img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger">
         <nav class="menu-navegacion">
@@ -195,122 +84,10 @@
             <div id="past-user-flights-content"></div>
         </div>
     </div>
-
-
-    <script>
-        // Fetch user statistics from PHP script
-        fetch('user_statistics.php')
-            .then(response => response.json())
-            .then(data => {
-                // Update HTML with user statistics
-                document.getElementById('userStatistics').innerHTML = data.message;
-            })
-            .catch(error => {
-                console.error('Error fetching user statistics:', error);
-            });
-    </script>
-
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script src="scripts/scripts/scriptperfil.js" defer></script>
-    <script>
-        // Define the showSection function in the global scope
-        function showSection(sectionId) {
-            // Hide all sections except for "Datos del Usuario"
-            var sections = document.querySelectorAll('.section-content:not(#user-info)');
-            sections.forEach(function(section) {
-                section.classList.remove('active');
-            });
-            
-            // Show the selected section
-            var selectedSection = document.getElementById(sectionId);
-            if (selectedSection) {
-                selectedSection.classList.add('active');
-            }
-        }
-    
-        document.addEventListener('DOMContentLoaded', function() {
-            // Fetch and display user details
-            loadUserInfo();
-            loadStatistics();
-            loadWeekFlights();
-            loadUserReservations();
-            loadPastUserFlights();
-        });
-    
-        function loadUserInfo() {
-            // Lógica para cargar los detalles del usuario utilizando AJAX
-            fetch('http://localhost/SistemaWeb-Aerolinea/backend/user_info.php')
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('user-name').textContent = data.nombres_usuario;
-                    document.getElementById('user-details').innerHTML = `
-                        <div><span>Nombre:</span> ${data.nombres_usuario}</div>
-                        <div><span>Apellido:</span> ${data.apellidos_usuario}</div>
-                        <div><span>Correo:</span> ${data.correo_usuario}</div>
-                    `;
-                    document.getElementById('user-millas').textContent = data.millas;
-                })
-                .catch(error => {
-                    console.error('Error fetching user info:', error);
-                });
-        }
-    
-        function loadStatistics() {
-            // Fetch user statistics
-            fetch('http://localhost/SistemaWeb-Aerolinea/backend/user_statistics.php')
-            .then(response => response.json())
-            .then(data => {
-                // Update HTML with user statistics
-                document.getElementById('userStatistics').innerHTML = `
-                <table class='esta-user'>
-                    <tr><th><span>Total días de viaje:</span> ${data.total_days_travelled}</th>
-                    <th><span>Total ciudades visitadas:</span> ${data.total_cities_visited}</th>
-                    <th><span>Total millas ganadas:</span> ${data.total_miles_earned}<th>
 
-                    </tr></table>
-                `;
-            })
-            .catch(error => {
-                console.error('Error fetching user statistics:', error);
-            });
-        }
-    
-        function loadWeekFlights() {
-            // Lógica para cargar los vuelos de la semana utilizando AJAX
-            fetch('http://localhost/SistemaWeb-Aerolinea/backend/week_flights.php')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('week-flights-content').innerHTML = data;
-                })
-                .catch(error => {
-                    console.error('Error fetching week flights:', error);
-                });
-        }
-    
-        function loadUserReservations() {
-            // Lógica para cargar las reservas del usuario utilizando AJAX
-            fetch('http://localhost/SistemaWeb-Aerolinea/backend/reservations.php')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('user-reservations-content').innerHTML = data;
-                })
-                .catch(error => {
-                    console.error('Error fetching user reservations:', error);
-                });
-        }
-    
-        function loadPastUserFlights() {
-            // Lógica para cargar los vuelos pasados del usuario utilizando AJAX
-            fetch('http://localhost/SistemaWeb-Aerolinea/backend/past_flights.php')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('past-user-flights-content').innerHTML = data;
-                })
-                .catch(error => {
-                    console.error('Error fetching past user flights:', error);
-                });
-        }
-    </script>
-    
+    <script src="scripts/script.js"></script>
+    <script src="scripts/perfil.js"></script>
 </body>
 </html>

@@ -1,4 +1,9 @@
 /* Contenedor de la tabla para hacerla scrollable en dispositivos pequeños */
+.estado-checkin-dropdown {
+    background-color: rgba(8, 86, 167, 1);
+    color: white;
+    cursor: pointer;
+}
 .table-responsive {
     width: 100%;
     overflow-x: auto;
@@ -51,7 +56,6 @@ th, td {
         padding-right: 10px;
         white-space: nowrap;
         content: attr(data-label);
-        font-weight: bold;
     }
 }
 h2 {

@@ -48,17 +48,21 @@ if (isset($_GET['origen']) || isset($_GET['destino']) || isset($_GET['fecha_vuel
         $vuelos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         if ($vuelos) {
-            echo "<table border='1'>
-                    <tr>
-                        <th>Vuelo</th>
-                        <th>Fecha</th>
-                        <th>Origen</th>
-                        <th>Destino</th>
-                        <th>VIP</th>
-                        <th>Business</th>
-                        <th>Económica</th>
-                        <th>Reservar</th>
-                    </tr>";
+            echo "<table class='table table-striped'>
+                    <thead>
+                        <tr>
+                            <th>Vuelo</th>
+                            <th>Fecha</th>
+                            <th>Origen</th>
+                            <th>Destino</th>
+                            <th>VIP</th>
+                            <th>Business</th>
+                            <th>Económica</th>
+                            <th>Reservas</th>
+                            <th>Pasajeros</th>
+                        </tr>
+                    </thead>
+                    <tbody>";
             foreach ($vuelos as $vuelo) {
                 echo "<tr>
                         <td>{$vuelo['cvuelo']}</td>
@@ -68,12 +72,11 @@ if (isset($_GET['origen']) || isset($_GET['destino']) || isset($_GET['fecha_vuel
                         <td>{$vuelo['costovip']}</td>
                         <td>{$vuelo['costobusiness']}</td>
                         <td>{$vuelo['costoeco']}</td>
-                        <td><a href='reserva.php?codigo_vuelo={$vuelo['cvuelo']}'>Reservar</a></td>
-
-
+                        <td><a href='reservasAdmin.html?codigo_vuelo={$vuelo['cvuelo']}'>Reservar</a></td>
+                        <td><a href='admin_pasajeros.html?codigo_vuelo={$vuelo['cvuelo']}'>Reservar</a></td>
                     </tr>";
             }
-            echo "</table>";
+            echo "</tbody></table>";
         } else {
             echo "No se encontraron vuelos.";
         }

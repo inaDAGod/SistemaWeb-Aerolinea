@@ -30,21 +30,11 @@ function eliminarReservas() {
         $stmtDeleteReservasPersonas->bindParam(':creserva', $creservanum, PDO::PARAM_INT);
         $stmtDeleteReservasPersonas->execute();
 
-        // Verificar que se eliminaron filas en reservas_personas
-        if ($stmtDeleteReservasPersonas->rowCount() == 0) {
-            throw new Exception("No se encontraron registros en reservas_personas con creserva = $creservanum.");
-        }
-
-        // Eliminar la reserva en la tabla reservas
+        // Eliminar la reserva en la tabla reservas sin verificar si hay registros en reservas_personas
         $sqlDeleteReservas = "DELETE FROM reservas WHERE creserva = :creserva";
         $stmtDeleteReservas = $conn->prepare($sqlDeleteReservas);
         $stmtDeleteReservas->bindParam(':creserva', $creservanum, PDO::PARAM_INT);
         $stmtDeleteReservas->execute();
-
-        // Verificar que se eliminó la fila en reservas
-        if ($stmtDeleteReservas->rowCount() == 0) {
-            throw new Exception("No se encontró un registro en reservas con creserva = $creservanum.");
-        }
 
         // Confirmar la transacción
         $conn->commit();

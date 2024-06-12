@@ -1,4 +1,5 @@
 <?php
+session_start();
 $host = 'localhost';
 $port = '5432';
 $dbname = 'aerolinea';
@@ -14,12 +15,26 @@ if (!$conn) {
 }
 
 // Consulta para obtener los vuelos pasados del usuario
-$email = 'danialee14@gmail.com'; // El correo del usuario que quieres mostrar
+$email = isset($_SESSION['correo_usuario']) ? $_SESSION['correo_usuario'] : '';
 $current_date = date('Y-m-d');
-$query_past_flights = "SELECT v.* FROM vuelos v 
-                       JOIN boletos b ON v.cvuelo = b.cvuelo 
-                       JOIN check_in c ON b.ccheck_in = c.ccheck_in
-                       WHERE c.correo_usuario='$email' AND v.fecha_vuelo < '$current_date'";
+$query_past_flights = "
+SELECT v.cvuelo, v.origen, v.destino, v.fecha_vuelo,
+    SUM(
+        CASE 
+            WHEN a.tipo_asiento = 'VIP' THEN v.costovip
+            WHEN a.tipo_asiento = 'Business' THEN v.costobusiness
+            WHEN a.tipo_asiento = 'Económico' THEN v.costoeco
+        END
+    ) / 2 AS total_cost
+FROM vuelos v
+JOIN reservas_personas rp ON v.cvuelo = rp.cvuelo
+JOIN boletos b ON rp.ci_persona = b.ci_persona AND rp.cvuelo = b.cvuelo
+JOIN asientos_vuelo av ON b.cvuelo = av.cvuelo AND b.casiento = av.casiento
+JOIN asientos a ON av.casiento = a.casiento
+WHERE v.fecha_vuelo < CURRENT_DATE
+GROUP BY v.cvuelo, v.origen, v.destino, v.fecha_vuelo;
+";
+
 $result_past_flights = pg_query($conn, $query_past_flights);
 
 if (!$result_past_flights) {
@@ -36,7 +51,7 @@ while ($row_past_flights = pg_fetch_assoc($result_past_flights)) {
     echo "<td>" . $row_past_flights['origen'] . "</td>";
     echo "<td>" . $row_past_flights['destino'] . "</td>";
     echo "<td>" . $row_past_flights['fecha_vuelo'] . "</td>";
-    echo "<td>" . $row_past_flights['costo'] . "</td>";
+    echo "<td>" . $row_past_flights['total_cost'] . "</td>";
     echo "</tr>";
 }
 echo "</table>";

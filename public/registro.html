@@ -11,7 +11,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
   <script src="scripts/login.js"></script>
   <script src="scripts/registro.js"></script>
-  <script src="scripts/login.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
   <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script> 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
@@ -20,20 +19,25 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   
 </head>
 <body>
 
-  <img src="assets\logoavion.png" alt="Menu Icon" style="width:10%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
+  <img src="assets\logoavion.png" alt="Menu Icon" style="width:7%;height:7%;margin-left:10px;">
+    </div>
+
     <header class="header" id="inicio">
-        <img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger" style="z-index: 1000;">
+        <img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger">
         <nav class="menu-navegacion">
-            <a href="#">Vuelos</a>
-            <a href="#">Check-In</a>
-            <a href="#">Premios Millas</a>
-            <a href="http://localhost/SistemaWeb-Aerolinea/public/registro.html">Inciar Sesion</a>
-            <a href="#">Contactos</a>
+            <a href="index.html">Inicio</a>
+            <a href="catalogoVuelo.html">Vuelos</a>
+            <a href="verificarCheckin.html">Check-In</a>
+            <a href="catalogoMillas.html">Catalogo Premios millas</a>
+            <a href="registro.html">Iniciar Sesion</a>
+            
         </nav>
     </header>
+
   <div class="login-container" id="registro" style="display: none;">
     <h2>Registrarse</h2>
     <div class="input-container">
@@ -100,6 +104,6 @@
     <input type="text" id="codRestauraciom" placeholder="CODIGO"><br><br>
     <button class="boton" onclick="verificar2()" >Verificar </button><br>
   </div>
-  
+  <script src="scripts/script.js"></script>
 </body>
 </html>

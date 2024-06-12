@@ -1,238 +1,102 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filtrar</title>
+    <title>Buscar Vuelos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <link rel="stylesheet" href="styles/styleIndex.css">
+    <link rel="stylesheet" href="styles/catalogoVuelos.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        .form-container {
-            max-width: 80%; /* Cambiado a un porcentaje para que sea igual al ancho de la tabla */
-            margin: 0 auto;
-        }
-        .form-row {
-            display: flex;
-            flex-wrap: wrap;
-            margin-bottom: 10px;
-        }
-        .form-group {
-            flex: 1;
-            min-width: 200px;
-            margin-right: 20px; /* Aumentado el margen derecho para mayor separación */
-        }
-        .form-group:last-child {
-            margin-right: 0; /* Elimina el margen derecho del último elemento de la fila */
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        .hidden {
-            display: none;
-        }
-        #resultados {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .table-responsive {
-            width: 100%;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        table {
-            margin: 0 auto;
-            border-collapse: collapse;
-            width: 100%; /* Cambiado a 100% para que coincida con el contenedor */
-        }
-        th,
-        td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        h2 {
-            color: rgb(5, 58, 112);
-        }
-        table thead th {
-            color: rgb(5, 58, 112);
-        }
-        .form-button-row {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        @media screen and (max-width: 600px) {
-            table,
-            thead,
-            tbody,
-            th,
-            td,
-            tr {
-                display: block;
-            }
-            thead tr {
-                position: absolute;
-                top: -9999px;
-                left: -9999px;
-            }
-            tr {
-                margin: 0 0 1rem 0;
-            }
-            tr:nth-child(odd) {
-                background: #f2f2f2;
-            }
-            td {
-                border: none;
-                position: relative;
-                padding-left: 50%;
-            }
-            td:before {
-                position: absolute;
-                top: 0;
-                left: 6px;
-                width: 45%;
-                padding-right: 10px;
-                white-space: nowrap;
-                content: attr(data-label);
-                font-weight: bold;
-            }
-            .form-group {
-                flex: 1;
-                min-width: 100px; /* Ancho mínimo de los campos */
-                margin-right: 2px; /* Margen entre los campos */
-                margin-left: 2px; /* Margen entre los campos */
-            }
-        }
-    </style>
+    
+
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #b8c9ff;">
-        <div class="nav-item">
-            <div style="display: flex; align-items: center; margin-right: 10px;">
-                <img src="assets/logoavion.png" alt="Menu Icon" style="width:25%;height:10%;margin-left:10px;margin-top: 10px; margin-bottom: 20px;">
-            </div>
-        </div>
-    </nav>
+    <div style="background-color: #8FBCEA"></div>
+        <img src="assets/logoavion.png" alt="Menu Icon" style="width:7%;height:7%;margin-left:10px;">
+    </div>
 
-    <div class="container mt-4">
-        <h2 style="text-align: center; font-weight: bold;">Vuelos</h2>
-        <form id="flightForm" class="form-container">
+    <header class="header" id="inicio">
+        <img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger">
+        <nav class="menu-navegacion">
+            <a href="indexAdmi.html">Inicio</a>
+            <a href="infoVuelo.html">Vuelos</a>
+            <a href="verificarCheckinAdmi.html">Check-In</a>
+            <a href="generarBoleto.html">Generar Boleto</a>
+            <a href="catalogoMillasAdmi.html">Catalogo Premios millas</a>
+            <a href="registroAdmi.html">Registrar administrador</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="index.html">Cerrar Sesion</a>
+        </nav>
+        <div class="contenedor head">
+            <h1 class="titulo">Vuelos</h1>
+        </div>
+    </header>
+    <br><br>
+    <div class="container">
+        <div class="col1">
             <div class="form-row">
                 <div class="form-group">
                     <label for="origen">Origen:</label>
-                    <select id="origen" name="origen">
+                    <select name="origen" id="origen">
                         <option value="">Seleccionar Origen</option>
-                        <option value="Santa Cruz">Santa Cruz (SCZ)</option>
-                        <option value="Cochabamba">Cochabamba (CBBA)</option>
-                        <option value="La Paz">La Paz (LPZ)</option>
-                        <option value="Tarija">Tarija (TJA)</option>
-                        <option value="Sucre">Sucre (SRE)</option>
+                        <option value="La Paz">La Paz</option>
+                        <option value="Santa Cruz">Santa Cruz</option>
+                        <option value="Cochabamba">Cochabamba</option>
+                        <option value="Oruro">Oruro</option>
+                        <option value="Potosi">Potosi</option>
+                        <option value="Pando">Pando</option>
+                        <option value="Tarija">Tarija</option>
+                        <option value="Beni">Beni</option>
+                        <option value="Sucre">Sucre</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="destino">Destino:</label>
-                    <select id="destino" name="destino">
+                    <select name="destino" id="destino">
                         <option value="">Seleccionar Destino</option>
-                        <option value="Santa Cruz">Santa Cruz (SCZ)</option>
-                        <option value="Cochabamba">Cochabamba (CBBA)</option>
-                        <option value="La Paz">La Paz (LPZ)</option>
-                        <option value="Tarija">Tarija (TJA)</option>
-                        <option value="Sucre">Sucre (SRE)</option>
+                        <option value="La Paz">La Paz</option>
+                        <option value="Santa Cruz">Santa Cruz</option>
+                        <option value="Cochabamba">Cochabamba</option>
+                        <option value="Oruro">Oruro</option>
+                        <option value="Potosi">Potosi</option>
+                        <option value="Pando">Pando</option>
+                        <option value="Tarija">Tarija</option>
+                        <option value="Beni">Beni</option>
+                        <option value="Sucre">Sucre</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="fechaVueloIda">Fecha del Vuelo:</label>
+                    <input type="date" name="fechaVueloIda" id="fechaVueloIda">
+                </div>
             </div>
-            <div class="form-button-row">
-                <button class="btn btn-primary" id="filtrarBtn" type="submit">
-                    <i class="fa fa-search"></i> Buscar
-                </button>
-            </div>
-        </form>
-        <div id="resultados" class="table-responsive">
-            <!-- Los resultados se mostrarán aquí -->
         </div>
+        <div class="col2" align="center">
+            <button style="width: 20%;" class="btn btn-primary" id="buscar">Buscar</button>
+            <button style="width: 20%;" class="btn btn-primary" id="restablecer">Restablecer</button>
+        </div>
+        <div class="col2" align="center">
+            <button style="width: 20%;" class="btn btn-info" id="addVuelo" onclick="window.location.href = 'agregarVuelo.html';">Añadir vuelo</button>
+            <button style="width: 20%;" class="btn btn-info"  onclick="window.location.href = 'reservasAdmin.html';"">Reservas</button>
+            <button style="width: 20%;" class="btn btn-info"  onclick="window.location.href = 'admin_pasajeros.html';">Pasajeros</button>
+        </div>
+        <div id="resultados" class="table-responsive"></div>
     </div>
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        function toggleRegresoField() {
-            const idaVueltaSelect = document.getElementById('ida-vuelta');
-            const regresoGroup = document.getElementById('regreso-group');
-            const regresoInput = document.getElementById('regreso');
-
-            if (idaVueltaSelect.value === 'ida') {
-                regresoGroup.classList.add('hidden');
-                regresoInput.removeAttribute('required');
-                regresoInput.value = '';
-            } else {
-                regresoGroup.classList.remove('hidden');
-                regresoInput.setAttribute('required', 'required');
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', toggleRegresoField);
-        document.getElementById('flightForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const origen = document.getElementById('origen').value;
-    const destino = document.getElementById('destino').value;
-
-    if (!origen || !destino) {
-        Swal.fire('Por favor, ingrese todos los criterios de búsqueda.');
-        return;
-    }
-
-    const formData = new FormData(this);
-    const queryString = new URLSearchParams(formData).toString();
-
-    fetch('filtrar.php?' + queryString)
-    .then(response => response.json())
-    .then(data => {
-        const resultadosDiv = document.getElementById('resultados');
-        resultadosDiv.innerHTML = '';
-        if (data.length > 0) {
-            let table = '<table class="table table-striped"><thead><tr><th>Código de Vuelo</th><th>Origen</th><th>Destino</th><th>Duración</th><th>Precio Económico</th><th>Precio Normal</th><th>Precio VIP</th><th>Reservas</th><th>Pasajeros</th></tr></thead><tbody>';
-data.forEach(vuelo => {
-    table += `<tr>
-        <td>${vuelo.codigo_vuelo}</td>
-        <td>${vuelo.origen}</td>
-        <td>${vuelo.destino}</td>
-        <td>${vuelo.duracion}</td>
-        <td>${vuelo.precio_economico}</td>
-        <td>${vuelo.precio_normal}</td>
-        <td>${vuelo.precio_vip}</td>
-        <td><button class="btn btn-primary" onclick="abrirVentana('reservasAdmin.html')">Reservas</button></td>
-        <td><button class="btn btn-primary" onclick="abrirVentana('admin_pasajeros.html')">Pasajeros</button></td>
-    </tr>`;
-});
-            table += '</tbody></table>';
-            resultadosDiv.innerHTML = table;
-        } else {
-            resultadosDiv.innerHTML = '<p>No se encontraron resultados.</p>';
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        Swal.fire('Ocurrió un error al buscar los vuelos. Intente nuevamente.');
-    });
-});
-
-        
-
-        function reservarVuelo(codigoVuelo) {
-            Swal.fire('Vuelo reservado', 'Ha reservado el vuelo con código: ' + codigoVuelo, 'success');
-        }
-    </script>
+    <script src="scripts/script.js"></script>
+    <script src="scripts/vuelosAdmi.js"></script>
 </body>
-</html>
+</html> 
