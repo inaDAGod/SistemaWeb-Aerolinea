@@ -1,22 +1,46 @@
-# Ignorar archivos y carpetas generados por el sistema operativo
-.DS_Store
-Thumbs.db
-
-# Ignorar archivos y carpetas generados por el entorno de desarrollo
-node_modules/
-.vscode/
-
-# Ignorar archivos de respaldo y temporales
+# Miscellaneous
+*.class
 *.log
-*.bak
-*.tmp
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
 
-# Ignorar archivos de dependencias específicos del proyecto (si aplicable)
-# Ejemplo: Dependiendo del administrador de paquetes utilizado (npm, yarn), agregar los archivos generados aquí
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
 
-# Ignorar archivos de configuración de editor específicos del usuario
-.editorconfig
-.eslintcache
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
 
 
 # See https://www.dartlang.org/guides/libraries/private-files
@@ -138,3 +162,4 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
