@@ -134,6 +134,9 @@ fetch('http://localhost/SistemaWeb-Aerolinea/backend/get_data.php?distribucionPo
     const labels4 = data.distribucion_por_sexo.map(entry => entry.sexo);
     const valores4 = data.distribucion_por_sexo.map(entry => entry.cantidad);
 
+    // Asegúrate de tener 3 colores para los 3 parámetros
+    const backgroundColors = ['#2077D1', '#FF8500', '#FFB115'];
+
     // Crea el gráfico de torta para la distribución de personas por sexo
     const ctx4 = document.getElementById('distribucionPorSexoChart').getContext('2d');
     const distribucionPorSexoChart = new Chart(ctx4, {
@@ -143,7 +146,7 @@ fetch('http://localhost/SistemaWeb-Aerolinea/backend/get_data.php?distribucionPo
         datasets: [{
           label: 'Distribución por Sexo',
           data: valores4,
-          backgroundColor: ['#2077D1', '#FFB115'], 
+          backgroundColor: backgroundColors,
           borderWidth: 1
         }]
       }
