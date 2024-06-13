@@ -83,17 +83,27 @@ class _MyHomePageState extends State<MyHomePage> {
             if (_checkedInOnline) ...[
               const SizedBox(height: 20),
               const Text('¿Cómo calificaría el proceso de check-in en línea?'),
-              EmojiRating(),
+              const EmojiRating(),
             ],
             const SizedBox(height: 20),
             const Text('¿Cómo calificaría la puntualidad de su vuelo?'),
-            EmojiRating(),
+            const EmojiRating(),
             const SizedBox(height: 20),
             const Text('¿Cómo calificaría el servicio a bordo?'),
-            EmojiRating(),
+            const EmojiRating(),
             const SizedBox(height: 20),
             const Text('¿Cómo calificaría su vuelo en general?'),
-            EmojiRating(),
+            const EmojiRating(),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ConfirmationPage()),
+                );
+              },
+              child: const Text('Submit'),
+            ),
           ],
         ),
       ),
@@ -144,6 +154,25 @@ class _EmojiRatingState extends State<EmojiRating> {
           },
         ),
       ],
+    );
+  }
+}
+
+class ConfirmationPage extends StatelessWidget {
+  const ConfirmationPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Formulario Realizado'),
+      ),
+      body: Center(
+        child: Text(
+          '¡Gracias por enviar el formulario!',
+          style: const TextStyle(fontSize: 24),
+        ),
+      ),
     );
   }
 }
