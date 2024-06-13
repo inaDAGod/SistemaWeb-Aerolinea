@@ -26,31 +26,73 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: Center( // Center widget added here
-        child: Padding(
-          padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Cuentanos de su viaje',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 28,
-                ),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end, // Aligns button to the right
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => TaskListScreen()),
+                );
+              },
+              child: const Text('Ir a la Formulario', style: TextStyle(fontSize: 25)),
+            ),
+            const SizedBox(height: 16),
+            Expanded(
+              child: Column(
+                children: [
+                  Expanded(
+                    child: FractionallySizedBox(
+                      widthFactor: 0.8, // Cover 80% of the screen width
+                      heightFactor: 0.4, // Cover 40% of the available height
+                      child: Card(
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: Image.network(
+                                'https://via.placeholder.com/150',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text('Card 1 Text'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Expanded(
+                    child: FractionallySizedBox(
+                      widthFactor: 0.8, // Cover 80% of the screen width
+                      heightFactor: 0.4, // Cover 40% of the available height
+                      child: Card(
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: Image.network(
+                                'https://via.placeholder.com/150',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text('Card 2 Text'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => TaskListScreen()),
-                  );
-                },
-                child: const Text('Ir a la Formulario', style: TextStyle(fontSize: 25)),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

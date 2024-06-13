@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'confirmation_page.dart';
 import 'emoji_rating.dart';
+import 'qr_view_example.dart';
 
 class TaskListScreen extends StatefulWidget {
   @override
@@ -52,6 +53,18 @@ class _TaskListScreenState extends State<TaskListScreen> {
     );
   }
 
+  Future<void> _scanQRCode() async {
+    final scannedCode = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => QRViewExample()),
+    );
+    if (scannedCode != null) {
+      setState(() {
+        _flightNumberController.text = scannedCode;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,6 +102,11 @@ class _TaskListScreenState extends State<TaskListScreen> {
                   borderSide: BorderSide(color: Colors.white),
                 ),
               ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: _scanQRCode,
+              child: const Text('Escanee el codigo QR'),
             ),
             const SizedBox(height: 20),
             const Text('¿Usó el check-in en línea?', style: TextStyle(color: Colors.white, fontSize: 18)), // Increase font size
@@ -149,7 +167,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
                       _showValidationError();
                     }
                   },
-                  child: const Text('Submit', style: TextStyle(fontSize: 20)), // Increase font size
+                  child: const Text('Enviar', style: TextStyle(fontSize: 20)), // Increase font size
                 ),
               ),
             ),
