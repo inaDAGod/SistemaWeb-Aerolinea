@@ -21,7 +21,7 @@ class ConfirmationPage extends StatelessWidget {
       ),
       body: Center(
         child: const Text(
-          '¡Gracias por enviar el formulario!',
+          '¡Gracias por llenar el formulario!',
           style: TextStyle(fontSize: 30, color: Colors.white),
         ),
       ),
