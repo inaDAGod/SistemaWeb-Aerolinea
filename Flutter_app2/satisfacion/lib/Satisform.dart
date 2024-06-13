@@ -9,7 +9,6 @@ class SatisForm extends StatelessWidget {
       title: 'Formulario de Evaluación de Vuelo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.deepPurple),
-        // Ajusta el tema según tus preferencias
       ),
       home: const MyHomePage(title: 'Evaluación de Vuelo'),
     );
@@ -30,17 +29,29 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Row(
+          children: [
+            Image.asset(
+              'images/logoavion.png',
+              height: 80,
+            ),
+            const SizedBox(width: 30),
+            Text(widget.title),
+          ],
+        ),
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => TaskListScreen()),
-            );
-          },
-          child: const Text('Ir a la Formulario'),
+      body: Padding(
+        padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
+        child: Center(
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => TaskListScreen()),
+              );
+            },
+            child: const Text('Ir a la Formulario'),
+          ),
         ),
       ),
     );
@@ -60,10 +71,20 @@ class _TaskListScreenState extends State<TaskListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lista de Tareas'),
+        title: Row(
+          children: [
+            Image.asset(
+              'images/logoavion.png',
+              height: 80,
+            ),
+            const SizedBox(width: 30),
+            const Text('Form'),
+          ],
+        ),
+        automaticallyImplyLeading: false,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
         child: ListView(
           children: <Widget>[
             TextField(
@@ -187,7 +208,17 @@ class ConfirmationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Formulario Realizado'),
+        title: Row(
+          children: [
+            Image.asset(
+              'images/logoavion.png',
+              height: 80,
+            ),
+            const SizedBox(width: 30),
+            const Text('Formulario Realizado'),
+          ],
+        ),
+        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: Text(
