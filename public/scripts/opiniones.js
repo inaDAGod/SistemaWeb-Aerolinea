@@ -7,6 +7,7 @@ function fetchOpiniones() {
         .then(response => response.json())
         .then(data => {
             renderOpiniones(data);
+            renderOpinionesChart(data);
         })
         .catch(error => console.error('Error:', error));
 }
@@ -46,4 +47,49 @@ function renderStars(estrellas) {
         }
     }
     return starsHtml;
+}
+
+function renderOpinionesChart(opiniones) {
+    const starCounts = [0, 0, 0, 0, 0];
+
+    opiniones.forEach(opinion => {
+        if (opinion.estrellas >= 1 && opinion.estrellas <= 5) {
+            starCounts[opinion.estrellas - 1]++;
+        }
+    });
+
+    const ctx = document.getElementById('opinionesChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['1 estrella', '2 estrellas', '3 estrellas', '4 estrellas', '5 estrellas'],
+            datasets: [{
+                label: 'Opiniones',
+                data: starCounts,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            scales: {
+                x: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
 }
