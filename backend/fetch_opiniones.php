@@ -1,16 +1,20 @@
 <?php
-$dbname = "aerolinea";
-$user = "postgres";
-$password = "admin";
+$host = 'localhost';
+$port = '5432';
+$dbname = 'aerolinea';
+$user = 'postgres';
+$password = 'admin';
 
 // Crear la conexión
-$conn = pg_connect("dbname=$dbname user=$user password=$password");
+$conn = pg_connect("host=$host port=$port dbname=$dbname user=$user password=$password");
 
 if (!$conn) {
     die("Conexión fallida: " . pg_last_error());
 }
 
-$sql = "SELECT copinion, fecha_opinion, correo_usuario, nombres_usuario, apellidos_usuario, comentario, estrellas FROM opiniones";
+$sql = "SELECT fecha_opinion, correo_usuario, nombres_usuario, apellidos_usuario, comentario, estrellas 
+        FROM opiniones 
+        ORDER BY fecha_opinion DESC"; // Ordenar por fecha en orden descendente
 $result = pg_query($conn, $sql);
 
 if (!$result) {
