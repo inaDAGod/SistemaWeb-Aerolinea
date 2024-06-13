@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'Satisform.dart'; // Importa el archivo formsati.dart
+import 'satisform.dart'; // Importa el archivo donde tienes tu formulario
 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(
+    home: SatisForm(), // Usa la clase principal de tu formulario como pantalla inicial
+  ));
 }
