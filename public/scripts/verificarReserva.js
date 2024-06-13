@@ -49,8 +49,27 @@ $(document).ready(function() {
         if (!isComplete) {
             Swal.fire('Error', 'Por favor complete todos los campos antes de generar los boletos.', 'error');
         } else {
-            // Si todos los campos están llenos, muestra el modal
-            $("#emailModal").modal('show');
+
+            var carnet = $("#carnet").val();
+            var numeroVuelo = $("#inputNumeroVuelo").val();
+
+    // Llamada AJAX para verificar la existencia del boleto
+    $.ajax({
+        url: 'http://localhost/SistemaWeb-Aerolinea/backend/verificarBoleto.php', // Asegúrate de que la ruta es correcta
+        type: 'POST',
+        dataType: 'json',
+        data: { carnet: carnet, cvuelo: numeroVuelo },
+        success: function(response) {
+            if (!response.existe) {
+                $("#emailModal").modal('show'); // Abre el modal si el boleto no existe
+            } else {
+                Swal.fire('Error', 'Ya se generó el boleto para este vuelo y carnet.', 'error');
+            }
+        },
+        error: function() {
+            Swal.fire('Error', 'Hubo un problema al conectar con el servidor.', 'error');
+        }
+    });
         }
     });
 
