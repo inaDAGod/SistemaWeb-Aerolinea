@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 MaterialPageRoute(builder: (context) => TaskListScreen()),
               );
             },
-            child: const Text('Ir a la Formulario'),
+            child: const Text('Ir a la Formulario', style: TextStyle(fontSize: 25)),
           ),
         ),
       ),
