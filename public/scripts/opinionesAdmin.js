@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
     fetchOpiniones();
-    setupRatingStars();
-    document.getElementById('opinionForm').addEventListener('submit', handleFormSubmit);
 });
 
 function fetchOpiniones() {
@@ -31,6 +29,12 @@ function renderOpiniones(opiniones) {
                     <div class="stars">
                         ${renderStars(opinion.estrellas)}
                     </div>
+                    <div align = "right">
+                        <button class="btn btn-danger btn-md mt-2" onclick="eliminarOpinion(${opinion.copinion})">
+                        <i class="fas fa-trash-alt "></i>
+                    </button>
+                    </div>
+                    
                 </div>
             </div>
         `;
@@ -52,7 +56,6 @@ function renderStars(estrellas) {
 }
 
 let opinionesChartInstance;
-
 function renderOpinionesChart(opiniones) {
     const starCounts = [0, 0, 0, 0, 0];
 
@@ -102,57 +105,44 @@ function renderOpinionesChart(opiniones) {
     });
 }
 
-function setupRatingStars() {
-    const stars = document.querySelectorAll('#rating .fa-star');
-
-    stars.forEach(star => {
-        star.addEventListener('click', () => {
-            const rating = star.getAttribute('data-value');
-            stars.forEach(s => {
-                if (s.getAttribute('data-value') <= rating) {
-                    s.classList.remove('far');
-                    s.classList.add('fas');
+function eliminarOpinion(idOpinion) {
+    Swal.fire({
+        title: '¿Está seguro de eliminar esta opinión?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch(`http://localhost/SistemaWeb-Aerolinea/backend/eliminar_opinion.php?copinion=${idOpinion}`, {
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    fetchOpiniones(); // Actualizar la lista de opiniones después de eliminar
+                    Swal.fire({
+                        title: 'Opinión eliminada',
+                        icon: 'success'
+                    });
                 } else {
-                    s.classList.remove('fas');
-                    s.classList.add('far');
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'No se pudo eliminar la opinión',
+                        icon: 'error'
+                    });
                 }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Ocurrió un error al intentar eliminar la opinión',
+                    icon: 'error'
+                });
             });
-        });
-    });
-}
-
-function handleFormSubmit(event) {
-    event.preventDefault();
-
-    const comentario = document.getElementById('comentario').value.trim();
-    const estrellas = document.querySelectorAll('#rating .fas').length;
-
-    const opinionData = {
-        comentario: comentario,
-        estrellas: estrellas
-    };
-
-    fetch('http://localhost/SistemaWeb-Aerolinea/backend/insert_opinion.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(opinionData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            fetchOpiniones();
-            document.getElementById('opinionForm').reset();
-            const stars = document.querySelectorAll('#rating .fa-star');
-            stars.forEach(star => {
-                star.classList.remove('fas');
-                star.classList.add('far');
-            });
-            Swal.fire('¡Gracias por opinar!', 'Tu opinion es muy importante para Vuela Bo', 'success');
-        } else {
-            alert('Error al enviar la opinión.');
         }
-    })
-    .catch(error => console.error('Error:', error));
+    });
 }

@@ -24,12 +24,14 @@
     <header class="header" id="inicio">
         <img src="assets/indexAssets/bx-menu-alt-right.svg" alt="" class="hamburger">
         <nav class="menu-navegacion">
-            <a href="indexCliente.html">Inicio</a>
-            <a href="catalogoVueloCliente.html">Vuelos</a>
-            <a href="verificarCheckinCliente.html">Check-In</a>
-            <a href="catalogoMillasCliente.html">Catalogo Premios Millas</a>
-            <a href="opinionesCliente.html">Opiniones</a>
-            <a href="perfil.html">Perfil</a>
+            <a href="indexAdmi.html">Inicio</a>
+            <a href="infoVuelo.html">Vuelos</a>
+            <a href="verificarCheckinAdmi.html">Check-In</a>
+            <a href="generarBoleto.html">Generar Boleto</a>
+            <a href="catalogoMillasAdmi.html">Catalogo Premios millas</a>
+            <a href="opinionesAdmin.html">Opiniones</a>
+            <a href="registroAdmi.html">Registrar administrador</a>
+            <a href="dashboard.html">Dashboard</a>
             <a href="index.html">Cerrar Sesion</a>
         </nav>
         <div class="contenedor head">
@@ -39,30 +41,6 @@
     <h2 style="font-size: 220%;">Opiniones</h2>
     <div class="container my-5">
         <canvas id="opinionesChart" width="400" height="100"></canvas>
-        <div class="mt-4">
-            <h2>Deja tu opinión</h2>
-            <form id="opinionForm">
-                <div class="form-group">
-                    <label for="comentario">Comentario:</label>
-                    <textarea id="comentario" class="form-control" maxlength="500" rows="3" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Estrellas:</label>
-                    <div id="rating" class="text-warning">
-                        <!-- Las estrellas se generarán dinámicamente con JavaScript -->
-                        <i class="far fa-star" data-value="1"></i>
-                        <i class="far fa-star" data-value="2"></i>
-                        <i class="far fa-star" data-value="3"></i>
-                        <i class="far fa-star" data-value="4"></i>
-                        <i class="far fa-star" data-value="5"></i>
-                    </div>
-                </div>
-                <div align="right">
-                    <button type="submit" class="btn btn-primary">Opinar</button>
-                </div>
-                
-            </form>
-        </div>
         <div id="opiniones-container" class="row mt-4">
             <!-- Aquí se mostrarán las opiniones -->
         </div>
@@ -70,8 +48,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script src="scripts/script.js"></script>
-    <script src="scripts/opinionesCliente.js"></script>
+    <script src="scripts/opinionesAdmin.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 </body>
 
 </html>

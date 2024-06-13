@@ -12,7 +12,7 @@ if (!$conn) {
     die("Conexión fallida: " . pg_last_error());
 }
 
-$sql = "SELECT fecha_opinion, correo_usuario, nombres_usuario, apellidos_usuario, comentario, estrellas 
+$sql = "SELECT copinion, fecha_opinion, correo_usuario, nombres_usuario, apellidos_usuario, comentario, estrellas 
         FROM opiniones 
         ORDER BY fecha_opinion DESC"; // Ordenar por fecha en orden descendente
 $result = pg_query($conn, $sql);
