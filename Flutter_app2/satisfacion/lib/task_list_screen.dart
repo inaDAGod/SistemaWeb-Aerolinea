@@ -47,7 +47,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
   void _showValidationError() {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('Please fill all the fields'),
+        content: Text('Llene todo los campos por favor'),
       ),
     );
   }
@@ -63,7 +63,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
               height: 80,
             ),
             const SizedBox(width: 30),
-            const Text('Form'),
+            const Text('', style: TextStyle(color: Colors.white)),
           ],
         ),
         automaticallyImplyLeading: false,
@@ -72,19 +72,31 @@ class _TaskListScreenState extends State<TaskListScreen> {
         padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
         child: ListView(
           children: <Widget>[
+            const Text(
+              '¡Realize el formulario por favor!',
+              style: TextStyle(color: Colors.white, fontSize: 25), // Increase font size
+            ),
             TextField(
               controller: _flightNumberController,
-              decoration: const InputDecoration(
+              style: const TextStyle(color: Colors.white, fontSize: 19), // Increase font size
+              decoration: InputDecoration(
                 labelText: 'Número de vuelo',
+                labelStyle: const TextStyle(color: Colors.white, fontSize: 18),
+                enabledBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
+                focusedBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                ),
               ),
             ),
             const SizedBox(height: 20),
-            const Text('¿Usó el check-in en línea?'),
+            const Text('¿Usó el check-in en línea?', style: TextStyle(color: Colors.white, fontSize: 18)), // Increase font size
             Row(
               children: [
                 Expanded(
                   child: RadioListTile<bool>(
-                    title: const Text('Sí'),
+                    title: const Text('Sí', style: TextStyle(color: Colors.white, fontSize: 20)), // Increase font size
                     value: true,
                     groupValue: _checkedInOnline,
                     onChanged: (value) {
@@ -96,7 +108,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
                 ),
                 Expanded(
                   child: RadioListTile<bool>(
-                    title: const Text('No'),
+                    title: const Text('No', style: TextStyle(color: Colors.white, fontSize: 20)), // Increase font size
                     value: false,
                     groupValue: _checkedInOnline,
                     onChanged: (value) {
@@ -110,31 +122,36 @@ class _TaskListScreenState extends State<TaskListScreen> {
             ),
             if (_checkedInOnline) ...[
               const SizedBox(height: 20),
-              const Text('¿Cómo calificaría el proceso de check-in en línea?'),
+              const Text('¿Cómo calificaría el proceso de check-in en línea?', style: TextStyle(color: Colors.white, fontSize: 18)), // Increase font size
               EmojiRating(key: _checkInRatingKey),
             ],
             const SizedBox(height: 20),
-            const Text('¿Cómo calificaría la puntualidad de su vuelo?'),
+            const Text('¿Cómo calificaría la puntualidad de su vuelo?', style: TextStyle(color: Colors.white, fontSize: 18)), // Increase font size
             EmojiRating(key: _punctualityRatingKey),
             const SizedBox(height: 20),
-            const Text('¿Cómo calificaría el servicio a bordo?'),
+            const Text('¿Cómo calificaría el servicio a bordo?', style: TextStyle(color: Colors.white, fontSize: 18)), // Increase font size
             EmojiRating(key: _serviceRatingKey),
             const SizedBox(height: 20),
-            const Text('¿Cómo calificaría su vuelo en general?'),
+            const Text('¿Cómo calificaría su vuelo en general?', style: TextStyle(color: Colors.white, fontSize: 18)), // Increase font size
             EmojiRating(key: _overallRatingKey),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                if (_isFormValid()) {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const ConfirmationPage()),
-                  );
-                } else {
-                  _showValidationError();
-                }
-              },
-              child: const Text('Submit'),
+            Center(
+              child: FractionallySizedBox(
+                widthFactor: 0.4,
+                child: ElevatedButton(
+                  onPressed: () {
+                    if (_isFormValid()) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ConfirmationPage()),
+                      );
+                    } else {
+                      _showValidationError();
+                    }
+                  },
+                  child: const Text('Submit', style: TextStyle(fontSize: 20)), // Increase font size
+                ),
+              ),
             ),
           ],
         ),

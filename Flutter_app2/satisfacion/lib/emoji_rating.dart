@@ -20,6 +20,7 @@ class EmojiRatingState extends State<EmojiRating> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         IconButton(
+          iconSize: 48, // Increase the icon size
           icon: const Icon(Icons.sentiment_very_dissatisfied),
           color: _selectedEmoji == 'sad' ? Colors.red : Colors.white,
           onPressed: () {
@@ -29,6 +30,7 @@ class EmojiRatingState extends State<EmojiRating> {
           },
         ),
         IconButton(
+          iconSize: 48, // Increase the icon size
           icon: const Icon(Icons.sentiment_neutral),
           color: _selectedEmoji == 'neutral' ? Colors.yellow : Colors.white,
           onPressed: () {
@@ -38,6 +40,7 @@ class EmojiRatingState extends State<EmojiRating> {
           },
         ),
         IconButton(
+          iconSize: 48, // Increase the icon size
           icon: const Icon(Icons.sentiment_very_satisfied),
           color: _selectedEmoji == 'happy' ? Colors.green : Colors.white,
           onPressed: () {
