@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "806845227296",
+    "firebase_url": "https://traso-3f701-default-rtdb.firebaseio.com",
+    "project_id": "traso-3f701",
+    "storage_bucket": "traso-3f701.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:806845227296:android:a96ecd550b44e872c5b745",
+        "android_client_info": {
+          "package_name": "com.example.satisfacion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4T9LUyXdgGBaXK9mh1pWvwB4RDCqcSJE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:806845227296:android:a4cd91bc926d56d7c5b745",
+        "android_client_info": {
+          "package_name": "com.example.traso"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4T9LUyXdgGBaXK9mh1pWvwB4RDCqcSJE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
