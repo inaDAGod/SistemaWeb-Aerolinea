@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'confirmation_page.dart';
 import 'emoji_rating.dart';
-import 'qr_view_example.dart';
 
 class TaskListScreen extends StatefulWidget {
   @override
@@ -53,33 +52,12 @@ class _TaskListScreenState extends State<TaskListScreen> {
     );
   }
 
-  Future<void> _scanQRCode() async {
-    final scannedCode = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => QRViewExample()),
-    );
-    if (scannedCode != null) {
-      setState(() {
-        _flightNumberController.text = scannedCode;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          children: [
-            Image.asset(
-              'images/logoavion.png',
-              height: 80,
-            ),
-            const SizedBox(width: 30),
-            const Text('', style: TextStyle(color: Colors.white)),
-          ],
-        ),
-        automaticallyImplyLeading: false,
+        title: const Text('Formulario'),
+        automaticallyImplyLeading: true,
       ),
       body: Padding(
         padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
@@ -87,34 +65,29 @@ class _TaskListScreenState extends State<TaskListScreen> {
           children: <Widget>[
             const Text(
               '¡Realize el formulario por favor!',
-              style: TextStyle(color: Colors.white, fontSize: 25), // Increase font size
+              style: TextStyle(color: Colors.black, fontSize: 25),
             ),
             TextField(
               controller: _flightNumberController,
-              style: const TextStyle(color: Colors.white, fontSize: 19), // Increase font size
-              decoration: InputDecoration(
+              style: const TextStyle(color: Colors.black, fontSize: 19),
+              decoration: const InputDecoration(
                 labelText: 'Número de vuelo',
-                labelStyle: const TextStyle(color: Colors.white, fontSize: 18),
-                enabledBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
+                labelStyle: TextStyle(color: Colors.black, fontSize: 18),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black),
                 ),
-                focusedBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.white),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black),
                 ),
               ),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _scanQRCode,
-              child: const Text('Escanee el codigo QR'),
-            ),
-            const SizedBox(height: 20),
-            const Text('¿Usó el check-in en línea?', style: TextStyle(color: Colors.white, fontSize: 18)), // Increase font size
+            const Text('¿Usó el check-in en línea?', style: TextStyle(color: Colors.black, fontSize: 18)),
             Row(
               children: [
                 Expanded(
                   child: RadioListTile<bool>(
-                    title: const Text('Sí', style: TextStyle(color: Colors.white, fontSize: 20)), // Increase font size
+                    title: const Text('Sí', style: TextStyle(color: Colors.black, fontSize: 20)),
                     value: true,
                     groupValue: _checkedInOnline,
                     onChanged: (value) {
@@ -126,7 +99,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
                 ),
                 Expanded(
                   child: RadioListTile<bool>(
-                    title: const Text('No', style: TextStyle(color: Colors.white, fontSize: 20)), // Increase font size
+                    title: const Text('No', style: TextStyle(color: Colors.black, fontSize: 20)),
                     value: false,
                     groupValue: _checkedInOnline,
                     onChanged: (value) {
@@ -140,17 +113,17 @@ class _TaskListScreenState extends State<TaskListScreen> {
             ),
             if (_checkedInOnline) ...[
               const SizedBox(height: 20),
-              const Text('¿Cómo calificaría el proceso de check-in en línea?', style: TextStyle(color: Colors.white, fontSize: 18)), // Increase font size
+              const Text('¿Cómo calificaría el proceso de check-in en línea?', style: TextStyle(color: Colors.black, fontSize: 18)),
               EmojiRating(key: _checkInRatingKey),
             ],
             const SizedBox(height: 20),
-            const Text('¿Cómo calificaría la puntualidad de su vuelo?', style: TextStyle(color: Colors.white, fontSize: 18)), // Increase font size
+            const Text('¿Cómo calificaría la puntualidad de su vuelo?', style: TextStyle(color: Colors.black, fontSize: 18)),
             EmojiRating(key: _punctualityRatingKey),
             const SizedBox(height: 20),
-            const Text('¿Cómo calificaría el servicio a bordo?', style: TextStyle(color: Colors.white, fontSize: 18)), // Increase font size
+            const Text('¿Cómo calificaría el servicio a bordo?', style: TextStyle(color: Colors.black, fontSize: 18)),
             EmojiRating(key: _serviceRatingKey),
             const SizedBox(height: 20),
-            const Text('¿Cómo calificaría su vuelo en general?', style: TextStyle(color: Colors.white, fontSize: 18)), // Increase font size
+            const Text('¿Cómo calificaría su vuelo en general?', style: TextStyle(color: Colors.black, fontSize: 18)),
             EmojiRating(key: _overallRatingKey),
             const SizedBox(height: 20),
             Center(
@@ -167,7 +140,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
                       _showValidationError();
                     }
                   },
-                  child: const Text('Enviar', style: TextStyle(fontSize: 20)), // Increase font size
+                  child: const Text('Entregar', style: TextStyle(fontSize: 20)),
                 ),
               ),
             ),

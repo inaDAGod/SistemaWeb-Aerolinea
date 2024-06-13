@@ -22,7 +22,7 @@ class EmojiRatingState extends State<EmojiRating> {
         IconButton(
           iconSize: 48, // Increase the icon size
           icon: const Icon(Icons.sentiment_very_dissatisfied),
-          color: _selectedEmoji == 'sad' ? Colors.red : Colors.white,
+          color: _selectedEmoji == 'sad' ? Colors.red : Colors.black,
           onPressed: () {
             setState(() {
               _selectedEmoji = 'sad';
@@ -32,7 +32,7 @@ class EmojiRatingState extends State<EmojiRating> {
         IconButton(
           iconSize: 48, // Increase the icon size
           icon: const Icon(Icons.sentiment_neutral),
-          color: _selectedEmoji == 'neutral' ? Colors.yellow : Colors.white,
+          color: _selectedEmoji == 'neutral' ? Colors.yellow : Colors.black,
           onPressed: () {
             setState(() {
               _selectedEmoji = 'neutral';
@@ -42,7 +42,7 @@ class EmojiRatingState extends State<EmojiRating> {
         IconButton(
           iconSize: 48, // Increase the icon size
           icon: const Icon(Icons.sentiment_very_satisfied),
-          color: _selectedEmoji == 'happy' ? Colors.green : Colors.white,
+          color: _selectedEmoji == 'happy' ? Colors.green : Colors.black,
           onPressed: () {
             setState(() {
               _selectedEmoji = 'happy';
