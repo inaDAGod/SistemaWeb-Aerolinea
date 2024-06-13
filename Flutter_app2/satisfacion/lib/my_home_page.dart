@@ -26,17 +26,30 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
-        child: Center(
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => TaskListScreen()),
-              );
-            },
-            child: const Text('Ir a la Formulario', style: TextStyle(fontSize: 25)),
+      body: Center( // Center widget added here
+        child: Padding(
+          padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Cuentanos de su viaje',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 28,
+                ),
+              ),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => TaskListScreen()),
+                  );
+                },
+                child: const Text('Ir a la Formulario', style: TextStyle(fontSize: 25)),
+              ),
+            ],
           ),
         ),
       ),
