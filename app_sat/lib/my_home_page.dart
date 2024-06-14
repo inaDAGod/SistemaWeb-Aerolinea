@@ -12,43 +12,89 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start, // Cambiado a start para alinear la imagen y el texto al inicio
           children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => TaskListScreen()),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.white, backgroundColor: Colors.lightBlue, // Text color
+            // Imagen y Texto Añadidos
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset(
+                  'assets/logoavion.png', // Ruta de la imagen en assets
+                  width: double.infinity,
+                  height: 280,
+                  fit: BoxFit.cover,
+                ),
+                const SizedBox(height: 16),
+                
+                const SizedBox(height: 8),
+                const Text(
+                  'Explora destinos, califica tus vuelos y mucho más.',
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 32), // Espacio entre el bloque de imagen/texto y el botón
+
+            // Botón para navegar a la pantalla de tareas
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => TaskListScreen()),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white, backgroundColor: Colors.lightBlue, // Text color
+                ),
+                child: const Text('Calificar Vuelo', style: TextStyle(fontSize: 25)),
               ),
-              
-              child: const Text('Calificar Vuelo', style: TextStyle(fontSize: 25)),
             ),
             const SizedBox(height: 16),
+const SizedBox(height: 16),
+
+            // Título de la Sección de Artículos
+            const Divider(
+              color: Colors.grey, // Color del Divider
+              thickness: 2, // Grosor del Divider
+              height: 20, // Espacio entre el Divider y los elementos adyacentes
+            ),
+            const Center(
+              child: Text(
+                'Artículos Destacados',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.indigo, // Color azul marino
+                ),
+              ),
+            ),
+            
+            
+            // Lista de Artículos
             Expanded(
               child: ListView(
                 children: [
+                  
                   _buildArticleCard(
-                    imageUrl: 'https://via.placeholder.com/150',
+                    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/La_Paz_Skyline.jpg/288px-La_Paz_Skyline.jpg',
                     title: 'Descubre Nuevos Destinos',
-                    summary: 'Explora emocionantes destinos de viaje alrededor del mundo.',
+                    summary: 'Explora emocionantes destinos de viaje alrededor de Bolivia.',
                   ),
                   const SizedBox(height: 16),
                   _buildArticleCard(
-                    imageUrl: 'https://via.placeholder.com/150',
+                    imageUrl: 'https://www.caminitoamor.com/wp-content/uploads/2020/01/Consejos-para-Viajeros-Principiantes.jpg',
                     title: 'Consejos de Viaje para Principiantes',
                     summary: 'Consejos y trucos esenciales para viajeros primerizos.',
                   ),
                   const SizedBox(height: 16),
                   _buildArticleCard(
-                    imageUrl: 'https://via.placeholder.com/150',
+                    imageUrl: 'https://www.lostiempos.com/sites/default/files/styles/noticia_detalle/public/media_imagen/2023/6/5/camino_de_la_muerte_-_expeditionearth.live_.jpg?itok=G9oghhCS',
                     title: 'Top 10 Actividades de Aventura',
                     summary: 'Actividades de aventura emocionantes para los amantes de la adrenalina.',
                   ),
@@ -61,6 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  // Función para construir las tarjetas de los artículos
   Widget _buildArticleCard({required String imageUrl, required String title, required String summary}) {
     return Card(
       child: Padding(

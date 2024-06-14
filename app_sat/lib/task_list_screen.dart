@@ -56,17 +56,14 @@ class _TaskListScreenState extends State<TaskListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Formulario'),
+        title: const Text(''),
         automaticallyImplyLeading: true,
       ),
       body: Padding(
         padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
         child: ListView(
           children: <Widget>[
-            const Text(
-              '¡Realize el formulario por favor!',
-              style: TextStyle(color: Colors.black, fontSize: 25),
-            ),
+            
             TextField(
               controller: _flightNumberController,
               style: const TextStyle(color: Colors.black, fontSize: 19),
@@ -140,7 +137,10 @@ class _TaskListScreenState extends State<TaskListScreen> {
                       _showValidationError();
                     }
                   },
-                  child: const Text('Entregar', style: TextStyle(fontSize: 20)),
+                  style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white, backgroundColor: Colors.lightBlue, // Text color
+                ),
+                  child: const Text('Subir', style: TextStyle(fontSize: 20)),
                 ),
               ),
             ),
