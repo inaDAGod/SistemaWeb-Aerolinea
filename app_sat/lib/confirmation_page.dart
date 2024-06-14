@@ -11,8 +11,8 @@ class ConfirmationPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.network(
-              'https://cdn2.iconfinder.com/data/icons/party-line-vol1-2/64/party_congratulations-512.png', // Replace with your image URL
+            Image.asset(
+              'assets/party.webp', // Replace with your image URL
               width: 300,
               height: 300,
               fit: BoxFit.cover,

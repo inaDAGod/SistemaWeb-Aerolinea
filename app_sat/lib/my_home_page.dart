@@ -15,7 +15,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start, // Cambiado a start para alinear la imagen y el texto al inicio
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Imagen y Texto Añadidos
             Column(
@@ -28,12 +28,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   fit: BoxFit.cover,
                 ),
                 const SizedBox(height: 16),
-                
-                const SizedBox(height: 8),
-                const Text(
-                  'Explora destinos, califica tus vuelos y mucho más.',
-                  style: TextStyle(
-                    fontSize: 16,
+                const Center(
+                  child: Text(
+                    'Explora destinos, califica tus vuelos y mucho más.',
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ],
@@ -56,7 +56,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             const SizedBox(height: 16),
-const SizedBox(height: 16),
 
             // Título de la Sección de Artículos
             const Divider(
@@ -74,27 +73,26 @@ const SizedBox(height: 16),
                 ),
               ),
             ),
-            
-            
+            const SizedBox(height: 16),
+
             // Lista de Artículos
             Expanded(
               child: ListView(
                 children: [
-                  
                   _buildArticleCard(
-                    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/La_Paz_Skyline.jpg/288px-La_Paz_Skyline.jpg',
+                    imageAsset: 'assets/La_Paz_Skyline.jpg',
                     title: 'Descubre Nuevos Destinos',
                     summary: 'Explora emocionantes destinos de viaje alrededor de Bolivia.',
                   ),
                   const SizedBox(height: 16),
                   _buildArticleCard(
-                    imageUrl: 'https://www.caminitoamor.com/wp-content/uploads/2020/01/Consejos-para-Viajeros-Principiantes.jpg',
+                    imageAsset: 'assets/Consejos-para-Viajeros-Principiantes.jpg',
                     title: 'Consejos de Viaje para Principiantes',
                     summary: 'Consejos y trucos esenciales para viajeros primerizos.',
                   ),
                   const SizedBox(height: 16),
                   _buildArticleCard(
-                    imageUrl: 'https://www.lostiempos.com/sites/default/files/styles/noticia_detalle/public/media_imagen/2023/6/5/camino_de_la_muerte_-_expeditionearth.live_.jpg?itok=G9oghhCS',
+                    imageAsset: 'assets/camino_de_la_muerte_-_expeditionearth.live_.jpg',
                     title: 'Top 10 Actividades de Aventura',
                     summary: 'Actividades de aventura emocionantes para los amantes de la adrenalina.',
                   ),
@@ -108,7 +106,7 @@ const SizedBox(height: 16),
   }
 
   // Función para construir las tarjetas de los artículos
-  Widget _buildArticleCard({required String imageUrl, required String title, required String summary}) {
+  Widget _buildArticleCard({required String imageAsset, required String title, required String summary}) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -120,7 +118,7 @@ const SizedBox(height: 16),
               height: 100,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(imageUrl),
+                  image: AssetImage(imageAsset),
                   fit: BoxFit.cover,
                 ),
               ),
