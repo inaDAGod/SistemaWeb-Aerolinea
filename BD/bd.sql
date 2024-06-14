@@ -337,3 +337,17 @@ CREATE SEQUENCE vuelos_seq
 
 -- End of file.
 
+
+-- Crear la tabla satisfaction
+CREATE TABLE satisfaction (
+    cvuelo int NOT NULL,
+    checkin boolean NOT NULL,
+    satischeckin varchar(40) NOT NULL,
+    satistiempo varchar(40) NOT NULL,
+    satisservicio varchar(40) NOT NULL,
+    satisvuelo varchar(40) NOT NULL,
+    CONSTRAINT satisfaction_cvuelo_fk FOREIGN KEY (cvuelo)
+    REFERENCES vuelos (cvuelo) 
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+);
