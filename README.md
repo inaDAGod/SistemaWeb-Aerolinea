@@ -1,17 +1,29 @@
-# SistemaWeb-Aerolinea
-Diseño e implementación de un sistema de software para una aerolínea, que cubra una amplia gama de funciones y servicios relacionados con la reserva, gestión y experiencia de viaje.
+# Sistema web para Aerolinea
+El sistema web de ofrece una solución integral para la gestión de viajes aéreos. Permite a los usuarios buscar vuelos, reservar asientos, hacer check-in en línea y administrar millas fácilmente. La plataforma tiene una interfaz amigable para visualizar detalles del vuelo y envía notificaciones automáticas para la generación de boletos y el check-in.
 
-## Normas del equipo
-- Maximo de 3 strikes.
-- Merge con main(produccion) en cada sprint review.
-- Trabajo de cada desarrollador en su propia rama.
-- Commits con comentarios adecuados
-- No trabajar sobre ramas desactualizadas
-- En caso de tener mas de 10 commits comunicarlo para adelantar tests y hacer merge con el main para evitar conflictos posteriores (en la reunion daily)
+### Objetivo
+Proporcionar una plataforma integral y eficiente que permita a los clientes de Vuela Bo realizar reservas de vuelos nacionales, efectuar el check-in en línea y gestionar sus millas acumuladas.
 
-## Cuando es un strike?
-- Faltar a una reunion sin justificativo
-- No presentar avances en el sprint review
-- Presentar un avance incompleto de las tareas asignadas
-- Existencia de bugs sin historial de investigacion de acciones
-- Faltar el respeto a alguna o algun integrante del equipo 
+## Contenido
+### Herramientas
+- **HTML:** Para estructurar el contenido de las páginas web.
+- **PHP:** Para desarrollar la lógica del lado del servidor y manejar bases de datos.
+- **JavaScript:** Para añadir interactividad y dinamismo a las páginas web.
+- **AJAX:** Para actualizar partes de una página web de manera asíncrona.
+- **PostgreSQL:** Para almacenar y gestionar datos en una base de datos.
+- **CSS:** Para diseñar y estilizar las páginas web.
+ 
+### Alcance:
+- Reserva de Vuelos
+- Información de Vuelos
+- Check-in en Línea
+- Gestión de Cuentas de Usuario
+- Programa de Millas
+- Visualización de Estadísticas Clave
+
+## Autores:
+- [AndyLaffertt](https://github.com/AndyLaffertt)
+- [Ansc0307](https://github.com/Ansc0307)
+- [DAGod](https://github.com/inaDAGod)
+- [JoshNisth](https://github.com/JoshNisth)
+- [LuT](https://github.com/luzticona7)
